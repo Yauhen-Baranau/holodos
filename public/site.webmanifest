@@ -1,0 +1,16 @@
+{
+  "name": "Холодос — ремонт холодильников",
+  "short_name": "Холодос",
+  "description": "Срочный ремонт холодильников на дому с гарантией.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5fbfb",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}
