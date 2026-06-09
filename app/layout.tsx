@@ -2,16 +2,16 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const siteUrl = "https://holodos.ru";
+const siteUrl = "https://holodos.by";
 const siteName = "Холодос";
 const description =
-  "Срочный ремонт холодильников на дому: диагностика, замена деталей, гарантия и выезд мастера в день обращения.";
+  "Срочный ремонт холодильников в Минске: диагностика на дому, замена деталей, гарантия и выезд мастера в день обращения.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: siteName,
   title: {
-    default: "Ремонт холодильников на дому — Холодос",
+    default: "Ремонт холодильников в Минске — Холодос",
     template: "%s — Холодос",
   },
   description,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "ремонт холодильников",
     "ремонт холодильников на дому",
     "мастер по холодильникам",
-    "срочный ремонт холодильника",
+    "срочный ремонт холодильника Минск",
     "диагностика холодильника",
     "заправка фреоном",
   ],
@@ -37,20 +37,20 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: "/",
     siteName,
-    title: "Ремонт холодильников на дому — Холодос",
+    title: "Ремонт холодильников в Минске — Холодос",
     description,
     images: [
       {
         url: "/opengraph-image.svg",
         width: 1200,
         height: 630,
-        alt: "Холодос — ремонт холодильников на дому",
+        alt: "Холодос — ремонт холодильников в Минске",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ремонт холодильников на дому — Холодос",
+    title: "Ремонт холодильников в Минске — Холодос",
     description,
     images: ["/opengraph-image.svg"],
   },

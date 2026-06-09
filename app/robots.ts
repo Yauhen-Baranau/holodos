@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://holodos.ru/sitemap.xml",
-    host: "https://holodos.ru",
+    sitemap: "https://holodos.by/sitemap.xml",
+    host: "https://holodos.by",
   };
 }

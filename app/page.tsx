@@ -1,26 +1,25 @@
-const phoneDisplay = "+7 (999) 123-45-67";
-const phoneHref = "tel:+79991234567";
+import { phoneDisplay, phoneHref, servicePages, siteUrl } from "./site-data";
 
 const services = [
   {
     title: "Не морозит",
     description: "Проверим компрессор, датчики, термостат и систему циркуляции хладагента.",
-    price: "от 1 200 ₽",
+    price: "от 60 руб.",
   },
   {
     title: "Течёт вода",
     description: "Прочистим дренаж, устраним наледь, восстановим герметичность узлов.",
-    price: "от 900 ₽",
+    price: "от 45 руб.",
   },
   {
     title: "Шумит и вибрирует",
     description: "Найдём источник шума, закрепим детали, проверим вентилятор и мотор.",
-    price: "от 1 000 ₽",
+    price: "от 50 руб.",
   },
   {
     title: "Замена деталей",
     description: "Поставим реле, датчики, уплотнитель, вентилятор или компрессор с гарантией.",
-    price: "от 1 500 ₽",
+    price: "от 80 руб.",
   },
 ];
 
@@ -60,13 +59,13 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "Холодос",
-  image: "https://holodos.ru/opengraph-image.svg",
-  url: "https://holodos.ru/",
+  image: `${siteUrl}/opengraph-image.svg`,
+  url: `${siteUrl}/`,
   telephone: phoneDisplay,
-  priceRange: "₽₽",
+  priceRange: "BYN",
   description:
     "Ремонт холодильников на дому: срочный выезд мастера, диагностика, замена деталей и гарантия.",
-  areaServed: "Россия",
+  areaServed: "Минск",
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -201,6 +200,25 @@ export default function Home() {
                 <p>{service.description}</p>
                 <strong>{service.price}</strong>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-shell related-services" aria-labelledby="all-services-title">
+          <div className="section-heading">
+            <p className="eyebrow">Все направления</p>
+            <h2 id="all-services-title">Страницы услуг из sitemap</h2>
+            <p>
+              Собрали отдельные SEO-страницы под каждую услугу, чтобы клиент сразу попадал на
+              нужное решение.
+            </p>
+          </div>
+          <div className="related-grid related-grid--wide">
+            {servicePages.map((service) => (
+              <a className="related-card" href={`/${service.slug}/`} key={service.slug}>
+                <span>{service.menuTitle}</span>
+                <strong>{service.price}</strong>
+              </a>
             ))}
           </div>
         </section>
