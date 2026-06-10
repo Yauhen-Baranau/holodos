@@ -163,7 +163,7 @@ export default async function ServiceRoute({ params }: Props) {
               <span>{page.menuTitle}</span>
             </div>
             <p className="eyebrow">{page.eyebrow}</p>
-            <h1 id="service-title">{page.title}</h1>
+            <h1 id="service-title">{page.menuTitle}</h1>
             <p className="hero__lead">{page.lead}</p>
             <div className="hero__actions">
               <a className="button button--primary" href={phoneHref}>

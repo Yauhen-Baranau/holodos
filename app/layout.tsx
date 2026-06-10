@@ -1,17 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { phoneDisplay } from "./site-data";
 
 const siteUrl = "https://holodos.by";
 const siteName = "Холодос";
 const description =
-  "Срочный ремонт холодильников в Минске: диагностика на дому, замена деталей, гарантия и выезд мастера в день обращения.";
+  `Ремонт холодильников в Минске на дому. ⭐Atlant, ⭐Samsung, ⭐LG, ⭐Gorenje и любые другие бренды с выездом мастера на дом в Минске и области. Либо с вывозом в сервисный центр ☎️ ${phoneDisplay}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: siteName,
   title: {
-    default: "Ремонт холодильников в Минске — Холодос",
+    default: "Ремонт холодильников в Минске с выездом на дом, цены — Холодос",
     template: "%s — Холодос",
   },
   description,
@@ -37,20 +38,20 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: "/",
     siteName,
-    title: "Ремонт холодильников в Минске — Холодос",
+    title: "Ремонт холодильников в Минске с выездом на дом, ценые — Холодос",
     description,
     images: [
       {
         url: "/opengraph-image.svg",
         width: 1200,
         height: 630,
-        alt: "Холодос — ремонт холодильников в Минске",
+        alt: "Холодос — Ремонт холодильников в Минске с выездом на дом, цены",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ремонт холодильников в Минске — Холодос",
+    title: "Ремонт холодильников в Минске с выездом на дом, цены — Холодос",
     description,
     images: ["/opengraph-image.svg"],
   },

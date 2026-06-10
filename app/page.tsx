@@ -1,4 +1,7 @@
+import Link from "next/link";
 import { phoneDisplay, phoneHref, servicePages, siteUrl } from "./site-data";
+
+const ignoredSlugs = ["O-nas", "masterskaya"]
 
 const services = [
   {
@@ -116,9 +119,11 @@ export default function Home() {
           <span>Холодос</span>
         </a>
         <nav className="site-nav" aria-label="Основная навигация">
-          <a href="#services">Услуги</a>
-          <a href="#process">Как работаем</a>
-          <a href="#faq">Вопросы</a>
+          <Link href="#services">Услуги</Link>
+          <Link href="#process">Как работаем</Link>
+          <Link href="#faq">Вопросы</Link>
+          <Link href="/masterskaya/">Мастерская</Link>
+          <Link href="/O-nas/">О нас</Link>
         </nav>
         <a className="header-phone" href={phoneHref}>
           {phoneDisplay}
@@ -128,9 +133,9 @@ export default function Home() {
       <main id="top">
         <section className="hero section-shell" aria-labelledby="hero-title">
           <div className="hero__content">
-            <p className="eyebrow">Ремонт холодильников на дому</p>
-            <h1 id="hero-title">Вернём холод без лишней суеты</h1>
-            <p className="hero__lead">
+            <h1 id="hero-title">Ремонт холодильников в Минске</h1>
+            <p className="eyebrow">Бесплатный выезд по Минску от 30 мин</p>
+             <p className="hero__lead">
               Срочно починим холодильник, морозильную камеру или винный шкаф. Мастер приедет
               с инструментами и популярными деталями, аккуратно проведёт диагностику и сразу
               предложит понятную смету.
@@ -206,15 +211,10 @@ export default function Home() {
 
         <section className="section-shell related-services" aria-labelledby="all-services-title">
           <div className="section-heading">
-            <p className="eyebrow">Все направления</p>
-            <h2 id="all-services-title">Страницы услуг из sitemap</h2>
-            <p>
-              Собрали отдельные SEO-страницы под каждую услугу, чтобы клиент сразу попадал на
-              нужное решение.
-            </p>
+            <h2 id="all-services-title">Услуги</h2>
           </div>
           <div className="related-grid related-grid--wide">
-            {servicePages.map((service) => (
+            {servicePages.filter((service) => !ignoredSlugs.includes(service.slug)).map((service) => (
               <a className="related-card" href={`/${service.slug}/`} key={service.slug}>
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
