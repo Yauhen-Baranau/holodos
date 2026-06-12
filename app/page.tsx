@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   businessServicePages,
-  minskRegionClusterPage,
   phoneDisplay,
   phoneHref,
   problemPages,
@@ -81,7 +80,7 @@ const jsonLd = {
   "@type": "LocalBusiness",
   name: "Холодос",
   image: `${siteUrl}/opengraph-image.svg`,
-  url: `${siteUrl}/`,
+  url: `${siteUrl}`,
   telephone: phoneDisplay,
   priceRange: "BYN",
   description:
@@ -140,18 +139,18 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <header className="site-header">
-        <a className="logo" href="#top" aria-label="Холодос — на главную">
+        <a className="logo" title="на верх" href="#top" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
           <span>Холодос</span>
         </a>
         <nav className="site-nav" aria-label="Основная навигация">
-          <Link href="#services">Услуги</Link>
-          <Link href="#problems">Проблемы</Link>
-          <Link href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-          <Link href="#process">Как работаем</Link>
-          <Link href="#faq">Вопросы</Link>
-          <Link href="/masterskaya/">Мастерская</Link>
-          <Link href="/O-nas/">О нас</Link>
+          <Link title="Услуги" href="#services">Услуги</Link>
+          <Link title="Проблемы" href="#problems">Проблемы</Link>
+          <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
+          <Link title="Как работаем" href="#process">Как работаем</Link>
+          <Link title="Вопросы" href="#faq">Вопросы</Link>
+          <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
+          <Link title="О нас" href="/O-nas/">О нас</Link>
         </nav>
         <a className="header-phone" href={phoneHref}>
           {phoneDisplay}
@@ -175,7 +174,7 @@ export default function Home() {
               <a className="button button--secondary" href="#services">
                 Смотреть услуги
               </a>
-              <a className="button button--secondary" href="/remont-holodilnikov-minskaya-oblast">
+              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/minskaya-oblast">
                 Ремонт холодильников в Минской области
               </a>
             </div>
@@ -210,7 +209,7 @@ export default function Home() {
               Сначала находим причину поломки, затем согласуем цену и только
               после этого ремонтируем.
             </p>
-            <a className="hero-card__link" href={phoneHref}>
+            <a title="Вызвать мастера" className="hero-card__link" href={phoneHref}>
               Вызвать мастера →
             </a>
           </div>
@@ -227,7 +226,7 @@ export default function Home() {
 
         <section
           className="section-shell services"
-          id="services"
+          id="problems"
           aria-labelledby="services-title"
         >
           <div className="section-heading">
@@ -244,6 +243,7 @@ export default function Home() {
                 className="related-card"
                 href={`/${problem.slug}/`}
                 key={key}
+                title={problem.menuTitle}
               >
                 <div className="service-card__icon">✺</div>
                 <h3 className="titleProblem">{problem.menuTitle}</h3>
@@ -260,6 +260,7 @@ export default function Home() {
         <section
           className="section-shell related-services"
           aria-labelledby="all-services-title"
+          id="services"
         >
           <div className="section-heading">
             <p className="eyebrow">Услуги</p>
@@ -271,6 +272,7 @@ export default function Home() {
                 className="related-card"
                 href={`/${service.slug}/`}
                 key={service.slug}
+                title={service.menuTitle}
               >
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
@@ -301,6 +303,7 @@ export default function Home() {
                 className="related-card"
                 href={`/${service.slug}/`}
                 key={service.slug}
+                title={service.menuTitle}
               >
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
@@ -335,7 +338,7 @@ export default function Home() {
               Опишите симптомы — подскажем ближайшее время выезда
             </h2>
           </div>
-          <a className="button button--light" href={phoneHref}>
+          <a title="Вызвать мастера" className="button button--light" href={phoneHref}>
             {phoneDisplay}
           </a>
         </section>
@@ -367,7 +370,7 @@ export default function Home() {
             Ремонт холодильников на дому. Работаем ежедневно с 08:00 до 22:00.
           </p>
         </div>
-        <a href={phoneHref}>{phoneDisplay}</a>
+        <a title="телефон мастерской" href={phoneHref}>{phoneDisplay}</a>
       </footer>
     </>
   );

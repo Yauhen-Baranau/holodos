@@ -11,18 +11,18 @@ import {
   siteUrl,
 } from "../site-data";
 
-const canonicalUrl = `${siteUrl}/${minskRegionClusterPage.slug}/`;
+const canonicalUrl = `${siteUrl}/${minskRegionClusterPage.slug}`;
 
 export const metadata: Metadata = {
   title: minskRegionClusterPage.title,
   description: minskRegionClusterPage.description,
   alternates: {
-    canonical: `/${minskRegionClusterPage.slug}/`,
+    canonical: `/${minskRegionClusterPage.slug}`,
   },
   openGraph: {
     title: `${minskRegionClusterPage.title} — ${siteName}`,
     description: minskRegionClusterPage.description,
-    url: `/${minskRegionClusterPage.slug}/`,
+    url: `/${minskRegionClusterPage.slug}`,
     type: "website",
     images: [
       {

@@ -85,7 +85,7 @@ function createRegionServicePage({
 }
 
 export const minskRegionClusterPage: ServicePage = {
-  slug: "remont-holodilnikov-minskaya-oblast",
+  slug: "minskaya-oblast",
   title: "Ремонт холодильников в Минской области — выезд мастера",
   menuTitle: "Ремонт холодильников в Минской области",
   description: `Ремонт холодильников в Минской области: выезд мастера на дом, диагностика, ремонт No Frost, замена компрессора, заправка фреоном и гарантия ☎️ ${phoneDisplay}`,

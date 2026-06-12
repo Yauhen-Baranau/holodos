@@ -35,12 +35,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: page.title,
     description: page.description,
     alternates: {
-      canonical: `/${page.slug}/`,
+      canonical: `/${page.slug}`,
     },
     openGraph: {
       title: `${page.title} — ${siteName}`,
       description: page.description,
-      url: `/${page.slug}/`,
+      url: `/${page.slug}`,
       type: "website",
       images: [
         {
@@ -140,17 +140,17 @@ export default async function ServiceRoute({ params }: Props) {
       />
 
       <header className="site-header">
-        <Link className="logo" href="/" aria-label="Холодос — на главную">
+        <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
           <span>{siteName}</span>
         </Link>
         <nav className="site-nav" aria-label="Основная навигация">
-          <Link href="/#services">Услуги</Link>
-          <Link href="/masterskaya/">Мастерская</Link>
-          <Link href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-          <Link href="/O-nas/">О нас</Link>
+          <Link title="Услуги" href="/#services">Услуги</Link>
+          <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
+          <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
+          <Link title="О нас" href="/O-nas/">О нас</Link>
         </nav>
-        <a className="header-phone" href={phoneHref}>
+        <a title={phoneHref} className="header-phone" href={phoneHref}>
           {phoneDisplay}
         </a>
       </header>
@@ -162,7 +162,7 @@ export default async function ServiceRoute({ params }: Props) {
         >
           <div className="inner-hero__content">
             <div className="breadcrumbs" aria-label="Хлебные крошки">
-              <Link href="/">Главная</Link>
+              <Link title="на главную" href="/">Главная</Link>
               <span>/</span>
               <span>{page.menuTitle}</span>
             </div>
@@ -170,10 +170,10 @@ export default async function ServiceRoute({ params }: Props) {
             <h1 id="service-title">{page.menuTitle}</h1>
             <p className="hero__lead">{page.lead}</p>
             <div className="hero__actions">
-              <a className="button button--primary" href={phoneHref}>
+              <a title={phoneHref} className="button button--primary" href={phoneHref}>
                 Вызвать мастера
               </a>
-              <a className="button button--secondary" href="#details">
+              <a title="Подробнее" className="button button--secondary" href="#details">
                 Подробнее об услуге
               </a>
             </div>
@@ -195,7 +195,7 @@ export default async function ServiceRoute({ params }: Props) {
                 <dd>Минск</dd>
               </div>
             </dl>
-            <a className="service-summary__phone" href={phoneHref}>
+            <a title={phoneHref} className="service-summary__phone" href={phoneHref}>
               {phoneDisplay}
             </a>
           </aside>
@@ -287,6 +287,7 @@ export default async function ServiceRoute({ params }: Props) {
               .slice(0, 6)
               .map((service) => (
                 <Link
+                  title={service.menuTitle}
                   className="related-card"
                   href={`/${service.slug}/`}
                   key={service.slug}
@@ -324,7 +325,7 @@ export default async function ServiceRoute({ params }: Props) {
               Позвоните — подскажем ближайшее время выезда мастера
             </h2>
           </div>
-          <a className="button button--light" href={phoneHref}>
+          <a title={phoneHref} className="button button--light" href={phoneHref}>
             {phoneDisplay}
           </a>
         </section>
