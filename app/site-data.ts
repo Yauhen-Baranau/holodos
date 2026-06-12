@@ -11,6 +11,10 @@ import {
 } from "./_data/region-service-pages";
 import { targetedServicePages } from "./_data/targeted-service-pages";
 
+export const repairServicePages = baseServicePages;
+export const problemPages = targetedServicePages;
+export const regionalServicePages = minskRegionServicePages;
+
 export const servicePages = [
   ...baseServicePages,
   ...targetedServicePages,

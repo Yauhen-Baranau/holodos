@@ -1,25 +1,21 @@
 import Link from "next/link";
 import {
   minskRegionClusterPage,
-  minskRegionServicePages,
   phoneDisplay,
   phoneHref,
-  servicePages,
+  problemPages,
+  repairServicePages,
   siteUrl,
 } from "./site-data";
 
 const ignoredSlugs = ["O-nas", "masterskaya"];
-const minskRegionCitySlugs = new Set(
-  minskRegionServicePages.map((service) => service.slug),
-);
 const homeServicePages = [
-  ...servicePages.filter(
-    (service) =>
-      !ignoredSlugs.includes(service.slug) &&
-      !minskRegionCitySlugs.has(service.slug),
+  ...repairServicePages.filter(
+    (service) => !ignoredSlugs.includes(service.slug),
   ),
   minskRegionClusterPage,
 ];
+const homeProblemPages = problemPages;
 
 const services = [
   {
@@ -150,6 +146,7 @@ export default function Home() {
         </a>
         <nav className="site-nav" aria-label="Основная навигация">
           <Link href="#services">Услуги</Link>
+          <Link href="#problems">Проблемы</Link>
           <Link href="#process">Как работаем</Link>
           <Link href="#faq">Вопросы</Link>
           <Link href="/masterskaya/">Мастерская</Link>
@@ -254,7 +251,12 @@ export default function Home() {
           aria-labelledby="all-services-title"
         >
           <div className="section-heading">
-            <h2 id="all-services-title">Услуги</h2>
+            <p className="eyebrow">Услуги</p>
+            <h2 id="all-services-title">Работы и сервисные направления</h2>
+            <p>
+              Отдельно собрали страницы услуг: выезд мастера, замену деталей,
+              ремонт узлов, обслуживание No Frost и региональный кластер.
+            </p>
           </div>
           <div className="related-grid related-grid--wide">
             {homeServicePages.map((service) => (
@@ -265,6 +267,33 @@ export default function Home() {
               >
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="section-shell related-services"
+          id="problems"
+          aria-labelledby="all-problems-title"
+        >
+          <div className="section-heading">
+            <p className="eyebrow">Проблемы</p>
+            <h2 id="all-problems-title">Страницы по симптомам и поломкам</h2>
+            <p>
+              Если вы ищете ремонт по конкретному признаку неисправности,
+              выберите подходящую проблему из списка.
+            </p>
+          </div>
+          <div className="related-grid related-grid--wide">
+            {homeProblemPages.map((problem) => (
+              <Link
+                className="related-card"
+                href={`/${problem.slug}/`}
+                key={problem.slug}
+              >
+                <span>{problem.menuTitle}</span>
+                <strong>{problem.price}</strong>
               </Link>
             ))}
           </div>
