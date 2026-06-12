@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   applicationName: siteName,
   title: {
     default: "Ремонт холодильников в Минске с выездом на дом, цены — Холодос",
-    template: "%s — Холодос",
+    template: "",
   },
   description,
   keywords: [

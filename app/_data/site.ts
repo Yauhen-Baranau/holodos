@@ -2,7 +2,7 @@ export const siteUrl = "https://holodos.by";
 export const siteName = "Холодос";
 export const phoneDisplay = "+375 44 558 19 58";
 export const phoneHref = "tel:+375445581958";
-export const email = "online888bazar@gmail.com";
+export const email = "info@holodos.by";
 export const address = "г. Минск, ул. Домбровская, 9";
 
 export type ServicePage = {

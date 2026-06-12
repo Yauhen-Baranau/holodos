@@ -144,7 +144,7 @@ p {
 
 h1 {
   max-width: 780px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   font-size: clamp(44px, 7vw, 56px);
   line-height: 0.95;
   letter-spacing: -0.07em;
@@ -452,7 +452,7 @@ h3 {
 
 .process-list span {
   display: block;
-  margin-bottom: 48px;
+  margin-bottom: 16px;
   color: var(--accent);
   font-weight: 900;
 }
@@ -594,7 +594,7 @@ details p {
   }
 
   h1 {
-    font-size: clamp(42px, 14vw, 62px);
+    font-size: clamp(17px, 14vw, 30px);
   }
 
   .hero__facts,
@@ -835,4 +835,12 @@ details p {
   .related-grid--wide {
     grid-template-columns: 1fr;
   }
+}
+
+.titleProblem {
+  font-size: 18px;
+}
+
+.problrms_list {
+  font-size: 13px;
 }

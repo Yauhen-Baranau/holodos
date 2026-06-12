@@ -13,9 +13,7 @@ const ignoredSlugs = ["O-nas", "masterskaya"];
 const homeServicePages = [
   ...repairServicePages.filter(
     (service) => !ignoredSlugs.includes(service.slug),
-  ),
-  minskRegionClusterPage,
-];
+  )];
 const homeProblemPages = problemPages;
 const homeBusinessPages = businessServicePages;
 
@@ -177,6 +175,9 @@ export default function Home() {
               <a className="button button--secondary" href="#services">
                 Смотреть услуги
               </a>
+              <a className="button button--secondary" href="/remont-holodilnikov-minskaya-oblast">
+                Ремонт холодильников в Минской области
+              </a>
             </div>
             <ul className="hero__facts" aria-label="Преимущества сервиса">
               <li>
@@ -238,16 +239,23 @@ export default function Home() {
             </p>
           </div>
           <div className="service-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.title}>
+            {homeProblemPages.map((problem, key) => (
+              <Link
+                className="related-card"
+                href={`/${problem.slug}/`}
+                key={key}
+              >
                 <div className="service-card__icon">✺</div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <strong>{service.price}</strong>
-              </article>
+                <h3 className="titleProblem">{problem.menuTitle}</h3>
+                <ul className="problrms_list">
+                  {problem.symptoms.map((symptom, index) => (<li key={index}>{symptom}</li>))}
+                </ul>
+                <strong>{problem.price}</strong>
+              </Link>
             ))}
           </div>
         </section>
+        
 
         <section
           className="section-shell related-services"
@@ -256,10 +264,6 @@ export default function Home() {
           <div className="section-heading">
             <p className="eyebrow">Услуги</p>
             <h2 id="all-services-title">Работы и сервисные направления</h2>
-            <p>
-              Отдельно собрали страницы услуг: выезд мастера, замену деталей,
-              ремонт узлов, обслуживание No Frost и региональный кластер.
-            </p>
           </div>
           <div className="related-grid related-grid--wide">
             {homeServicePages.map((service) => (
@@ -270,33 +274,6 @@ export default function Home() {
               >
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section
-          className="section-shell related-services"
-          id="problems"
-          aria-labelledby="all-problems-title"
-        >
-          <div className="section-heading">
-            <p className="eyebrow">Проблемы</p>
-            <h2 id="all-problems-title">Страницы по симптомам и поломкам</h2>
-            <p>
-              Если вы ищете ремонт по конкретному признаку неисправности,
-              выберите подходящую проблему из списка.
-            </p>
-          </div>
-          <div className="related-grid related-grid--wide">
-            {homeProblemPages.map((problem) => (
-              <Link
-                className="related-card"
-                href={`/${problem.slug}/`}
-                key={problem.slug}
-              >
-                <span>{problem.menuTitle}</span>
-                <strong>{problem.price}</strong>
               </Link>
             ))}
           </div>
