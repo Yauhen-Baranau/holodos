@@ -1,0 +1,22 @@
+# 1. Ignore specific files (e.g., API keys, system files)
+.env
+.DS_Store
+Thumbs.db
+
+# 2. Ignore entire folders (always use a trailing slash)
+node_modules/
+dist/
+build/
+.venv/
+.next
+
+# 3. Ignore all files with a specific extension (using wildcards)
+*.log
+*.tmp
+*.exe
+
+# 4. Create an exception (do NOT ignore this specific file)
+!important.log
+
+# 5. Ignore a file in the root directory only, not in subfolders
+/config.json

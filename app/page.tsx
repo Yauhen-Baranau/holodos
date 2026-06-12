@@ -215,10 +215,10 @@ export default function Home() {
           </div>
           <div className="related-grid related-grid--wide">
             {servicePages.filter((service) => !ignoredSlugs.includes(service.slug)).map((service) => (
-              <a className="related-card" href={`/${service.slug}/`} key={service.slug}>
+              <Link className="related-card" href={`/${service.slug}/`} key={service.slug}>
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
-              </a>
+              </Link>
             ))}
           </div>
         </section>

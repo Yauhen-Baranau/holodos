@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { phoneDisplay } from "./site-data";
 
@@ -86,7 +85,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ru">
       <body>
         {children}
-        <Analytics />
       </body>
     </html>
   );
