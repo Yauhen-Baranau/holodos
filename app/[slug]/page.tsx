@@ -5,6 +5,7 @@ import {
   address,
   email,
   getServicePage,
+  minskRegionServicePages,
   phoneDisplay,
   phoneHref,
   popularServices,
@@ -69,6 +70,12 @@ export default async function ServiceRoute({ params }: Props) {
   }
 
   const canonicalUrl = `${siteUrl}/${page.slug}/`;
+  const isMinskRegionPage = minskRegionServicePages.some(
+    (service) => service.slug === page.slug,
+  );
+  const minskRegionLinks = minskRegionServicePages.filter(
+    (service) => service.slug !== page.slug,
+  );
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -155,7 +162,10 @@ export default async function ServiceRoute({ params }: Props) {
       </header>
 
       <main>
-        <section className="inner-hero section-shell" aria-labelledby="service-title">
+        <section
+          className="inner-hero section-shell"
+          aria-labelledby="service-title"
+        >
           <div className="inner-hero__content">
             <div className="breadcrumbs" aria-label="Хлебные крошки">
               <Link href="/">Главная</Link>
@@ -197,7 +207,10 @@ export default async function ServiceRoute({ params }: Props) {
           </aside>
         </section>
 
-        <section className="section-shell symptoms" aria-labelledby="symptoms-title">
+        <section
+          className="section-shell symptoms"
+          aria-labelledby="symptoms-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Когда обращаться</p>
             <h2 id="symptoms-title">Основные симптомы</h2>
@@ -212,7 +225,11 @@ export default async function ServiceRoute({ params }: Props) {
           </div>
         </section>
 
-        <section className="section-shell service-details" id="details" aria-labelledby="details-title">
+        <section
+          className="section-shell service-details"
+          id="details"
+          aria-labelledby="details-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Подробности</p>
             <h2 id="details-title">Что входит в работу</h2>
@@ -234,7 +251,40 @@ export default async function ServiceRoute({ params }: Props) {
           </div>
         </section>
 
-        <section className="section-shell process" aria-labelledby="process-title">
+        {isMinskRegionPage ? (
+          <section
+            className="section-shell related-services"
+            aria-labelledby="region-cluster-title"
+          >
+            <div className="section-heading">
+              <p className="eyebrow">Минская область</p>
+              <h2 id="region-cluster-title">
+                Ремонт холодильников по населенным пунктам
+              </h2>
+              <p>
+                Выберите ближайшую страницу к вашему адресу, чтобы посмотреть
+                условия выезда мастера.
+              </p>
+            </div>
+            <div className="related-grid related-grid--wide">
+              {minskRegionLinks.map((service) => (
+                <Link
+                  className="related-card"
+                  href={`/${service.slug}/`}
+                  key={service.slug}
+                >
+                  <span>{service.menuTitle}</span>
+                  <strong>{service.price}</strong>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        <section
+          className="section-shell process"
+          aria-labelledby="process-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Как работаем</p>
             <h2 id="process-title">Понятный процесс без навязанных услуг</h2>
@@ -259,7 +309,10 @@ export default async function ServiceRoute({ params }: Props) {
           </ol>
         </section>
 
-        <section className="section-shell related-services" aria-labelledby="related-title">
+        <section
+          className="section-shell related-services"
+          aria-labelledby="related-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Другие услуги</p>
             <h2 id="related-title">Популярные направления ремонта</h2>
@@ -269,7 +322,11 @@ export default async function ServiceRoute({ params }: Props) {
               .filter((service) => service.slug !== page.slug)
               .slice(0, 6)
               .map((service) => (
-                <Link className="related-card" href={`/${service.slug}/`} key={service.slug}>
+                <Link
+                  className="related-card"
+                  href={`/${service.slug}/`}
+                  key={service.slug}
+                >
                   <span>{service.menuTitle}</span>
                   <strong>{service.price}</strong>
                 </Link>
@@ -277,7 +334,11 @@ export default async function ServiceRoute({ params }: Props) {
           </div>
         </section>
 
-        <section className="section-shell faq" id="faq" aria-labelledby="faq-title">
+        <section
+          className="section-shell faq"
+          id="faq"
+          aria-labelledby="faq-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">FAQ</p>
             <h2 id="faq-title">Частые вопросы</h2>
@@ -295,7 +356,9 @@ export default async function ServiceRoute({ params }: Props) {
         <section className="section-shell cta" aria-labelledby="cta-title">
           <div>
             <p className="eyebrow">Оставьте заявку</p>
-            <h2 id="cta-title">Позвоните — подскажем ближайшее время выезда мастера</h2>
+            <h2 id="cta-title">
+              Позвоните — подскажем ближайшее время выезда мастера
+            </h2>
           </div>
           <a className="button button--light" href={phoneHref}>
             {phoneDisplay}
@@ -307,7 +370,8 @@ export default async function ServiceRoute({ params }: Props) {
         <div>
           <strong>{siteName}</strong>
           <p>
-            {address}. Работаем ежедневно, ремонтируем холодильники и морозильные камеры на дому.
+            {address}. Работаем ежедневно, ремонтируем холодильники и
+            морозильные камеры на дому.
           </p>
         </div>
         <a href={`mailto:${email}`}>{email}</a>
