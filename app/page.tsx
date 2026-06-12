@@ -1,27 +1,47 @@
 import Link from "next/link";
-import { phoneDisplay, phoneHref, servicePages, siteUrl } from "./site-data";
+import {
+  businessServicePages,
+  minskRegionClusterPage,
+  phoneDisplay,
+  phoneHref,
+  problemPages,
+  repairServicePages,
+  siteUrl,
+} from "./site-data";
 
-const ignoredSlugs = ["O-nas", "masterskaya"]
+const ignoredSlugs = ["O-nas", "masterskaya"];
+const homeServicePages = [
+  ...repairServicePages.filter(
+    (service) => !ignoredSlugs.includes(service.slug),
+  ),
+  minskRegionClusterPage,
+];
+const homeProblemPages = problemPages;
+const homeBusinessPages = businessServicePages;
 
 const services = [
   {
     title: "Не морозит",
-    description: "Проверим компрессор, датчики, термостат и систему циркуляции хладагента.",
+    description:
+      "Проверим компрессор, датчики, термостат и систему циркуляции хладагента.",
     price: "от 60 руб.",
   },
   {
     title: "Течёт вода",
-    description: "Прочистим дренаж, устраним наледь, восстановим герметичность узлов.",
+    description:
+      "Прочистим дренаж, устраним наледь, восстановим герметичность узлов.",
     price: "от 45 руб.",
   },
   {
     title: "Шумит и вибрирует",
-    description: "Найдём источник шума, закрепим детали, проверим вентилятор и мотор.",
+    description:
+      "Найдём источник шума, закрепим детали, проверим вентилятор и мотор.",
     price: "от 50 руб.",
   },
   {
     title: "Замена деталей",
-    description: "Поставим реле, датчики, уплотнитель, вентилятор или компрессор с гарантией.",
+    description:
+      "Поставим реле, датчики, уплотнитель, вентилятор или компрессор с гарантией.",
     price: "от 80 руб.",
   },
 ];
@@ -72,7 +92,15 @@ const jsonLd = {
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "08:00",
       closes: "22:00",
     },
@@ -120,6 +148,8 @@ export default function Home() {
         </a>
         <nav className="site-nav" aria-label="Основная навигация">
           <Link href="#services">Услуги</Link>
+          <Link href="#problems">Проблемы</Link>
+          <Link href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
           <Link href="#process">Как работаем</Link>
           <Link href="#faq">Вопросы</Link>
           <Link href="/masterskaya/">Мастерская</Link>
@@ -135,10 +165,10 @@ export default function Home() {
           <div className="hero__content">
             <h1 id="hero-title">Ремонт холодильников в Минске</h1>
             <p className="eyebrow">Бесплатный выезд по Минску от 30 мин</p>
-             <p className="hero__lead">
-              Срочно починим холодильник, морозильную камеру или винный шкаф. Мастер приедет
-              с инструментами и популярными деталями, аккуратно проведёт диагностику и сразу
-              предложит понятную смету.
+            <p className="hero__lead">
+              Срочно починим холодильник, морозильную камеру или винный шкаф.
+              Мастер приедет с инструментами и популярными деталями, аккуратно
+              проведёт диагностику и сразу предложит понятную смету.
             </p>
             <div className="hero__actions">
               <a className="button button--primary" href={phoneHref}>
@@ -175,7 +205,10 @@ export default function Home() {
               <div className="fridge-illustration__tool">✓</div>
             </div>
             <h2>Диагностика перед ремонтом</h2>
-            <p>Сначала находим причину поломки, затем согласуем цену и только после этого ремонтируем.</p>
+            <p>
+              Сначала находим причину поломки, затем согласуем цену и только
+              после этого ремонтируем.
+            </p>
             <a className="hero-card__link" href={phoneHref}>
               Вызвать мастера →
             </a>
@@ -191,11 +224,18 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="section-shell services" id="services" aria-labelledby="services-title">
+        <section
+          className="section-shell services"
+          id="services"
+          aria-labelledby="services-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Что ремонтируем</p>
             <h2 id="services-title">Популярные поломки холодильников</h2>
-            <p>Показываем ориентиры по цене заранее, чтобы вам было проще принять решение.</p>
+            <p>
+              Показываем ориентиры по цене заранее, чтобы вам было проще принять
+              решение.
+            </p>
           </div>
           <div className="service-grid">
             {services.map((service) => (
@@ -209,13 +249,25 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell related-services" aria-labelledby="all-services-title">
+        <section
+          className="section-shell related-services"
+          aria-labelledby="all-services-title"
+        >
           <div className="section-heading">
-            <h2 id="all-services-title">Услуги</h2>
+            <p className="eyebrow">Услуги</p>
+            <h2 id="all-services-title">Работы и сервисные направления</h2>
+            <p>
+              Отдельно собрали страницы услуг: выезд мастера, замену деталей,
+              ремонт узлов, обслуживание No Frost и региональный кластер.
+            </p>
           </div>
           <div className="related-grid related-grid--wide">
-            {servicePages.filter((service) => !ignoredSlugs.includes(service.slug)).map((service) => (
-              <Link className="related-card" href={`/${service.slug}/`} key={service.slug}>
+            {homeServicePages.map((service) => (
+              <Link
+                className="related-card"
+                href={`/${service.slug}/`}
+                key={service.slug}
+              >
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
               </Link>
@@ -223,7 +275,68 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell process" id="process" aria-labelledby="process-title">
+        <section
+          className="section-shell related-services"
+          id="problems"
+          aria-labelledby="all-problems-title"
+        >
+          <div className="section-heading">
+            <p className="eyebrow">Проблемы</p>
+            <h2 id="all-problems-title">Страницы по симптомам и поломкам</h2>
+            <p>
+              Если вы ищете ремонт по конкретному признаку неисправности,
+              выберите подходящую проблему из списка.
+            </p>
+          </div>
+          <div className="related-grid related-grid--wide">
+            {homeProblemPages.map((problem) => (
+              <Link
+                className="related-card"
+                href={`/${problem.slug}/`}
+                key={problem.slug}
+              >
+                <span>{problem.menuTitle}</span>
+                <strong>{problem.price}</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="section-shell related-services"
+          id="business"
+          aria-labelledby="business-services-title"
+        >
+          <div className="section-heading">
+            <p className="eyebrow">Для организаций</p>
+            <h2 id="business-services-title">
+              Ремонт и обслуживание по безналичному расчету
+            </h2>
+            <p>
+              Отдельное направление для юридических лиц, офисов, магазинов и
+              организаций: диагностика, ремонт, обслуживание, гарантия и
+              документы для оплаты по безналу.
+            </p>
+          </div>
+          <div className="related-grid related-grid--wide">
+            {homeBusinessPages.map((service) => (
+              <Link
+                className="related-card"
+                href={`/${service.slug}/`}
+                key={service.slug}
+              >
+                <span>{service.menuTitle}</span>
+                <strong>{service.price}</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="section-shell process"
+          id="process"
+          aria-labelledby="process-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Прозрачный процесс</p>
             <h2 id="process-title">Как проходит ремонт</h2>
@@ -241,14 +354,20 @@ export default function Home() {
         <section className="section-shell cta" aria-labelledby="cta-title">
           <div>
             <p className="eyebrow">Нужна помощь сейчас?</p>
-            <h2 id="cta-title">Опишите симптомы — подскажем ближайшее время выезда</h2>
+            <h2 id="cta-title">
+              Опишите симптомы — подскажем ближайшее время выезда
+            </h2>
           </div>
           <a className="button button--light" href={phoneHref}>
             {phoneDisplay}
           </a>
         </section>
 
-        <section className="section-shell faq" id="faq" aria-labelledby="faq-title">
+        <section
+          className="section-shell faq"
+          id="faq"
+          aria-labelledby="faq-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">FAQ</p>
             <h2 id="faq-title">Частые вопросы</h2>
@@ -267,7 +386,9 @@ export default function Home() {
       <footer className="site-footer">
         <div>
           <strong>Холодос</strong>
-          <p>Ремонт холодильников на дому. Работаем ежедневно с 08:00 до 22:00.</p>
+          <p>
+            Ремонт холодильников на дому. Работаем ежедневно с 08:00 до 22:00.
+          </p>
         </div>
         <a href={phoneHref}>{phoneDisplay}</a>
       </footer>
