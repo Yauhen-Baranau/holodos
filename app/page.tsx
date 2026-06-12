@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  minskRegionClusterPage,
   minskRegionServicePages,
   phoneDisplay,
   phoneHref,
@@ -8,17 +9,17 @@ import {
 } from "./site-data";
 
 const ignoredSlugs = ["O-nas", "masterskaya"];
-const minskRegionClusterSlug = "remont-holodilnikov-minskaya-oblast";
 const minskRegionCitySlugs = new Set(
-  minskRegionServicePages
-    .filter((service) => service.slug !== minskRegionClusterSlug)
-    .map((service) => service.slug),
+  minskRegionServicePages.map((service) => service.slug),
 );
-const homeServicePages = servicePages.filter(
-  (service) =>
-    !ignoredSlugs.includes(service.slug) &&
-    !minskRegionCitySlugs.has(service.slug),
-);
+const homeServicePages = [
+  ...servicePages.filter(
+    (service) =>
+      !ignoredSlugs.includes(service.slug) &&
+      !minskRegionCitySlugs.has(service.slug),
+  ),
+  minskRegionClusterPage,
+];
 
 const services = [
   {

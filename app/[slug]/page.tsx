@@ -5,7 +5,6 @@ import {
   address,
   email,
   getServicePage,
-  minskRegionServicePages,
   phoneDisplay,
   phoneHref,
   popularServices,
@@ -70,12 +69,6 @@ export default async function ServiceRoute({ params }: Props) {
   }
 
   const canonicalUrl = `${siteUrl}/${page.slug}/`;
-  const isMinskRegionPage = minskRegionServicePages.some(
-    (service) => service.slug === page.slug,
-  );
-  const minskRegionLinks = minskRegionServicePages.filter(
-    (service) => service.slug !== page.slug,
-  );
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -250,36 +243,6 @@ export default async function ServiceRoute({ params }: Props) {
             ))}
           </div>
         </section>
-
-        {isMinskRegionPage ? (
-          <section
-            className="section-shell related-services"
-            aria-labelledby="region-cluster-title"
-          >
-            <div className="section-heading">
-              <p className="eyebrow">Минская область</p>
-              <h2 id="region-cluster-title">
-                Ремонт холодильников по населенным пунктам
-              </h2>
-              <p>
-                Выберите ближайшую страницу к вашему адресу, чтобы посмотреть
-                условия выезда мастера.
-              </p>
-            </div>
-            <div className="related-grid related-grid--wide">
-              {minskRegionLinks.map((service) => (
-                <Link
-                  className="related-card"
-                  href={`/${service.slug}/`}
-                  key={service.slug}
-                >
-                  <span>{service.menuTitle}</span>
-                  <strong>{service.price}</strong>
-                </Link>
-              ))}
-            </div>
-          </section>
-        ) : null}
 
         <section
           className="section-shell process"
