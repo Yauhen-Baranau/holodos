@@ -1,27 +1,48 @@
 import Link from "next/link";
-import { phoneDisplay, phoneHref, servicePages, siteUrl } from "./site-data";
+import {
+  minskRegionServicePages,
+  phoneDisplay,
+  phoneHref,
+  servicePages,
+  siteUrl,
+} from "./site-data";
 
-const ignoredSlugs = ["O-nas", "masterskaya"]
+const ignoredSlugs = ["O-nas", "masterskaya"];
+const minskRegionClusterSlug = "remont-holodilnikov-minskaya-oblast";
+const minskRegionCitySlugs = new Set(
+  minskRegionServicePages
+    .filter((service) => service.slug !== minskRegionClusterSlug)
+    .map((service) => service.slug),
+);
+const homeServicePages = servicePages.filter(
+  (service) =>
+    !ignoredSlugs.includes(service.slug) &&
+    !minskRegionCitySlugs.has(service.slug),
+);
 
 const services = [
   {
     title: "Не морозит",
-    description: "Проверим компрессор, датчики, термостат и систему циркуляции хладагента.",
+    description:
+      "Проверим компрессор, датчики, термостат и систему циркуляции хладагента.",
     price: "от 60 руб.",
   },
   {
     title: "Течёт вода",
-    description: "Прочистим дренаж, устраним наледь, восстановим герметичность узлов.",
+    description:
+      "Прочистим дренаж, устраним наледь, восстановим герметичность узлов.",
     price: "от 45 руб.",
   },
   {
     title: "Шумит и вибрирует",
-    description: "Найдём источник шума, закрепим детали, проверим вентилятор и мотор.",
+    description:
+      "Найдём источник шума, закрепим детали, проверим вентилятор и мотор.",
     price: "от 50 руб.",
   },
   {
     title: "Замена деталей",
-    description: "Поставим реле, датчики, уплотнитель, вентилятор или компрессор с гарантией.",
+    description:
+      "Поставим реле, датчики, уплотнитель, вентилятор или компрессор с гарантией.",
     price: "от 80 руб.",
   },
 ];
@@ -72,7 +93,15 @@ const jsonLd = {
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "08:00",
       closes: "22:00",
     },
@@ -135,10 +164,10 @@ export default function Home() {
           <div className="hero__content">
             <h1 id="hero-title">Ремонт холодильников в Минске</h1>
             <p className="eyebrow">Бесплатный выезд по Минску от 30 мин</p>
-             <p className="hero__lead">
-              Срочно починим холодильник, морозильную камеру или винный шкаф. Мастер приедет
-              с инструментами и популярными деталями, аккуратно проведёт диагностику и сразу
-              предложит понятную смету.
+            <p className="hero__lead">
+              Срочно починим холодильник, морозильную камеру или винный шкаф.
+              Мастер приедет с инструментами и популярными деталями, аккуратно
+              проведёт диагностику и сразу предложит понятную смету.
             </p>
             <div className="hero__actions">
               <a className="button button--primary" href={phoneHref}>
@@ -175,7 +204,10 @@ export default function Home() {
               <div className="fridge-illustration__tool">✓</div>
             </div>
             <h2>Диагностика перед ремонтом</h2>
-            <p>Сначала находим причину поломки, затем согласуем цену и только после этого ремонтируем.</p>
+            <p>
+              Сначала находим причину поломки, затем согласуем цену и только
+              после этого ремонтируем.
+            </p>
             <a className="hero-card__link" href={phoneHref}>
               Вызвать мастера →
             </a>
@@ -191,11 +223,18 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="section-shell services" id="services" aria-labelledby="services-title">
+        <section
+          className="section-shell services"
+          id="services"
+          aria-labelledby="services-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Что ремонтируем</p>
             <h2 id="services-title">Популярные поломки холодильников</h2>
-            <p>Показываем ориентиры по цене заранее, чтобы вам было проще принять решение.</p>
+            <p>
+              Показываем ориентиры по цене заранее, чтобы вам было проще принять
+              решение.
+            </p>
           </div>
           <div className="service-grid">
             {services.map((service) => (
@@ -209,13 +248,20 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell related-services" aria-labelledby="all-services-title">
+        <section
+          className="section-shell related-services"
+          aria-labelledby="all-services-title"
+        >
           <div className="section-heading">
             <h2 id="all-services-title">Услуги</h2>
           </div>
           <div className="related-grid related-grid--wide">
-            {servicePages.filter((service) => !ignoredSlugs.includes(service.slug)).map((service) => (
-              <Link className="related-card" href={`/${service.slug}/`} key={service.slug}>
+            {homeServicePages.map((service) => (
+              <Link
+                className="related-card"
+                href={`/${service.slug}/`}
+                key={service.slug}
+              >
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
               </Link>
@@ -223,7 +269,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell process" id="process" aria-labelledby="process-title">
+        <section
+          className="section-shell process"
+          id="process"
+          aria-labelledby="process-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Прозрачный процесс</p>
             <h2 id="process-title">Как проходит ремонт</h2>
@@ -241,14 +291,20 @@ export default function Home() {
         <section className="section-shell cta" aria-labelledby="cta-title">
           <div>
             <p className="eyebrow">Нужна помощь сейчас?</p>
-            <h2 id="cta-title">Опишите симптомы — подскажем ближайшее время выезда</h2>
+            <h2 id="cta-title">
+              Опишите симптомы — подскажем ближайшее время выезда
+            </h2>
           </div>
           <a className="button button--light" href={phoneHref}>
             {phoneDisplay}
           </a>
         </section>
 
-        <section className="section-shell faq" id="faq" aria-labelledby="faq-title">
+        <section
+          className="section-shell faq"
+          id="faq"
+          aria-labelledby="faq-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">FAQ</p>
             <h2 id="faq-title">Частые вопросы</h2>
@@ -267,7 +323,9 @@ export default function Home() {
       <footer className="site-footer">
         <div>
           <strong>Холодос</strong>
-          <p>Ремонт холодильников на дому. Работаем ежедневно с 08:00 до 22:00.</p>
+          <p>
+            Ремонт холодильников на дому. Работаем ежедневно с 08:00 до 22:00.
+          </p>
         </div>
         <a href={phoneHref}>{phoneDisplay}</a>
       </footer>
