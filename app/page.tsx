@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  businessServicePages,
   minskRegionClusterPage,
   phoneDisplay,
   phoneHref,
@@ -16,6 +17,7 @@ const homeServicePages = [
   minskRegionClusterPage,
 ];
 const homeProblemPages = problemPages;
+const homeBusinessPages = businessServicePages;
 
 const services = [
   {
@@ -147,6 +149,7 @@ export default function Home() {
         <nav className="site-nav" aria-label="Основная навигация">
           <Link href="#services">Услуги</Link>
           <Link href="#problems">Проблемы</Link>
+          <Link href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
           <Link href="#process">Как работаем</Link>
           <Link href="#faq">Вопросы</Link>
           <Link href="/masterskaya/">Мастерская</Link>
@@ -294,6 +297,36 @@ export default function Home() {
               >
                 <span>{problem.menuTitle}</span>
                 <strong>{problem.price}</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="section-shell related-services"
+          id="business"
+          aria-labelledby="business-services-title"
+        >
+          <div className="section-heading">
+            <p className="eyebrow">Для организаций</p>
+            <h2 id="business-services-title">
+              Ремонт и обслуживание по безналичному расчету
+            </h2>
+            <p>
+              Отдельное направление для юридических лиц, офисов, магазинов и
+              организаций: диагностика, ремонт, обслуживание, гарантия и
+              документы для оплаты по безналу.
+            </p>
+          </div>
+          <div className="related-grid related-grid--wide">
+            {homeBusinessPages.map((service) => (
+              <Link
+                className="related-card"
+                href={`/${service.slug}/`}
+                key={service.slug}
+              >
+                <span>{service.menuTitle}</span>
+                <strong>{service.price}</strong>
               </Link>
             ))}
           </div>

@@ -147,6 +147,7 @@ export default async function ServiceRoute({ params }: Props) {
         <nav className="site-nav" aria-label="Основная навигация">
           <Link href="/#services">Услуги</Link>
           <Link href="/masterskaya/">Мастерская</Link>
+          <Link href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
           <Link href="/O-nas/">О нас</Link>
         </nav>
         <a className="header-phone" href={phoneHref}>

@@ -11,8 +11,15 @@ import {
 } from "./_data/region-service-pages";
 import { targetedServicePages } from "./_data/targeted-service-pages";
 
+const businessPageSlugs = ["remont-po-beznalichnomu-raschetu"];
+
 export const repairServicePages = baseServicePages;
-export const problemPages = targetedServicePages;
+export const businessServicePages = targetedServicePages.filter((page) =>
+  businessPageSlugs.includes(page.slug),
+);
+export const problemPages = targetedServicePages.filter(
+  (page) => !businessPageSlugs.includes(page.slug),
+);
 export const regionalServicePages = minskRegionServicePages;
 
 export const servicePages = [
