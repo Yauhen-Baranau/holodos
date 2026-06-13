@@ -8,7 +8,7 @@ export function ServiceNavigation() {
       <Link title="Бренды" href="/brands/">Бренды</Link>
       <Link title="Регионы" href="/regions/">Регионы</Link>
       <Link title="Мастерская" href="/services/masterskaya/">Мастерская</Link>
-      <Link title="Безнал" href="/problems/remont-po-beznalichnomu-raschetu/">Безнал</Link>
+      <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
       <Link title="О нас" href="/services/O-nas/">О нас</Link>
     </nav>
   );

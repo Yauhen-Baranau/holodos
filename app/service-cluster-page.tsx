@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteSearch } from "./search";
+import { HeroFridgeIllustration } from "./vector-art";
 import { ServiceNavigation } from "./service-navigation";
 import {
   email,
@@ -18,6 +19,8 @@ type Cluster = {
   description: string;
   eyebrow: string;
   lead: string;
+  intro: string;
+  highlights: readonly string[];
   pages: readonly ServicePage[];
 };
 
@@ -43,7 +46,29 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
             <p className="eyebrow">{cluster.eyebrow}</p>
             <h1 id="cluster-title">{cluster.title}</h1>
             <p className="hero__lead">{cluster.lead}</p>
+            <p>{cluster.intro}</p>
           </div>
+          <div className="hero-card" aria-label={`Иллюстрация раздела ${cluster.menuTitle}`}>
+            <div className="hero-card__badge">{cluster.pages.length} страниц</div>
+            <HeroFridgeIllustration />
+            <h2>{cluster.menuTitle}</h2>
+            <ul className="hero-stats">
+              {cluster.highlights.map((highlight) => (
+                <li key={highlight}>
+                  <strong>✓</strong>
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+        <section className="trust-strip" aria-label="Преимущества раздела">
+          {cluster.highlights.map((highlight) => (
+            <div className="trust-strip__item" key={highlight}>
+              <span>✓</span>
+              {highlight}
+            </div>
+          ))}
         </section>
         <SiteSearch items={siteSearchItems} />
         <section className="section-shell related-services" aria-labelledby="cluster-services-title">
