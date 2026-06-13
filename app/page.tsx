@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { SiteSearch } from "./search";
+import { HeroFridgeIllustration } from "./vector-art";
 import {
   businessServicePages,
   phoneDisplay,
   phoneHref,
   problemPages,
   repairServicePages,
+  siteSearchItems,
   siteUrl,
 } from "./site-data";
 
@@ -108,7 +111,7 @@ const jsonLd = {
     description: service.description,
     priceSpecification: {
       "@type": "PriceSpecification",
-      priceCurrency: "RUB",
+      priceCurrency: "BYN",
       description: service.price,
     },
   })),
@@ -139,10 +142,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <header className="site-header">
-        <a className="logo" title="на верх" href="#top" aria-label="Холодос — на главную">
+        <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
           <span>Холодос</span>
-        </a>
+        </Link>
         <nav className="site-nav" aria-label="Основная навигация">
           <Link title="Услуги" href="#services">Услуги</Link>
           <Link title="Проблемы" href="#problems">Проблемы</Link>
@@ -152,7 +155,7 @@ export default function Home() {
           <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
           <Link title="О нас" href="/O-nas/">О нас</Link>
         </nav>
-        <a className="header-phone" href={phoneHref}>
+        <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
           {phoneDisplay}
         </a>
       </header>
@@ -160,18 +163,18 @@ export default function Home() {
       <main id="top">
         <section className="hero section-shell" aria-labelledby="hero-title">
           <div className="hero__content">
-            <h1 id="hero-title">Ремонт холодильников в Минске</h1>
             <p className="eyebrow">Бесплатный выезд по Минску от 30 мин</p>
+            <h1 id="hero-title">Ремонт холодильников в Минске</h1>
             <p className="hero__lead">
               Срочно починим холодильник, морозильную камеру или винный шкаф.
               Мастер приедет с инструментами и популярными деталями, аккуратно
               проведёт диагностику и сразу предложит понятную смету.
             </p>
             <div className="hero__actions">
-              <a className="button button--primary" href={phoneHref}>
+              <a className="button button--primary" title="Позвонить мастеру" href={phoneHref}>
                 Позвонить мастеру
               </a>
-              <a className="button button--secondary" href="#services">
+              <a className="button button--secondary" title="Смотреть услуги" href="#services">
                 Смотреть услуги
               </a>
               <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/minskaya-oblast">
@@ -196,14 +199,7 @@ export default function Home() {
 
           <div className="hero-card" aria-label="Карточка вызова мастера">
             <div className="hero-card__badge">Сегодня есть окна</div>
-            <div className="fridge-illustration" aria-hidden="true">
-              <div className="fridge-illustration__body">
-                <span className="fridge-illustration__snow">✦</span>
-                <span className="fridge-illustration__line" />
-                <span className="fridge-illustration__handle" />
-              </div>
-              <div className="fridge-illustration__tool">✓</div>
-            </div>
+            <HeroFridgeIllustration />
             <h2>Диагностика перед ремонтом</h2>
             <p>
               Сначала находим причину поломки, затем согласуем цену и только
@@ -245,10 +241,12 @@ export default function Home() {
                 key={key}
                 title={problem.menuTitle}
               >
-                <div className="service-card__icon">✺</div>
+                <div className="service-card__icon" aria-hidden="true">✺</div>
                 <h3 className="titleProblem">{problem.menuTitle}</h3>
                 <ul className="problrms_list">
-                  {problem.symptoms.map((symptom, index) => (<li key={index}>{symptom}</li>))}
+                  {problem.symptoms.map((symptom) => (
+                    <li key={symptom}>{symptom}</li>
+                  ))}
                 </ul>
                 <strong>{problem.price}</strong>
               </Link>
@@ -256,6 +254,8 @@ export default function Home() {
           </div>
         </section>
         
+
+        <SiteSearch items={siteSearchItems} />
 
         <section
           className="section-shell related-services"

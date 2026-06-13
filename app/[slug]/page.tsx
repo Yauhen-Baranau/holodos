@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { SiteSearch } from "../search";
 import {
   address,
   email,
@@ -10,6 +11,7 @@ import {
   popularServices,
   servicePages,
   siteName,
+  siteSearchItems,
   siteUrl,
 } from "../site-data";
 
@@ -150,7 +152,7 @@ export default async function ServiceRoute({ params }: Props) {
           <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
           <Link title="О нас" href="/O-nas/">О нас</Link>
         </nav>
-        <a title={phoneHref} className="header-phone" href={phoneHref}>
+        <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>
           {phoneDisplay}
         </a>
       </header>
@@ -161,16 +163,16 @@ export default async function ServiceRoute({ params }: Props) {
           aria-labelledby="service-title"
         >
           <div className="inner-hero__content">
-            <div className="breadcrumbs" aria-label="Хлебные крошки">
+            <nav className="breadcrumbs" aria-label="Хлебные крошки">
               <Link title="на главную" href="/">Главная</Link>
               <span>/</span>
-              <span>{page.menuTitle}</span>
-            </div>
+              <span aria-current="page">{page.menuTitle}</span>
+            </nav>
             <p className="eyebrow">{page.eyebrow}</p>
             <h1 id="service-title">{page.menuTitle}</h1>
             <p className="hero__lead">{page.lead}</p>
             <div className="hero__actions">
-              <a title={phoneHref} className="button button--primary" href={phoneHref}>
+              <a title="Вызвать мастера" className="button button--primary" href={phoneHref}>
                 Вызвать мастера
               </a>
               <a title="Подробнее" className="button button--secondary" href="#details">
@@ -195,11 +197,13 @@ export default async function ServiceRoute({ params }: Props) {
                 <dd>Минск</dd>
               </div>
             </dl>
-            <a title={phoneHref} className="service-summary__phone" href={phoneHref}>
+            <a title="Позвонить мастеру" className="service-summary__phone" href={phoneHref}>
               {phoneDisplay}
             </a>
           </aside>
         </section>
+
+        <SiteSearch items={siteSearchItems} />
 
         <section
           className="section-shell symptoms"
@@ -325,7 +329,7 @@ export default async function ServiceRoute({ params }: Props) {
               Позвоните — подскажем ближайшее время выезда мастера
             </h2>
           </div>
-          <a title={phoneHref} className="button button--light" href={phoneHref}>
+          <a title="Позвонить мастеру" className="button button--light" href={phoneHref}>
             {phoneDisplay}
           </a>
         </section>
@@ -339,7 +343,7 @@ export default async function ServiceRoute({ params }: Props) {
             морозильные камеры на дому.
           </p>
         </div>
-        <a href={`mailto:${email}`}>{email}</a>
+        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
       </footer>
     </>
   );

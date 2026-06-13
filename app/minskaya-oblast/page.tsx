@@ -111,17 +111,17 @@ export default function MinskRegionPage() {
       />
 
       <header className="site-header">
-        <Link className="logo" href="/" aria-label="Холодос — на главную">
+        <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
           <span>{siteName}</span>
         </Link>
         <nav className="site-nav" aria-label="Основная навигация">
-          <Link href="/#services">Услуги</Link>
-          <Link href="/masterskaya/">Мастерская</Link>
-          <Link href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-          <Link href="/O-nas/">О нас</Link>
+          <Link title="Услуги" href="/#services">Услуги</Link>
+          <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
+          <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
+          <Link title="О нас" href="/O-nas/">О нас</Link>
         </nav>
-        <a className="header-phone" href={phoneHref}>
+        <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
           {phoneDisplay}
         </a>
       </header>
@@ -132,19 +132,19 @@ export default function MinskRegionPage() {
           aria-labelledby="region-title"
         >
           <div className="inner-hero__content">
-            <div className="breadcrumbs" aria-label="Хлебные крошки">
-              <Link href="/">Главная</Link>
+            <nav className="breadcrumbs" aria-label="Хлебные крошки">
+              <Link title="На главную" href="/">Главная</Link>
               <span>/</span>
-              <span>{minskRegionClusterPage.menuTitle}</span>
-            </div>
+              <span aria-current="page">{minskRegionClusterPage.menuTitle}</span>
+            </nav>
             <p className="eyebrow">{minskRegionClusterPage.eyebrow}</p>
             <h1 id="region-title">{minskRegionClusterPage.menuTitle}</h1>
             <p className="hero__lead">{minskRegionClusterPage.lead}</p>
             <div className="hero__actions">
-              <a className="button button--primary" href={phoneHref}>
+              <a className="button button--primary" title="Вызвать мастера" href={phoneHref}>
                 Вызвать мастера
               </a>
-              <a className="button button--secondary" href="#cities">
+              <a className="button button--secondary" title="Смотреть города" href="#cities">
                 Выбрать населенный пункт
               </a>
             </div>
@@ -168,7 +168,7 @@ export default function MinskRegionPage() {
                 <dd>Минская область</dd>
               </div>
             </dl>
-            <a className="service-summary__phone" href={phoneHref}>
+            <a className="service-summary__phone" title="Позвонить мастеру" href={phoneHref}>
               {phoneDisplay}
             </a>
           </aside>
@@ -215,6 +215,7 @@ export default function MinskRegionPage() {
                 className="related-card"
                 href={`/${service.slug}/`}
                 key={service.slug}
+                title={service.menuTitle}
               >
                 <span>{service.menuTitle}</span>
                 <strong>{service.price}</strong>
@@ -305,7 +306,7 @@ export default function MinskRegionPage() {
               Позвоните — подскажем ближайшее время выезда по области
             </h2>
           </div>
-          <a className="button button--light" href={phoneHref}>
+          <a className="button button--light" title="Позвонить мастеру" href={phoneHref}>
             {phoneDisplay}
           </a>
         </section>
@@ -319,7 +320,7 @@ export default function MinskRegionPage() {
             морозильные камеры на дому.
           </p>
         </div>
-        <a href={`mailto:${email}`}>{email}</a>
+        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
       </footer>
     </>
   );
