@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 
 export type SearchItem = {
   slug: string;
+  href: string;
   title: string;
   description: string;
   price: string;
@@ -80,7 +81,7 @@ export function SiteSearch({ items }: SiteSearchProps) {
           {results.map(({ item }) => (
             <Link
               className="site-search__result"
-              href={`/${item.slug}/`}
+              href={item.href}
               key={item.slug}
               title={item.title}
             >

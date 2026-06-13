@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ServiceNavigation } from "../service-navigation";
 import {
   address,
   email,
+  getServiceHref,
   minskRegionClusterPage,
   minskRegionServicePages,
   phoneDisplay,
@@ -115,12 +117,7 @@ export default function MinskRegionPage() {
           <span className="logo__icon">❄</span>
           <span>{siteName}</span>
         </Link>
-        <nav className="site-nav" aria-label="Основная навигация">
-          <Link title="Услуги" href="/#services">Услуги</Link>
-          <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
-          <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-          <Link title="О нас" href="/O-nas/">О нас</Link>
-        </nav>
+        <ServiceNavigation />
         <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
           {phoneDisplay}
         </a>
@@ -213,7 +210,7 @@ export default function MinskRegionPage() {
             {minskRegionServicePages.map((service) => (
               <Link
                 className="related-card"
-                href={`/${service.slug}/`}
+                href={getServiceHref(service)}
                 key={service.slug}
                 title={service.menuTitle}
               >

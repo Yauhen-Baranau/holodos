@@ -1,23 +1,50 @@
 import Link from "next/link";
+import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import {
-  businessServicePages,
   phoneDisplay,
   phoneHref,
-  problemPages,
-  repairServicePages,
+  serviceClusters,
   siteSearchItems,
   siteUrl,
 } from "./site-data";
 
-const ignoredSlugs = ["O-nas", "masterskaya"];
-const homeServicePages = [
-  ...repairServicePages.filter(
-    (service) => !ignoredSlugs.includes(service.slug),
-  )];
-const homeProblemPages = problemPages;
-const homeBusinessPages = businessServicePages;
+
+const categoryTiles = [
+  {
+    href: `/${serviceClusters.services.slug}/`,
+    title: serviceClusters.services.menuTitle,
+    eyebrow: "Работы",
+    description:
+      "Делаем диагностику, замену компрессора и термостата, ремонт No Frost, заправку фреоном и другие услуги на дому.",
+    icon: "✺",
+  },
+  {
+    href: `/${serviceClusters.problems.slug}/`,
+    title: serviceClusters.problems.menuTitle,
+    eyebrow: "Симптомы",
+    description:
+      "Решаем частые проблемы: холодильник не морозит, течет, шумит, пищит, намерзает лед или не запускается компрессор.",
+    icon: "⚠",
+  },
+  {
+    href: `/${serviceClusters.brands.slug}/`,
+    title: serviceClusters.brands.menuTitle,
+    eyebrow: "Марки",
+    description:
+      "Работаем с Atlant, Samsung, LG, Bosch, Indesit, Liebherr, Beko, Haier и другими популярными брендами.",
+    icon: "◆",
+  },
+  {
+    href: `/${serviceClusters.regions.slug}/`,
+    title: serviceClusters.regions.menuTitle,
+    eyebrow: "Выезд",
+    description:
+      "Выезжаем по Минску и Минской области: согласуем время, приезжаем с инструментом и ремонтируем холодильник на месте.",
+    icon: "⌖",
+  },
+];
 
 const services = [
   {
@@ -75,6 +102,31 @@ const faq = [
     question: "Какие бренды вы обслуживаете?",
     answer:
       "Работаем с Atlant, Bosch, Samsung, LG, Indesit, Liebherr, Beko, Haier, Stinol и другими популярными марками.",
+  },
+  {
+    question: "Что делать, если холодильник перестал морозить?",
+    answer:
+      "Отключать холодильник надолго обычно не нужно. Проверьте, закрыта ли дверь и не перекрыта ли вентиляция продуктами, затем позвоните мастеру: причина может быть в утечке фреона, датчике, термостате, вентиляторе или компрессоре.",
+  },
+  {
+    question: "Вы ремонтируете холодильники No Frost?",
+    answer:
+      "Да, обслуживаем системы No Frost: проверяем вентилятор, датчики, ТЭН оттайки, таймер, модуль управления, дренаж и обмерзание испарителя.",
+  },
+  {
+    question: "Можно ли заранее узнать точную стоимость ремонта?",
+    answer:
+      "До диагностики можно назвать только ориентир. Точную цену мастер озвучивает после проверки холодильника и согласует смету до начала работ.",
+  },
+  {
+    question: "Выезжаете ли вы за пределы Минска?",
+    answer:
+      "Да, выезжаем по Минску и ближайшим населенным пунктам Минской области. Время приезда зависит от адреса и загрузки мастеров.",
+  },
+  {
+    question: "Какая гарантия дается после ремонта?",
+    answer:
+      "Гарантия зависит от вида работ и установленных деталей. После ремонта мастер объясняет, что было сделано, и фиксирует условия гарантии.",
   },
 ];
 
@@ -146,15 +198,7 @@ export default function Home() {
           <span className="logo__icon">❄</span>
           <span>Холодос</span>
         </Link>
-        <nav className="site-nav" aria-label="Основная навигация">
-          <Link title="Услуги" href="#services">Услуги</Link>
-          <Link title="Проблемы" href="#problems">Проблемы</Link>
-          <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-          <Link title="Как работаем" href="#process">Как работаем</Link>
-          <Link title="Вопросы" href="#faq">Вопросы</Link>
-          <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
-          <Link title="О нас" href="/O-nas/">О нас</Link>
-        </nav>
+        <ServiceNavigation />
         <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
           {phoneDisplay}
         </a>
@@ -174,7 +218,7 @@ export default function Home() {
               <a className="button button--primary" title="Позвонить мастеру" href={phoneHref}>
                 Позвонить мастеру
               </a>
-              <a className="button button--secondary" title="Смотреть услуги" href="#services">
+              <a className="button button--secondary" title="Смотреть услуги" href="/services/">
                 Смотреть услуги
               </a>
               <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/minskaya-oblast">
@@ -221,96 +265,41 @@ export default function Home() {
         </section>
 
         <section
-          className="section-shell services"
-          id="problems"
-          aria-labelledby="services-title"
+          className="section-shell category-section"
+          aria-labelledby="category-title"
         >
           <div className="section-heading">
-            <p className="eyebrow">Что ремонтируем</p>
-            <h2 id="services-title">Популярные поломки холодильников</h2>
+            <p className="eyebrow">Навигация по услугам</p>
+            <h2 id="category-title">Выберите нужный раздел</h2>
             <p>
-              Показываем ориентиры по цене заранее, чтобы вам было проще принять
-              решение.
+              Вместо длинных списков на главной собрали основные направления в
+              четыре понятные плитки: услуги, симптомы, бренды и регионы выезда.
             </p>
           </div>
-          <div className="service-grid">
-            {homeProblemPages.map((problem, key) => (
-              <Link
-                className="related-card"
-                href={`/${problem.slug}/`}
-                key={key}
-                title={problem.menuTitle}
-              >
-                <div className="service-card__icon" aria-hidden="true">✺</div>
-                <h3 className="titleProblem">{problem.menuTitle}</h3>
-                <ul className="problrms_list">
-                  {problem.symptoms.map((symptom) => (
-                    <li key={symptom}>{symptom}</li>
-                  ))}
-                </ul>
-                <strong>{problem.price}</strong>
-              </Link>
-            ))}
-          </div>
+          <nav aria-label="Разделы услуг">
+            <ul className="category-grid">
+              {categoryTiles.map((tile) => (
+                <li key={tile.href}>
+                  <Link
+                    className="category-tile"
+                    href={tile.href}
+                    title={tile.title}
+                  >
+                    <span className="category-tile__icon" aria-hidden="true">
+                      {tile.icon}
+                    </span>
+                    <span className="eyebrow">{tile.eyebrow}</span>
+                    <h3>{tile.title}</h3>
+                    <p>{tile.description}</p>
+                    <strong>Перейти в раздел →</strong>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </section>
-        
 
         <SiteSearch items={siteSearchItems} />
-
-        <section
-          className="section-shell related-services"
-          aria-labelledby="all-services-title"
-          id="services"
-        >
-          <div className="section-heading">
-            <p className="eyebrow">Услуги</p>
-            <h2 id="all-services-title">Работы и сервисные направления</h2>
-          </div>
-          <div className="related-grid related-grid--wide">
-            {homeServicePages.map((service) => (
-              <Link
-                className="related-card"
-                href={`/${service.slug}/`}
-                key={service.slug}
-                title={service.menuTitle}
-              >
-                <span>{service.menuTitle}</span>
-                <strong>{service.price}</strong>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section
-          className="section-shell related-services"
-          id="business"
-          aria-labelledby="business-services-title"
-        >
-          <div className="section-heading">
-            <p className="eyebrow">Для организаций</p>
-            <h2 id="business-services-title">
-              Ремонт и обслуживание по безналичному расчету
-            </h2>
-            <p>
-              Отдельное направление для юридических лиц, офисов, магазинов и
-              организаций: диагностика, ремонт, обслуживание, гарантия и
-              документы для оплаты по безналу.
-            </p>
-          </div>
-          <div className="related-grid related-grid--wide">
-            {homeBusinessPages.map((service) => (
-              <Link
-                className="related-card"
-                href={`/${service.slug}/`}
-                key={service.slug}
-                title={service.menuTitle}
-              >
-                <span>{service.menuTitle}</span>
-                <strong>{service.price}</strong>
-              </Link>
-            ))}
-          </div>
-        </section>
 
         <section
           className="section-shell process"
