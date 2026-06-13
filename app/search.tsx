@@ -1,76 +1,62 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Link from "next/link";
-import type { ServicePage } from "./site-data";
+import { useMemo, useState } from "react";
 
-type SiteSearchProps = {
-  pages: ServicePage[];
+export type SearchItem = {
+  slug: string;
+  title: string;
+  description: string;
+  price: string;
+  searchText: string;
+  titleSearchText: string;
 };
 
-function createSearchIndex(page: ServicePage) {
-  return [
-    page.title,
-    page.menuTitle,
-    page.description,
-    page.lead,
-    page.price,
-    page.duration,
-    page.badge,
-    ...page.symptoms,
-    ...page.sections.flatMap((section) => [
-      section.title,
-      section.body,
-      ...(section.bullets ?? []),
-    ]),
-    ...page.faq.flatMap((item) => [item.question, item.answer]),
-  ]
-    .join(" ")
-    .toLowerCase();
+type SiteSearchProps = {
+  items: SearchItem[];
+};
+
+function getSearchWords(query: string) {
+  return query.trim().toLowerCase().split(/\s+/).filter(Boolean);
 }
 
-export function SiteSearch({ pages }: SiteSearchProps) {
-  const [query, setQuery] = useState("");
-  const normalizedQuery = query.trim().toLowerCase();
+function getSearchScore(item: SearchItem, words: string[]) {
+  return words.reduce((total, word) => {
+    if (!item.searchText.includes(word)) {
+      return total;
+    }
 
-  const indexedPages = useMemo(
-    () =>
-      pages.map((page) => ({
-        page,
-        searchText: createSearchIndex(page),
-      })),
-    [pages],
-  );
+    return total + (item.titleSearchText.includes(word) ? 3 : 1);
+  }, 0);
+}
+
+export function SiteSearch({ items }: SiteSearchProps) {
+  const [query, setQuery] = useState("");
+  const words = useMemo(() => getSearchWords(query), [query]);
+  const searchLength = words.join("").length;
 
   const results = useMemo(() => {
-    if (normalizedQuery.length < 2) {
+    if (searchLength < 2) {
       return [];
     }
 
-    const words = normalizedQuery.split(/\s+/).filter(Boolean);
-
-    return indexedPages
-      .map(({ page, searchText }) => {
-        const score = words.reduce((total, word) => {
-          if (!searchText.includes(word)) {
-            return total;
-          }
-
-          const title = `${page.title} ${page.menuTitle}`.toLowerCase();
-          return total + (title.includes(word) ? 3 : 1);
-        }, 0);
-
-        return { page, score };
-      })
-      .filter((item) => item.score > 0)
+    return items
+      .map((item) => ({
+        item,
+        score: getSearchScore(item, words),
+      }))
+      .filter((result) => result.score > 0)
       .sort((first, second) => second.score - first.score)
       .slice(0, 10);
-  }, [indexedPages, normalizedQuery]);
+  }, [items, searchLength, words]);
 
-  const shouldShowEmpty = normalizedQuery.length >= 2 && results.length === 0;
+  const shouldShowEmpty = searchLength >= 2 && results.length === 0;
 
   return (
-    <section className="site-search section-shell" aria-labelledby="site-search-title">
+    <section
+      className="site-search section-shell"
+      aria-labelledby="site-search-title"
+    >
       <div className="site-search__panel">
         <div className="site-search__heading">
           <p className="eyebrow">Поиск по сайту</p>
@@ -91,16 +77,16 @@ export function SiteSearch({ pages }: SiteSearchProps) {
           />
         </label>
         <div className="site-search__results" aria-live="polite">
-          {results.map(({ page }) => (
+          {results.map(({ item }) => (
             <Link
               className="site-search__result"
-              href={`/${page.slug}/`}
-              key={page.slug}
-              title={page.menuTitle}
+              href={`/${item.slug}/`}
+              key={item.slug}
+              title={item.title}
             >
-              <span>{page.menuTitle}</span>
-              <small>{page.description}</small>
-              <strong>{page.price}</strong>
+              <span>{item.title}</span>
+              <small>{item.description}</small>
+              <strong>{item.price}</strong>
             </Link>
           ))}
           {shouldShowEmpty ? (

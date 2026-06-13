@@ -60,25 +60,27 @@ function createBrandServicePage({
   };
 }
 
-export const brandServicePages: ServicePage[] = [
-  createBrandServicePage({ slug: "remont-atlant", brand: "Atlant", badge: "Atlant / Атлант" }),
-  createBrandServicePage({ slug: "remont-samsung", brand: "Samsung" }),
-  createBrandServicePage({ slug: "remont-lg", brand: "LG" }),
-  createBrandServicePage({ slug: "remont-indesit", brand: "Indesit" }),
-  createBrandServicePage({ slug: "remont-bosch", brand: "Bosch" }),
-  createBrandServicePage({ slug: "remont-liebherr", brand: "Liebherr" }),
-  createBrandServicePage({ slug: "remont-beko", brand: "Beko" }),
-  createBrandServicePage({ slug: "remont-haier", brand: "Haier" }),
-  createBrandServicePage({ slug: "remont-stinol", brand: "Stinol" }),
-  createBrandServicePage({ slug: "remont-gorenje", brand: "Gorenje" }),
-  createBrandServicePage({ slug: "remont-electrolux", brand: "Electrolux" }),
-  createBrandServicePage({ slug: "remont-whirlpool", brand: "Whirlpool" }),
-  createBrandServicePage({ slug: "remont-zanussi", brand: "Zanussi" }),
-  createBrandServicePage({ slug: "remont-candy", brand: "Candy" }),
-  createBrandServicePage({ slug: "remont-vestfrost", brand: "Vestfrost" }),
-  createBrandServicePage({ slug: "remont-shivaki", brand: "Shivaki" }),
-  createBrandServicePage({ slug: "remont-nord", brand: "Nord" }),
-  createBrandServicePage({ slug: "remont-snaige", brand: "Snaige" }),
-  createBrandServicePage({ slug: "remont-daewoo", brand: "Daewoo" }),
-  createBrandServicePage({ slug: "remont-midea", brand: "Midea" }),
+const brands: BrandServicePageInput[] = [
+  { slug: "remont-atlant", brand: "Atlant", badge: "Atlant / Атлант" },
+  { slug: "remont-samsung", brand: "Samsung" },
+  { slug: "remont-lg", brand: "LG" },
+  { slug: "remont-indesit", brand: "Indesit" },
+  { slug: "remont-bosch", brand: "Bosch" },
+  { slug: "remont-liebherr", brand: "Liebherr" },
+  { slug: "remont-beko", brand: "Beko" },
+  { slug: "remont-haier", brand: "Haier" },
+  { slug: "remont-stinol", brand: "Stinol" },
+  { slug: "remont-gorenje", brand: "Gorenje" },
+  { slug: "remont-electrolux", brand: "Electrolux" },
+  { slug: "remont-whirlpool", brand: "Whirlpool" },
+  { slug: "remont-zanussi", brand: "Zanussi" },
+  { slug: "remont-candy", brand: "Candy" },
+  { slug: "remont-vestfrost", brand: "Vestfrost" },
+  { slug: "remont-shivaki", brand: "Shivaki" },
+  { slug: "remont-nord", brand: "Nord" },
+  { slug: "remont-snaige", brand: "Snaige" },
+  { slug: "remont-daewoo", brand: "Daewoo" },
+  { slug: "remont-midea", brand: "Midea" },
 ];
+
+export const brandServicePages: ServicePage[] = brands.map(createBrandServicePage);

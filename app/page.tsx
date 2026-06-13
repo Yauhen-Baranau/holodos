@@ -6,7 +6,7 @@ import {
   phoneHref,
   problemPages,
   repairServicePages,
-  servicePages,
+  siteSearchItems,
   siteUrl,
 } from "./site-data";
 
@@ -259,7 +259,7 @@ export default function Home() {
         </section>
         
 
-        <SiteSearch pages={servicePages} />
+        <SiteSearch items={siteSearchItems} />
 
         <section
           className="section-shell related-services"

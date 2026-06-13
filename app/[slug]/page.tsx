@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SiteSearch } from "../search";
 import { notFound } from "next/navigation";
+import { SiteSearch } from "../search";
 import {
   address,
   email,
@@ -11,6 +11,7 @@ import {
   popularServices,
   servicePages,
   siteName,
+  siteSearchItems,
   siteUrl,
 } from "../site-data";
 
@@ -202,7 +203,7 @@ export default async function ServiceRoute({ params }: Props) {
           </aside>
         </section>
 
-        <SiteSearch pages={servicePages} />
+        <SiteSearch items={siteSearchItems} />
 
         <section
           className="section-shell symptoms"
