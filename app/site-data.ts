@@ -14,6 +14,7 @@ import { targetedServicePages } from "./_data/targeted-service-pages";
 import type { SearchItem } from "./search";
 
 const businessPageSlugs = ["remont-po-beznalichnomu-raschetu"];
+const standalonePageSlugs = ["O-nas", "masterskaya"];
 
 export const baseRepairServicePages = baseServicePages;
 export const brandRepairServicePages = brandServicePages;
@@ -39,7 +40,7 @@ export const serviceClusters = {
     lead: "Собрали основные сервисные направления в отдельном разделе: выбирайте нужную услугу и смотрите цену, сроки, симптомы и порядок работ без перехода по якорям на главной.",
     intro: "В этом разделе находятся работы, которые чаще всего нужны владельцам холодильников: от срочного выезда мастера до сложного ремонта контура охлаждения и электроники. Каждая страница раскрывает признаки неисправности, ориентировочную стоимость и этапы ремонта.",
     highlights: ["диагностика перед ремонтом", "ремонт на дому по Минску", "цены и сроки по каждой услуге"],
-    pages: baseServicePages,
+    pages: baseServicePages.filter((page) => !standalonePageSlugs.includes(page.slug)),
   },
   brands: {
     slug: "brands",

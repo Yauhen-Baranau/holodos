@@ -1,15 +1,49 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+
+const navigationItems = [
+  { title: "Услуги", href: "/services/" },
+  { title: "Проблемы", href: "/problems/" },
+  { title: "Бренды", href: "/brands/" },
+  { title: "Регионы", href: "/regions/" },
+  { title: "Мастерская", href: "/masterskaya/" },
+  { title: "Безнал", href: "/remont-po-beznalichnomu-raschetu/" },
+  { title: "О нас", href: "/O-nas/" },
+];
 
 export function ServiceNavigation() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="site-nav" aria-label="Основная навигация">
-      <Link title="Услуги" href="/services/">Услуги</Link>
-      <Link title="Проблемы" href="/problems/">Проблемы</Link>
-      <Link title="Бренды" href="/brands/">Бренды</Link>
-      <Link title="Регионы" href="/regions/">Регионы</Link>
-      <Link title="Мастерская" href="/services/masterskaya/">Мастерская</Link>
-      <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-      <Link title="О нас" href="/services/O-nas/">О нас</Link>
-    </nav>
+    <>
+      <button
+        className="menu-toggle"
+        type="button"
+        aria-controls="site-navigation"
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((current) => !current)}
+      >
+        <span aria-hidden="true">☰</span>
+        Меню
+      </button>
+      <nav
+        className={isOpen ? "site-nav site-nav--open" : "site-nav"}
+        id="site-navigation"
+        aria-label="Основная навигация"
+      >
+        {navigationItems.map((item) => (
+          <Link
+            title={item.title}
+            href={item.href}
+            key={item.href}
+            onClick={() => setIsOpen(false)}
+          >
+            {item.title}
+          </Link>
+        ))}
+      </nav>
+    </>
   );
 }
