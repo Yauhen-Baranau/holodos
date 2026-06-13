@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { SiteSearch } from "./search";
 import {
   businessServicePages,
   phoneDisplay,
   phoneHref,
   problemPages,
   repairServicePages,
+  servicePages,
   siteUrl,
 } from "./site-data";
 
@@ -256,6 +258,8 @@ export default function Home() {
           </div>
         </section>
         
+
+        <SiteSearch pages={servicePages} />
 
         <section
           className="section-shell related-services"
