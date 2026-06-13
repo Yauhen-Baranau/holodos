@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteSearch } from "./search";
+import { HeroFridgeIllustration, ServiceVectorIcon } from "./vector-art";
 import {
   businessServicePages,
   phoneDisplay,
@@ -198,14 +199,7 @@ export default function Home() {
 
           <div className="hero-card" aria-label="Карточка вызова мастера">
             <div className="hero-card__badge">Сегодня есть окна</div>
-            <div className="fridge-illustration" aria-hidden="true">
-              <div className="fridge-illustration__body">
-                <span className="fridge-illustration__snow">✦</span>
-                <span className="fridge-illustration__line" />
-                <span className="fridge-illustration__handle" />
-              </div>
-              <div className="fridge-illustration__tool">✓</div>
-            </div>
+            <HeroFridgeIllustration />
             <h2>Диагностика перед ремонтом</h2>
             <p>
               Сначала находим причину поломки, затем согласуем цену и только
@@ -247,10 +241,14 @@ export default function Home() {
                 key={key}
                 title={problem.menuTitle}
               >
-                <div className="service-card__icon">✺</div>
+                <div className="service-card__icon">
+                  <ServiceVectorIcon variant={key} />
+                </div>
                 <h3 className="titleProblem">{problem.menuTitle}</h3>
                 <ul className="problrms_list">
-                  {problem.symptoms.map((symptom, index) => (<li key={index}>{symptom}</li>))}
+                  {problem.symptoms.map((symptom) => (
+                    <li key={symptom}>{symptom}</li>
+                  ))}
                 </ul>
                 <strong>{problem.price}</strong>
               </Link>
