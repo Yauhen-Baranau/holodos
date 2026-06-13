@@ -132,11 +132,11 @@ export default function MinskRegionPage() {
           aria-labelledby="region-title"
         >
           <div className="inner-hero__content">
-            <div className="breadcrumbs" aria-label="Хлебные крошки">
+            <nav className="breadcrumbs" aria-label="Хлебные крошки">
               <Link title="На главную" href="/">Главная</Link>
               <span>/</span>
-              <span>{minskRegionClusterPage.menuTitle}</span>
-            </div>
+              <span aria-current="page">{minskRegionClusterPage.menuTitle}</span>
+            </nav>
             <p className="eyebrow">{minskRegionClusterPage.eyebrow}</p>
             <h1 id="region-title">{minskRegionClusterPage.menuTitle}</h1>
             <p className="hero__lead">{minskRegionClusterPage.lead}</p>

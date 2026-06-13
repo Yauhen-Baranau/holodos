@@ -163,11 +163,11 @@ export default async function ServiceRoute({ params }: Props) {
           aria-labelledby="service-title"
         >
           <div className="inner-hero__content">
-            <div className="breadcrumbs" aria-label="Хлебные крошки">
+            <nav className="breadcrumbs" aria-label="Хлебные крошки">
               <Link title="на главную" href="/">Главная</Link>
               <span>/</span>
-              <span>{page.menuTitle}</span>
-            </div>
+              <span aria-current="page">{page.menuTitle}</span>
+            </nav>
             <p className="eyebrow">{page.eyebrow}</p>
             <h1 id="service-title">{page.menuTitle}</h1>
             <p className="hero__lead">{page.lead}</p>

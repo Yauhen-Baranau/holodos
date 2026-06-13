@@ -111,7 +111,7 @@ const jsonLd = {
     description: service.description,
     priceSpecification: {
       "@type": "PriceSpecification",
-      priceCurrency: "RUB",
+      priceCurrency: "BYN",
       description: service.price,
     },
   })),
@@ -142,10 +142,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <header className="site-header">
-        <a className="logo" title="на верх" href="#top" aria-label="Холодос — на главную">
+        <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
           <span>Холодос</span>
-        </a>
+        </Link>
         <nav className="site-nav" aria-label="Основная навигация">
           <Link title="Услуги" href="#services">Услуги</Link>
           <Link title="Проблемы" href="#problems">Проблемы</Link>
@@ -163,8 +163,8 @@ export default function Home() {
       <main id="top">
         <section className="hero section-shell" aria-labelledby="hero-title">
           <div className="hero__content">
-            <h1 id="hero-title">Ремонт холодильников в Минске</h1>
             <p className="eyebrow">Бесплатный выезд по Минску от 30 мин</p>
+            <h1 id="hero-title">Ремонт холодильников в Минске</h1>
             <p className="hero__lead">
               Срочно починим холодильник, морозильную камеру или винный шкаф.
               Мастер приедет с инструментами и популярными деталями, аккуратно
