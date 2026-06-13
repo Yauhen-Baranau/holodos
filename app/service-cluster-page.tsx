@@ -77,14 +77,16 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
             <h2 id="cluster-services-title">{cluster.menuTitle}</h2>
             <p>{cluster.description}</p>
           </div>
-          <div className="related-grid related-grid--wide">
+          <ul className="related-grid related-grid--wide">
             {cluster.pages.map((service) => (
-              <Link className="related-card" href={getServiceHref(service)} key={service.slug} title={service.menuTitle}>
-                <span>{service.menuTitle}</span>
-                <strong>{service.price}</strong>
-              </Link>
+              <li key={service.slug}>
+                <Link className="related-card" href={getServiceHref(service)} title={service.menuTitle}>
+                  <span>{service.menuTitle}</span>
+                  <strong>{service.price}</strong>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       </main>
       <footer className="site-footer"><strong>{siteName}</strong><a title="Написать на email" href={`mailto:${email}`}>{email}</a></footer>

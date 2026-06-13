@@ -276,24 +276,27 @@ export default function Home() {
               четыре понятные плитки: услуги, симптомы, бренды и регионы выезда.
             </p>
           </div>
-          <div className="category-grid">
-            {categoryTiles.map((tile) => (
-              <Link
-                className="category-tile"
-                href={tile.href}
-                key={tile.href}
-                title={tile.title}
-              >
-                <span className="category-tile__icon" aria-hidden="true">
-                  {tile.icon}
-                </span>
-                <span className="eyebrow">{tile.eyebrow}</span>
-                <h3>{tile.title}</h3>
-                <p>{tile.description}</p>
-                <strong>Перейти в раздел →</strong>
-              </Link>
-            ))}
-          </div>
+          <nav aria-label="Разделы услуг">
+            <ul className="category-grid">
+              {categoryTiles.map((tile) => (
+                <li key={tile.href}>
+                  <Link
+                    className="category-tile"
+                    href={tile.href}
+                    title={tile.title}
+                  >
+                    <span className="category-tile__icon" aria-hidden="true">
+                      {tile.icon}
+                    </span>
+                    <span className="eyebrow">{tile.eyebrow}</span>
+                    <h3>{tile.title}</h3>
+                    <p>{tile.description}</p>
+                    <strong>Перейти в раздел →</strong>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </section>
 
         <SiteSearch items={siteSearchItems} />
