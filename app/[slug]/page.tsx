@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ServiceNavigation } from "../service-navigation";
 import { notFound } from "next/navigation";
 import { SiteSearch } from "../search";
 import {
   address,
   email,
+  getServiceClusterForPage,
+  getServiceHref,
   getServicePage,
   phoneDisplay,
   phoneHref,
@@ -37,12 +40,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: page.title,
     description: page.description,
     alternates: {
-      canonical: `/${page.slug}`,
+      canonical: getServiceHref(page),
     },
     openGraph: {
       title: `${page.title} — ${siteName}`,
       description: page.description,
-      url: `/${page.slug}`,
+      url: getServiceHref(page),
       type: "website",
       images: [
         {
@@ -70,7 +73,8 @@ export default async function ServiceRoute({ params }: Props) {
     return notFound();
   }
 
-  const canonicalUrl = `${siteUrl}/${page.slug}/`;
+  const cluster = getServiceClusterForPage(page);
+  const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -146,12 +150,7 @@ export default async function ServiceRoute({ params }: Props) {
           <span className="logo__icon">❄</span>
           <span>{siteName}</span>
         </Link>
-        <nav className="site-nav" aria-label="Основная навигация">
-          <Link title="Услуги" href="/#services">Услуги</Link>
-          <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
-          <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-          <Link title="О нас" href="/O-nas/">О нас</Link>
-        </nav>
+        <ServiceNavigation />
         <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>
           {phoneDisplay}
         </a>
@@ -166,6 +165,14 @@ export default async function ServiceRoute({ params }: Props) {
             <nav className="breadcrumbs" aria-label="Хлебные крошки">
               <Link title="на главную" href="/">Главная</Link>
               <span>/</span>
+              {cluster ? (
+                <>
+                  <Link title={cluster.menuTitle} href={`/${cluster.slug}/`}>
+                    {cluster.menuTitle}
+                  </Link>
+                  <span>/</span>
+                </>
+              ) : null}
               <span aria-current="page">{page.menuTitle}</span>
             </nav>
             <p className="eyebrow">{page.eyebrow}</p>
@@ -293,7 +300,7 @@ export default async function ServiceRoute({ params }: Props) {
                 <Link
                   title={service.menuTitle}
                   className="related-card"
-                  href={`/${service.slug}/`}
+                  href={getServiceHref(service)}
                   key={service.slug}
                 >
                   <span>{service.menuTitle}</span>

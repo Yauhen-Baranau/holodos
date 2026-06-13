@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import {
   businessServicePages,
+  getServiceHref,
   phoneDisplay,
   phoneHref,
   problemPages,
@@ -146,15 +148,7 @@ export default function Home() {
           <span className="logo__icon">❄</span>
           <span>Холодос</span>
         </Link>
-        <nav className="site-nav" aria-label="Основная навигация">
-          <Link title="Услуги" href="#services">Услуги</Link>
-          <Link title="Проблемы" href="#problems">Проблемы</Link>
-          <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
-          <Link title="Как работаем" href="#process">Как работаем</Link>
-          <Link title="Вопросы" href="#faq">Вопросы</Link>
-          <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
-          <Link title="О нас" href="/O-nas/">О нас</Link>
-        </nav>
+        <ServiceNavigation />
         <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
           {phoneDisplay}
         </a>
@@ -174,7 +168,7 @@ export default function Home() {
               <a className="button button--primary" title="Позвонить мастеру" href={phoneHref}>
                 Позвонить мастеру
               </a>
-              <a className="button button--secondary" title="Смотреть услуги" href="#services">
+              <a className="button button--secondary" title="Смотреть услуги" href="/services/">
                 Смотреть услуги
               </a>
               <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/minskaya-oblast">
@@ -237,7 +231,7 @@ export default function Home() {
             {homeProblemPages.map((problem, key) => (
               <Link
                 className="related-card"
-                href={`/${problem.slug}/`}
+                href={getServiceHref(problem)}
                 key={key}
                 title={problem.menuTitle}
               >
@@ -270,7 +264,7 @@ export default function Home() {
             {homeServicePages.map((service) => (
               <Link
                 className="related-card"
-                href={`/${service.slug}/`}
+                href={getServiceHref(service)}
                 key={service.slug}
                 title={service.menuTitle}
               >
@@ -301,7 +295,7 @@ export default function Home() {
             {homeBusinessPages.map((service) => (
               <Link
                 className="related-card"
-                href={`/${service.slug}/`}
+                href={getServiceHref(service)}
                 key={service.slug}
                 title={service.menuTitle}
               >
