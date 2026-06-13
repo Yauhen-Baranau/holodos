@@ -1,7 +1,3 @@
-type ServiceVectorIconProps = {
-  variant: number;
-};
-
 export function HeroFridgeIllustration() {
   return (
     <svg
@@ -46,28 +42,6 @@ export function HeroFridgeIllustration() {
       />
       <circle className="hero-vector__dot hero-vector__dot--left" cx="66" cy="76" r="9" />
       <circle className="hero-vector__dot hero-vector__dot--right" cx="255" cy="58" r="7" />
-    </svg>
-  );
-}
-
-export function ServiceVectorIcon({ variant }: ServiceVectorIconProps) {
-  const icon = variant % 4;
-
-  return (
-    <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-      <rect x="5" y="5" width="38" height="38" rx="14" />
-      {icon === 0 ? (
-        <path d="M18 15v18M30 15v18M15 24h18M18 18l12 12M30 18 18 30" />
-      ) : null}
-      {icon === 1 ? (
-        <path d="M15 17h18v14H15zM19 31v4M29 31v4M19 22h10" />
-      ) : null}
-      {icon === 2 ? (
-        <path d="M16 28c5-10 11-10 16 0M17 32h14M20 18h8l4 5H16l4-5Z" />
-      ) : null}
-      {icon === 3 ? (
-        <path d="M16 17h16M18 17l2 18h8l2-18M21 22h6M22 27h4" />
-      ) : null}
     </svg>
   );
 }

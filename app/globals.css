@@ -958,20 +958,31 @@ details p {
   fill: #67e8f9;
 }
 
-.service-card__icon svg {
-  display: block;
-  width: 46px;
-  height: 46px;
+.service-card__icon {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(15, 118, 110, 0.22);
+  font-size: 26px;
+  line-height: 1;
 }
 
-.service-card__icon rect {
-  fill: rgba(255, 255, 255, 0.16);
+.service-card__icon::before {
+  position: absolute;
+  inset: 7px;
+  z-index: -1;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 12px;
+  content: "";
 }
 
-.service-card__icon path {
-  fill: none;
-  stroke: white;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.service-card__icon::after {
+  position: absolute;
+  right: -10px;
+  bottom: -14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  content: "";
 }

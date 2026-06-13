@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: "/",
     siteName,
-    title: "Ремонт холодильников в Минске с выездом на дом, ценые — Холодос",
+    title: "Ремонт холодильников в Минске с выездом на дом, цены — Холодос",
     description,
     images: [
       {

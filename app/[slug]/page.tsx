@@ -152,7 +152,7 @@ export default async function ServiceRoute({ params }: Props) {
           <Link title="Безнал" href="/remont-po-beznalichnomu-raschetu/">Безнал</Link>
           <Link title="О нас" href="/O-nas/">О нас</Link>
         </nav>
-        <a title={phoneHref} className="header-phone" href={phoneHref}>
+        <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>
           {phoneDisplay}
         </a>
       </header>
@@ -172,7 +172,7 @@ export default async function ServiceRoute({ params }: Props) {
             <h1 id="service-title">{page.menuTitle}</h1>
             <p className="hero__lead">{page.lead}</p>
             <div className="hero__actions">
-              <a title={phoneHref} className="button button--primary" href={phoneHref}>
+              <a title="Вызвать мастера" className="button button--primary" href={phoneHref}>
                 Вызвать мастера
               </a>
               <a title="Подробнее" className="button button--secondary" href="#details">
@@ -197,7 +197,7 @@ export default async function ServiceRoute({ params }: Props) {
                 <dd>Минск</dd>
               </div>
             </dl>
-            <a title={phoneHref} className="service-summary__phone" href={phoneHref}>
+            <a title="Позвонить мастеру" className="service-summary__phone" href={phoneHref}>
               {phoneDisplay}
             </a>
           </aside>
@@ -329,7 +329,7 @@ export default async function ServiceRoute({ params }: Props) {
               Позвоните — подскажем ближайшее время выезда мастера
             </h2>
           </div>
-          <a title={phoneHref} className="button button--light" href={phoneHref}>
+          <a title="Позвонить мастеру" className="button button--light" href={phoneHref}>
             {phoneDisplay}
           </a>
         </section>
@@ -343,7 +343,7 @@ export default async function ServiceRoute({ params }: Props) {
             морозильные камеры на дому.
           </p>
         </div>
-        <a href={`mailto:${email}`}>{email}</a>
+        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
       </footer>
     </>
   );

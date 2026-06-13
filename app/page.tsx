@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SiteSearch } from "./search";
-import { HeroFridgeIllustration, ServiceVectorIcon } from "./vector-art";
+import { HeroFridgeIllustration } from "./vector-art";
 import {
   businessServicePages,
   phoneDisplay,
@@ -155,7 +155,7 @@ export default function Home() {
           <Link title="Мастерская" href="/masterskaya/">Мастерская</Link>
           <Link title="О нас" href="/O-nas/">О нас</Link>
         </nav>
-        <a className="header-phone" href={phoneHref}>
+        <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
           {phoneDisplay}
         </a>
       </header>
@@ -171,10 +171,10 @@ export default function Home() {
               проведёт диагностику и сразу предложит понятную смету.
             </p>
             <div className="hero__actions">
-              <a className="button button--primary" href={phoneHref}>
+              <a className="button button--primary" title="Позвонить мастеру" href={phoneHref}>
                 Позвонить мастеру
               </a>
-              <a className="button button--secondary" href="#services">
+              <a className="button button--secondary" title="Смотреть услуги" href="#services">
                 Смотреть услуги
               </a>
               <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/minskaya-oblast">
@@ -241,9 +241,7 @@ export default function Home() {
                 key={key}
                 title={problem.menuTitle}
               >
-                <div className="service-card__icon">
-                  <ServiceVectorIcon variant={key} />
-                </div>
+                <div className="service-card__icon" aria-hidden="true">✺</div>
                 <h3 className="titleProblem">{problem.menuTitle}</h3>
                 <ul className="problrms_list">
                   {problem.symptoms.map((symptom) => (
