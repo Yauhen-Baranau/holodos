@@ -3,23 +3,48 @@ import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import {
-  businessServicePages,
-  getServiceHref,
   phoneDisplay,
   phoneHref,
-  problemPages,
-  repairServicePages,
+  serviceClusters,
   siteSearchItems,
   siteUrl,
 } from "./site-data";
 
-const ignoredSlugs = ["O-nas", "masterskaya"];
-const homeServicePages = [
-  ...repairServicePages.filter(
-    (service) => !ignoredSlugs.includes(service.slug),
-  )];
-const homeProblemPages = problemPages;
-const homeBusinessPages = businessServicePages;
+
+const categoryTiles = [
+  {
+    href: `/${serviceClusters.services.slug}/`,
+    title: serviceClusters.services.menuTitle,
+    eyebrow: "Работы",
+    description:
+      "Делаем диагностику, замену компрессора и термостата, ремонт No Frost, заправку фреоном и другие услуги на дому.",
+    icon: "✺",
+  },
+  {
+    href: `/${serviceClusters.problems.slug}/`,
+    title: serviceClusters.problems.menuTitle,
+    eyebrow: "Симптомы",
+    description:
+      "Решаем частые проблемы: холодильник не морозит, течет, шумит, пищит, намерзает лед или не запускается компрессор.",
+    icon: "⚠",
+  },
+  {
+    href: `/${serviceClusters.brands.slug}/`,
+    title: serviceClusters.brands.menuTitle,
+    eyebrow: "Марки",
+    description:
+      "Работаем с Atlant, Samsung, LG, Bosch, Indesit, Liebherr, Beko, Haier и другими популярными брендами.",
+    icon: "◆",
+  },
+  {
+    href: `/${serviceClusters.regions.slug}/`,
+    title: serviceClusters.regions.menuTitle,
+    eyebrow: "Выезд",
+    description:
+      "Выезжаем по Минску и Минской области: согласуем время, приезжаем с инструментом и ремонтируем холодильник на месте.",
+    icon: "⌖",
+  },
+];
 
 const services = [
   {
@@ -215,96 +240,38 @@ export default function Home() {
         </section>
 
         <section
-          className="section-shell services"
-          id="problems"
-          aria-labelledby="services-title"
+          className="section-shell category-section"
+          aria-labelledby="category-title"
         >
           <div className="section-heading">
-            <p className="eyebrow">Что ремонтируем</p>
-            <h2 id="services-title">Популярные поломки холодильников</h2>
+            <p className="eyebrow">Навигация по услугам</p>
+            <h2 id="category-title">Выберите нужный раздел</h2>
             <p>
-              Показываем ориентиры по цене заранее, чтобы вам было проще принять
-              решение.
+              Вместо длинных списков на главной собрали основные направления в
+              четыре понятные плитки: услуги, симптомы, бренды и регионы выезда.
             </p>
           </div>
-          <div className="service-grid">
-            {homeProblemPages.map((problem, key) => (
+          <div className="category-grid">
+            {categoryTiles.map((tile) => (
               <Link
-                className="related-card"
-                href={getServiceHref(problem)}
-                key={key}
-                title={problem.menuTitle}
+                className="category-tile"
+                href={tile.href}
+                key={tile.href}
+                title={tile.title}
               >
-                <div className="service-card__icon" aria-hidden="true">✺</div>
-                <h3 className="titleProblem">{problem.menuTitle}</h3>
-                <ul className="problrms_list">
-                  {problem.symptoms.map((symptom) => (
-                    <li key={symptom}>{symptom}</li>
-                  ))}
-                </ul>
-                <strong>{problem.price}</strong>
+                <span className="category-tile__icon" aria-hidden="true">
+                  {tile.icon}
+                </span>
+                <span className="eyebrow">{tile.eyebrow}</span>
+                <h3>{tile.title}</h3>
+                <p>{tile.description}</p>
+                <strong>Перейти в раздел →</strong>
               </Link>
             ))}
           </div>
         </section>
-        
 
         <SiteSearch items={siteSearchItems} />
-
-        <section
-          className="section-shell related-services"
-          aria-labelledby="all-services-title"
-          id="services"
-        >
-          <div className="section-heading">
-            <p className="eyebrow">Услуги</p>
-            <h2 id="all-services-title">Работы и сервисные направления</h2>
-          </div>
-          <div className="related-grid related-grid--wide">
-            {homeServicePages.map((service) => (
-              <Link
-                className="related-card"
-                href={getServiceHref(service)}
-                key={service.slug}
-                title={service.menuTitle}
-              >
-                <span>{service.menuTitle}</span>
-                <strong>{service.price}</strong>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section
-          className="section-shell related-services"
-          id="business"
-          aria-labelledby="business-services-title"
-        >
-          <div className="section-heading">
-            <p className="eyebrow">Для организаций</p>
-            <h2 id="business-services-title">
-              Ремонт и обслуживание по безналичному расчету
-            </h2>
-            <p>
-              Отдельное направление для юридических лиц, офисов, магазинов и
-              организаций: диагностика, ремонт, обслуживание, гарантия и
-              документы для оплаты по безналу.
-            </p>
-          </div>
-          <div className="related-grid related-grid--wide">
-            {homeBusinessPages.map((service) => (
-              <Link
-                className="related-card"
-                href={getServiceHref(service)}
-                key={service.slug}
-                title={service.menuTitle}
-              >
-                <span>{service.menuTitle}</span>
-                <strong>{service.price}</strong>
-              </Link>
-            ))}
-          </div>
-        </section>
 
         <section
           className="section-shell process"
