@@ -118,7 +118,7 @@ export function ServiceDetailPage({ page, extraSections,isRegion }: ServiceDetai
           <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">
             <span className="logo__name">{siteName}</span>
-            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
           </span>
         </Link>
         <ServiceNavigation />

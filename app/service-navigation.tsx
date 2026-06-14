@@ -10,6 +10,7 @@ const navigationItems = [
   { title: "Регионы", href: "/regions/" },
   { title: "Мастерская", href: "/masterskaya/" },
   { title: "Безнал", href: "/remont-po-beznalichnomu-raschetu/" },
+  { title: "Блог", href: "/blog/" },
   { title: "О нас", href: "/about/" },
 ];
 

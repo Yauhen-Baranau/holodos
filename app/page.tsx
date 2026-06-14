@@ -49,6 +49,14 @@ const categoryTiles = [
       "Выезжаем по Минску и Минской области: согласуем время, приезжаем с инструментом и ремонтируем холодильник на месте.",
     icon: "⌖",
   },
+  {
+    href: "/blog/",
+    title: "Блог",
+    eyebrow: "Статьи",
+    description:
+      "Публикуем советы мастеров по выбору, разморозке, уходу, фреону и профилактике поломок холодильников.",
+    icon: "✎",
+  },
 ];
 
 const priceListServices = baseRepairServicePages.filter(
@@ -247,7 +255,7 @@ export default function Home() {
           <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">
             <span className="logo__name">Холодос</span>
-            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
           </span>
         </Link>
         <ServiceNavigation />
