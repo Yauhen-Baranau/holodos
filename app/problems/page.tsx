@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ServiceClusterPage cluster={cluster} />;
+  return <ServiceClusterPage cluster={cluster} isProblems={true} />;
 }
