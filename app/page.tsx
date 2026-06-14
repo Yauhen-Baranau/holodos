@@ -244,7 +244,7 @@ export default function Home() {
       />
       <header className="site-header">
         <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
-          <span className="logo__icon">❄</span>
+          <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">
             <span className="logo__name">Холодос</span>
             <span className="logo__tagline">Мастерская по ремонту холодильников</span>
