@@ -8,6 +8,7 @@ const navigationItems = [
   { title: "Проблемы", href: "/problems/" },
   { title: "Бренды", href: "/brands/" },
   { title: "Регионы", href: "/regions/" },
+  { title: "Блог", href: "/blog/" },
   { title: "Мастерская", href: "/masterskaya/" },
   { title: "Безнал", href: "/remont-po-beznalichnomu-raschetu/" },
   { title: "О нас", href: "/about/" },

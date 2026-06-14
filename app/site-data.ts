@@ -6,6 +6,7 @@ import { brandServicePages } from "./_data/brand-service-pages";
 import { minskRegionServicePages } from "./_data/region-service-pages";
 import { targetedServicePages } from "./_data/targeted-service-pages";
 import type { SearchItem } from "./search";
+import { blogArticles, getBlogHref } from "./_data/blog";
 
 const businessPageSlugs = ["remont-po-beznalichnomu-raschetu"];
 const standalonePageSlugs = ["about", "masterskaya"];
@@ -123,20 +124,45 @@ function createSearchText(page: (typeof servicePages)[number]) {
     .toLowerCase();
 }
 
-export const siteSearchItems: SearchItem[] = servicePages.map((page) => ({
-  slug: page.slug,
-  href: getServiceHref(page),
-  title: page.menuTitle,
-  description: page.description,
-  price: page.price,
-  searchText: createSearchText(page),
-  titleSearchText: `${page.title} ${page.menuTitle}`.toLowerCase(),
-}));
+export const siteSearchItems: SearchItem[] = [
+  ...servicePages.map((page) => ({
+    slug: page.slug,
+    href: getServiceHref(page),
+    title: page.menuTitle,
+    description: page.description,
+    price: page.price,
+    searchText: createSearchText(page),
+    titleSearchText: `${page.title} ${page.menuTitle}`.toLowerCase(),
+  })),
+  ...blogArticles.map((article) => ({
+    slug: article.slug,
+    href: getBlogHref(article),
+    title: article.menuTitle,
+    description: article.description,
+    price: article.readTime,
+    searchText: [
+      article.title,
+      article.menuTitle,
+      article.description,
+      article.excerpt,
+      ...article.tags,
+      ...article.sections.flatMap((section) => [
+        section.title,
+        ...(section.body ?? []),
+        ...(section.bullets ?? []),
+        ...(section.steps ?? []),
+      ]),
+    ].join(" ").toLowerCase(),
+    titleSearchText: `${article.title} ${article.menuTitle}`.toLowerCase(),
+  })),
+];
 
 export const allRoutes = [
   "/",
   ...serviceClusterEntries.map((cluster) => `/${cluster.slug}/`),
   ...servicePages.map((page) => getServiceHref(page)),
+  "/blog/",
+  ...blogArticles.map((article) => getBlogHref(article)),
 ];
 
 export const popularServices = servicePages.filter((page) =>
