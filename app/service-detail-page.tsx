@@ -1,78 +1,21 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { ServiceNavigation } from "../service-navigation";
-import { notFound } from "next/navigation";
-import { SiteSearch } from "../search";
+import { ServiceNavigation } from "./service-navigation";
+import { SiteSearch } from "./search";
 import {
   address,
   email,
   getServiceClusterForPage,
   getServiceHref,
-  getServicePage,
   phoneDisplay,
   phoneHref,
   popularServices,
-  servicePages,
   siteName,
   siteSearchItems,
   siteUrl,
-} from "../site-data";
+} from "./site-data";
+import type { ServicePage } from "./_data/site";
 
-type Props = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
-
-export function generateStaticParams() {
-  return servicePages.map((page) => ({ slug: page.slug }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const page = getServicePage(slug);
-
-  if (!page) {
-    return {};
-  }
-
-  return {
-    title: page.title,
-    description: page.description,
-    alternates: {
-      canonical: getServiceHref(page),
-    },
-    openGraph: {
-      title: `${page.title} — ${siteName}`,
-      description: page.description,
-      url: getServiceHref(page),
-      type: "website",
-      images: [
-        {
-          url: "/opengraph-image.svg",
-          width: 1200,
-          height: 630,
-          alt: `${page.title} — ${siteName}`,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${page.title} — ${siteName}`,
-      description: page.description,
-      images: ["/opengraph-image.svg"],
-    },
-  };
-}
-
-export default async function ServiceRoute({ params }: Props) {
-  const { slug } = await params;
-  const page = getServicePage(slug);
-
-  if (!page) {
-    return notFound();
-  }
-
+export function ServiceDetailPage({ page }: { page: ServicePage }) {
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = {

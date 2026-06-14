@@ -1,15 +1,9 @@
 export * from "./_data/site";
-export {
-  minskRegionClusterPage,
-  minskRegionServicePages,
-} from "./_data/region-service-pages";
+export { minskRegionServicePages } from "./_data/region-service-pages";
 
 import { baseServicePages } from "./_data/base-service-pages";
 import { brandServicePages } from "./_data/brand-service-pages";
-import {
-  minskRegionClusterPage,
-  minskRegionServicePages,
-} from "./_data/region-service-pages";
+import { minskRegionServicePages } from "./_data/region-service-pages";
 import { targetedServicePages } from "./_data/targeted-service-pages";
 import type { SearchItem } from "./search";
 
@@ -141,7 +135,6 @@ export const siteSearchItems: SearchItem[] = servicePages.map((page) => ({
 
 export const allRoutes = [
   "/",
-  `/${minskRegionClusterPage.slug}/`,
   ...serviceClusterEntries.map((cluster) => `/${cluster.slug}/`),
   ...servicePages.map((page) => getServiceHref(page)),
 ];
