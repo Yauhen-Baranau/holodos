@@ -74,7 +74,9 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
       />
       <header className="site-header">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
-          <span className="logo__icon">❄</span>
+          <span className="logo__icon" aria-hidden="true">
+            <img src="/favicon.svg" alt="" />
+          </span>
           <span className="logo__text">
             <span className="logo__name">{siteName}</span>
             <span className="logo__tagline">Мастерская по ремонту холодильников</span>
@@ -117,6 +119,42 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
             </div>
           ))}
         </section>
+
+        <section className="section-shell seo-text" aria-labelledby="cluster-seo-title">
+          <p className="eyebrow">Полезная информация</p>
+          <h2 id="cluster-seo-title">{cluster.title}: как выбрать нужную страницу</h2>
+          <p>
+            Раздел «{cluster.menuTitle}» помогает быстро перейти от общего
+            запроса к конкретному решению. Здесь собраны страницы с понятными
+            описаниями симптомов, ориентировочными ценами, сроками приезда
+            мастера и этапами диагностики. Такой формат удобен, если нужно
+            сравнить несколько вариантов ремонта холодильника, уточнить
+            особенности конкретной марки, найти проблему по признакам или
+            проверить возможность выезда по адресу.
+          </p>
+          <p>
+            Основные направления раздела: {" "}
+            {cluster.pages.map((service, index) => (
+              <span key={service.slug}>
+                <Link href={getServiceHref(service)} title={service.menuTitle}>
+                  {service.menuTitle.toLowerCase()}
+                </Link>
+                {index < cluster.pages.length - 1 ? ", " : "."}
+                {" "}
+              </span>
+            ))}
+            На страницах можно посмотреть, какие узлы проверяет мастер, почему
+            возникает неисправность и от чего зависит итоговая стоимость работ.
+          </p>
+          <p>
+            Перед ремонтом мы проводим диагностику, называем цену до начала
+            работ и не меняем исправные детали без необходимости. Мастерская
+            «Холодос» работает с холодильниками разных типов: однокамерными,
+            двухкамерными, встраиваемыми, No Frost, Side-by-Side, морозильными
+            камерами и холодильным оборудованием для бизнеса.
+          </p>
+        </section>
+
         <section className="section-shell related-services" aria-labelledby="cluster-services-title">
           <div className="section-heading">
             <p className="eyebrow">Раздел</p>

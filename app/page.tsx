@@ -7,8 +7,10 @@ import {
   email,
   phoneDisplay,
   phoneHref,
+  getServiceHref,
   serviceClusters,
   siteName,
+  baseRepairServicePages,
   siteSearchItems,
   siteUrl,
 } from "./site-data";
@@ -48,6 +50,10 @@ const categoryTiles = [
     icon: "⌖",
   },
 ];
+
+const priceListServices = baseRepairServicePages.filter(
+  (service) => !["O-nas", "masterskaya"].includes(service.slug),
+);
 
 const services = [
   {
@@ -238,7 +244,9 @@ export default function Home() {
       />
       <header className="site-header">
         <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
-          <span className="logo__icon">❄</span>
+          <span className="logo__icon" aria-hidden="true">
+            <img src="/favicon.svg" alt="" />
+          </span>
           <span className="logo__text">
             <span className="logo__name">Холодос</span>
             <span className="logo__tagline">Мастерская по ремонту холодильников</span>
@@ -330,6 +338,81 @@ export default function Home() {
               ))}
             </ul>
           </nav>
+        </section>
+
+
+        <section className="section-shell price-section" aria-labelledby="price-title">
+          <div className="section-heading">
+            <p className="eyebrow">Цены на ремонт холодильников</p>
+            <h2 id="price-title">Прайс-лист на услуги мастерской</h2>
+            <p>
+              Ниже указаны ориентировочные цены на популярные работы. Итоговая
+              стоимость зависит от модели холодильника, сложности доступа к узлу
+              и цены запчасти, поэтому мастер называет точную сумму после
+              диагностики и согласовывает ее до ремонта.
+            </p>
+          </div>
+          <div className="price-table-wrap">
+            <table className="price-table">
+              <thead>
+                <tr>
+                  <th scope="col">Услуга</th>
+                  <th scope="col">Цена</th>
+                  <th scope="col">Срок</th>
+                </tr>
+              </thead>
+              <tbody>
+                {priceListServices.map((service) => (
+                  <tr key={service.slug}>
+                    <th scope="row">
+                      <Link href={getServiceHref(service)} title={service.menuTitle}>
+                        {service.menuTitle}
+                      </Link>
+                    </th>
+                    <td>{service.price}</td>
+                    <td>{service.duration}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="section-shell seo-text" aria-labelledby="seo-title">
+          <p className="eyebrow">Ремонт холодильников с выездом</p>
+          <h2 id="seo-title">Холодос — сервис холодильников в Минске и Минской области</h2>
+          <p>
+            Если холодильник перестал морозить, течет, шумит, покрывается
+            льдом или показывает ошибку, лучше не откладывать диагностику.
+            Мастерская «Холодос» выполняет ремонт холодильников на дому в
+            Минске: проверяем компрессор, термостат, испаритель, реле, модуль
+            управления, контур фреона, уплотнитель и систему No Frost. Работаем
+            с бытовыми и коммерческими моделями, объясняем причину поломки
+            простыми словами и заранее согласуем смету.
+          </p>
+          <p>
+            Для удобства мы подготовили отдельные страницы по услугам: {" "}
+            {priceListServices.map((service, index) => (
+              <span key={service.slug}>
+                <Link href={getServiceHref(service)} title={service.menuTitle}>
+                  {service.menuTitle.toLowerCase()}
+                </Link>
+                {index < priceListServices.length - 1 ? ", " : "."}
+                {" "}
+              </span>
+            ))}
+            На каждой странице указаны признаки неисправности, примерная цена,
+            сроки и порядок работ. Такой подход помогает быстро выбрать нужное
+            направление ремонта и получить консультацию без лишних звонков.
+          </p>
+          <p>
+            Мы ориентируемся на аккуратный выездной сервис: приезжаем с
+            инструментом, типовыми деталями и оборудованием для диагностики,
+            стараемся выполнить ремонт за один визит и даем гарантию на
+            выполненные работы. Если поломка сложная, мастер предложит
+            несколько вариантов восстановления и объяснит, когда ремонт
+            экономически оправдан, а когда лучше рассмотреть замену техники.
+          </p>
         </section>
 
         <SiteSearch items={siteSearchItems} />
