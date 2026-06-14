@@ -5,6 +5,7 @@ type RegionServicePageInput = {
   location: string;
   prepositionalLocation: string;
   nearbyText?: string;
+  locationWhere?: string
 };
 
 const minskRegionLocations = [
@@ -30,6 +31,7 @@ function createRegionServicePage({
   location,
   prepositionalLocation,
   nearbyText = "и рядом",
+  locationWhere,
 }: RegionServicePageInput): ServicePage {
   return {
     slug,
@@ -37,7 +39,7 @@ function createRegionServicePage({
     menuTitle: `Ремонт холодильников ${prepositionalLocation}`,
     description: `Ремонт холодильников ${prepositionalLocation} ${nearbyText}: диагностика на дому, срочный выезд мастера, замена деталей, заправка фреоном и гарантия ☎️ ${phoneDisplay}`,
     eyebrow: "Минская область",
-    lead: `Выезжаем на ремонт холодильников ${prepositionalLocation}: диагностируем поломку на дому, согласуем стоимость до начала работ и ремонтируем бытовые холодильники популярных брендов с гарантией.`,
+    lead: `Выезжаем на ремонт холодильников ${locationWhere}: диагностируем поломку на дому, согласуем стоимость до начала работ и ремонтируем бытовые холодильники популярных брендов с гарантией.`,
     price: "от 50 руб.",
     duration: "от 60 минут",
     badge: location,
@@ -49,8 +51,8 @@ function createRegionServicePage({
     ],
     sections: [
       {
-        title: `Выезд мастера ${prepositionalLocation}`,
-        body: `Мастер приезжает ${prepositionalLocation} с диагностическим инструментом и типовыми запчастями. Большинство неисправностей устраняем на месте без вывоза техники в мастерскую.`,
+        title: `Выезд мастера ${locationWhere}`,
+        body: `Мастер приезжает ${locationWhere} с диагностическим инструментом и типовыми запчастями. Большинство неисправностей устраняем на месте без вывоза техники в мастерскую.`,
         bullets: [
           "диагностика перед ремонтом",
           "согласование цены до начала работ",
@@ -76,7 +78,7 @@ function createRegionServicePage({
           "Итоговая цена зависит от модели, неисправности и стоимости детали. Мастер сначала проводит диагностику, затем озвучивает точную смету и только после согласования начинает ремонт.",
       },
       {
-        question: `Можно ли вызвать мастера ${prepositionalLocation} в день обращения?`,
+        question: `Можно ли вызвать мастера ${locationWhere} в день обращения?`,
         answer:
           "Да, при наличии свободного окна стараемся приехать в день заявки. Точное время выезда зависит от адреса, загрузки мастеров и сложности предварительно описанной поломки.",
       },
@@ -136,75 +138,90 @@ export const minskRegionServicePages: ServicePage[] = [
     slug: "remont-holodilnikov-v-borovlyanah",
     location: "Боровляны",
     prepositionalLocation: "в Боровлянах",
+    locationWhere: "в Боровляны"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-gatovo",
     location: "Гатово",
     prepositionalLocation: "в Гатово",
+    locationWhere: "в Гатово"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-dzerzhinske",
     location: "Дзержинск",
     prepositionalLocation: "в Дзержинске",
+    locationWhere: "в Дзержинск"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-zhdanovichah",
     location: "Ждановичи",
     prepositionalLocation: "в Ждановичах",
+    locationWhere: "в Ждановичи"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-zaslavle",
     location: "Заславль",
     prepositionalLocation: "в Заславле",
+    locationWhere: "в Заславль"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-kolodishchah",
     location: "Колодищи",
     prepositionalLocation: "в Колодищах",
+    locationWhere: "в Колодищи"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-machulishchah",
     location: "Мачулищи",
     prepositionalLocation: "в Мачулищах",
+    locationWhere: "в Мачулищи"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-ozertse",
     location: "Озерце",
     prepositionalLocation: "в Озерце",
+    locationWhere: "в Озерцо"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-ratomke",
     location: "Ратомка",
     prepositionalLocation: "в Ратомке",
+    locationWhere: "в Ратомку"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-samohvalovichah",
     location: "Самохваловичи",
     prepositionalLocation: "в Самохваловичах",
+    locationWhere: "в Самохваловичи"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-senitse",
     location: "Сеница",
     prepositionalLocation: "в Сенице",
+    locationWhere: "в Сеницу"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-sokole",
     location: "Сокол",
     prepositionalLocation: "в Соколе",
+    locationWhere: "в Сокол"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-tarasovo",
     location: "Тарасово",
     prepositionalLocation: "в Тарасово",
+    locationWhere: "в Тарасово"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-fanipole",
     location: "Фаниполь",
     prepositionalLocation: "в Фаниполе",
+    locationWhere: "в Фаниполь"
   }),
   createRegionServicePage({
     slug: "remont-holodilnikov-v-yarkovo",
     location: "Ярково",
     prepositionalLocation: "в Ярково",
+    locationWhere: "в Ярково"
   }),
 ];
