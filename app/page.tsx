@@ -73,6 +73,24 @@ const services = [
   },
 ];
 
+const masters = [
+  {
+    name: "Алексей Иванов",
+    description:
+      "Мастер по диагностике и ремонту бытовых холодильников. Быстро определяет причину поломки и объясняет клиенту каждый этап работ.",
+  },
+  {
+    name: "Сергей Петров",
+    description:
+      "Специализируется на системах No Frost, замене компрессоров и восстановлении стабильного охлаждения после сложных неисправностей.",
+  },
+  {
+    name: "Дмитрий Соколов",
+    description:
+      "Аккуратно выполняет ремонт на дому, замену уплотнителей, термостатов и настройку холодильников после обслуживания.",
+  },
+];
+
 const benefits = [
   "Выезд мастера в день обращения",
   "Диагностика входит в стоимость ремонта",
@@ -196,7 +214,10 @@ export default function Home() {
       <header className="site-header">
         <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
-          <span>Холодос</span>
+          <span className="logo__text">
+            <span className="logo__name">Холодос</span>
+            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+          </span>
         </Link>
         <ServiceNavigation />
         <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
@@ -221,7 +242,7 @@ export default function Home() {
               <a className="button button--secondary" title="Смотреть услуги" href="/services/">
                 Смотреть услуги
               </a>
-              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/minskaya-oblast">
+              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/regions/">
                 Ремонт холодильников в Минской области
               </a>
             </div>
@@ -300,6 +321,38 @@ export default function Home() {
         </section>
 
         <SiteSearch items={siteSearchItems} />
+
+        <section
+          className="section-shell masters"
+          aria-labelledby="masters-title"
+        >
+          <div className="section-heading">
+            <p className="eyebrow">Наша команда</p>
+            <h2 id="masters-title">Наши мастера</h2>
+            <p>
+              В заявках работают опытные специалисты мастерской: каждый мастер
+              проводит диагностику, согласует стоимость и аккуратно выполняет
+              ремонт на дому.
+            </p>
+          </div>
+          <div className="masters-grid">
+            {masters.map((master, index) => (
+              <article className="master-card" key={master.name}>
+                <div
+                  className="master-card__photo"
+                  aria-label={`Место для фото мастера ${master.name}`}
+                >
+                  <span>Фото</span>
+                  <small>{String(index + 1).padStart(2, "0")}</small>
+                </div>
+                <div className="master-card__content">
+                  <h3>{master.name}</h3>
+                  <p>{master.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section
           className="section-shell process"
