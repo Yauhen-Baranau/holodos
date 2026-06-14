@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ServiceDetailPage } from "../service-detail-page";
 import { getServiceHref, getServicePage, siteName } from "../site-data";
 
-const page = getServicePage("O-nas");
+const page = getServicePage("about");
 
 const masters = [
   {

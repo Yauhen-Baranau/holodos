@@ -10,7 +10,7 @@ const navigationItems = [
   { title: "Регионы", href: "/regions/" },
   { title: "Мастерская", href: "/masterskaya/" },
   { title: "Безнал", href: "/remont-po-beznalichnomu-raschetu/" },
-  { title: "О нас", href: "/O-nas/" },
+  { title: "О нас", href: "/about/" },
 ];
 
 export function ServiceNavigation() {
