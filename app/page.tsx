@@ -257,8 +257,9 @@ export default function Home() {
             <h1 id="hero-title">Ремонт холодильников в Минске</h1>
             <p className="hero__lead">
               Срочно починим холодильник, морозильную камеру или винный шкаф.
-              Мастер приедет с инструментами и популярными деталями, аккуратно
+              Мастер приедет с инструментами и деталями, аккуратно
               проведёт диагностику и сразу предложит понятную смету.
+              Мы ремонтируем холодильники любых марок и моделей, включая однокамерные, двухкамерные, встраиваемые холодильники, системы No Frost и Side-by-Side.
             </p>
             <div className="hero__actions">
               <a className="button button--primary" title="Позвонить мастеру" href={phoneHref}>
@@ -267,8 +268,8 @@ export default function Home() {
               <a className="button button--secondary" title="Смотреть услуги" href="/services/">
                 Смотреть услуги
               </a>
-              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/regions/">
-                Ремонт холодильников в Минской области
+              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/remont-po-beznalichnomu-raschetu/">
+                Ремонт по безналичному расчету
               </a>
             </div>
             <ul className="hero__facts" aria-label="Преимущества сервиса">
@@ -301,27 +302,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="trust-strip" aria-label="Ключевые гарантии">
-          {benefits.map((benefit) => (
-            <div className="trust-strip__item" key={benefit}>
-              <span>✓</span>
-              {benefit}
-            </div>
-          ))}
-        </section>
+
 
         <section
           className="section-shell category-section"
           aria-labelledby="category-title"
         >
-          <div className="section-heading">
-            <p className="eyebrow">Навигация по услугам</p>
-            <h2 id="category-title">Выберите нужный раздел</h2>
-            <p>
-              Вместо длинных списков на главной собрали основные направления в
-              четыре понятные плитки: услуги, симптомы, бренды и регионы выезда.
-            </p>
-          </div>
+
           <nav aria-label="Разделы услуг">
             <ul className="category-grid">
               {categoryTiles.map((tile) => (
@@ -346,6 +333,15 @@ export default function Home() {
         </section>
 
         <SiteSearch items={siteSearchItems} />
+
+        <section className="trust-strip" aria-label="Ключевые гарантии">
+          {benefits.map((benefit) => (
+            <div className="trust-strip__item" key={benefit}>
+              <span>✓</span>
+              {benefit}
+            </div>
+          ))}
+        </section>
 
         <section
           className="section-shell process"

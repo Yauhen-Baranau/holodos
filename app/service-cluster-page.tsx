@@ -97,7 +97,6 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
             <p>{cluster.intro}</p>
           </div>
           <div className="hero-card" aria-label={`Иллюстрация раздела ${cluster.menuTitle}`}>
-            <div className="hero-card__badge">{cluster.pages.length} страниц</div>
             <HeroFridgeIllustration />
             <h2>{cluster.menuTitle}</h2>
             <ul className="hero-stats">
