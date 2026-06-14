@@ -52,7 +52,7 @@ const categoryTiles = [
 ];
 
 const priceListServices = baseRepairServicePages.filter(
-  (service) => !["O-nas", "masterskaya"].includes(service.slug),
+  (service) => !["about", "masterskaya"].includes(service.slug),
 );
 
 const services = [
