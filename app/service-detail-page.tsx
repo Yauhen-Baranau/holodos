@@ -34,10 +34,16 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
       name: siteName,
       telephone: phoneDisplay,
       email,
-      address,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: address,
+        addressLocality: "Минск",
+        addressCountry: "BY",
+      },
       url: siteUrl,
     },
-    areaServed: "Минск",
+    serviceType: page.menuTitle,
+    areaServed: ["Минск", "Минская область"],
     offers: {
       "@type": "Offer",
       priceCurrency: "BYN",
@@ -60,23 +66,35 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
     })),
   };
 
+  const breadcrumbItems = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Главная",
+      item: `${siteUrl}/`,
+    },
+    ...(cluster
+      ? [
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: cluster.menuTitle,
+            item: `${siteUrl}/${cluster.slug}/`,
+          },
+        ]
+      : []),
+    {
+      "@type": "ListItem",
+      position: cluster ? 3 : 2,
+      name: page.title,
+      item: canonicalUrl,
+    },
+  ];
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Главная",
-        item: `${siteUrl}/`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: page.title,
-        item: canonicalUrl,
-      },
-    ],
+    itemListElement: breadcrumbItems,
   };
 
   return (
@@ -246,22 +264,25 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
             <p className="eyebrow">Другие услуги</p>
             <h2 id="related-title">Популярные направления ремонта</h2>
           </div>
-          <div className="related-grid">
-            {popularServices
-              .filter((service) => service.slug !== page.slug)
-              .slice(0, 6)
-              .map((service) => (
-                <Link
-                  title={service.menuTitle}
-                  className="related-card"
-                  href={getServiceHref(service)}
-                  key={service.slug}
-                >
-                  <span>{service.menuTitle}</span>
-                  <strong>{service.price}</strong>
-                </Link>
-              ))}
-          </div>
+          <nav aria-label="Популярные направления ремонта">
+            <ul className="related-grid">
+              {popularServices
+                .filter((service) => service.slug !== page.slug)
+                .slice(0, 6)
+                .map((service) => (
+                  <li key={service.slug}>
+                    <Link
+                      title={service.menuTitle}
+                      className="related-card"
+                      href={getServiceHref(service)}
+                    >
+                      <span>{service.menuTitle}</span>
+                      <strong>{service.price}</strong>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </nav>
         </section>
 
         <section

@@ -9,6 +9,7 @@ import {
   phoneHref,
   siteName,
   siteSearchItems,
+  siteUrl,
 } from "./site-data";
 import type { ServicePage } from "./_data/site";
 
@@ -25,8 +26,52 @@ type Cluster = {
 };
 
 export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
+  const canonicalUrl = `${siteUrl}/${cluster.slug}/`;
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: cluster.title,
+    description: cluster.description,
+    url: canonicalUrl,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: cluster.pages.map((service, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: service.menuTitle,
+        url: `${siteUrl}${getServiceHref(service)}`,
+      })),
+    },
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Главная",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: cluster.menuTitle,
+        item: canonicalUrl,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <header className="site-header">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
@@ -88,7 +133,7 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
                     <span className="brand-photo" aria-label={`Место для фото бренда ${service.menuTitle}`}>
                       {service.brandImage ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={service.brandImage} alt={service.menuTitle} />
+                        <img src={service.brandImage} alt={service.menuTitle} title={service.menuTitle} />
                       ) : (
                         <span>Фото бренда</span>
                       )}
