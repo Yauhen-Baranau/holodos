@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogArticles, getBlogArticle, getBlogHref } from "../../_data/blog";
 import { ServiceNavigation } from "../../service-navigation";
-import { email, phoneDisplay, phoneHref, siteName, siteUrl } from "../../site-data";
+import { address, email, phoneDisplay, phoneHref, siteName, siteUrl } from "../../site-data";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -84,7 +84,7 @@ export default async function BlogArticlePage({ params }: Props) {
           <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">
             <span className="logo__name">{siteName}</span>
-            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
           </span>
         </Link>
         <ServiceNavigation />
@@ -104,7 +104,6 @@ export default async function BlogArticlePage({ params }: Props) {
             <h1>{article.title}</h1>
             <p className="hero__lead">{article.excerpt}</p>
             <div className="blog-article__meta">
-              <span>{article.readTime}</span>
               <span>{new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric" }).format(new Date(article.publishedAt))}</span>
               <span>{article.tags.join(" • ")}</span>
             </div>
@@ -144,7 +143,15 @@ export default async function BlogArticlePage({ params }: Props) {
           </ul>
         </section>
       </main>
-      <footer className="site-footer"><strong>{siteName}</strong><a title="Написать на email" href={`mailto:${email}`}>{email}</a></footer>
-    </>
+      <footer className="site-footer">
+        <div>
+          <strong>{siteName}</strong>
+          <p>
+            {address}. Работаем ежедневно, ремонтируем холодильники и
+            морозильные камеры на дому.
+          </p>
+        </div>
+        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
+      </footer>    </>
   );
 }

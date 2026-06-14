@@ -3,6 +3,7 @@ import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import { ServiceNavigation } from "./service-navigation";
 import {
+  address,
   email,
   getServiceHref,
   phoneDisplay,
@@ -78,7 +79,7 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
           <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">
             <span className="logo__name">{siteName}</span>
-            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
           </span>
         </Link>
         <ServiceNavigation />
@@ -177,7 +178,16 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
         <SiteSearch items={siteSearchItems} />
 
       </main>
-      <footer className="site-footer"><strong>{siteName}</strong><a title="Написать на email" href={`mailto:${email}`}>{email}</a></footer>
+            <footer className="site-footer">
+              <div>
+                <strong>{siteName}</strong>
+                <p>
+                  {address}. Работаем ежедневно, ремонтируем холодильники и
+                  морозильные камеры на дому.
+                </p>
+              </div>
+              <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
+            </footer>
     </>
   );
 }

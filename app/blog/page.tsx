@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { blogArticles, getBlogHref } from "../_data/blog";
 import { ServiceNavigation } from "../service-navigation";
-import { email, phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
+import { address, email, phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
 
 export const metadata: Metadata = {
   title: "Блог о ремонте и уходе за холодильниками — Холодос",
@@ -41,7 +41,7 @@ export default function BlogPage() {
           <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">
             <span className="logo__name">{siteName}</span>
-            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
           </span>
         </Link>
         <ServiceNavigation />
@@ -77,7 +77,6 @@ export default function BlogPage() {
             {blogArticles.map((article) => (
               <li key={article.slug}>
                 <Link className="blog-card" href={getBlogHref(article)} title={article.title}>
-                  <span className="blog-card__meta">{article.readTime}</span>
                   <h3>{article.menuTitle}</h3>
                   <p>{article.excerpt}</p>
                   <span className="blog-card__tags">{article.tags.join(" • ")}</span>
@@ -88,7 +87,15 @@ export default function BlogPage() {
           </ul>
         </section>
       </main>
-      <footer className="site-footer"><strong>{siteName}</strong><a title="Написать на email" href={`mailto:${email}`}>{email}</a></footer>
-    </>
+      <footer className="site-footer">
+        <div>
+          <strong>{siteName}</strong>
+          <p>
+            {address}. Работаем ежедневно, ремонтируем холодильники и
+            морозильные камеры на дому.
+          </p>
+        </div>
+        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
+      </footer>    </>
   );
 }
