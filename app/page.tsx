@@ -307,7 +307,14 @@ export default function Home() {
             </a>
           </div>
         </section>
-
+        <section className="trust-strip" aria-label="Ключевые гарантии">
+          {benefits.map((benefit) => (
+            <div className="trust-strip__item" key={benefit}>
+              <span>✓</span>
+              {benefit}
+            </div>
+          ))}
+        </section>
         <section className="section-shell seo-text" aria-labelledby="seo-title">
           <p className="eyebrow">Ремонт холодильников с выездом</p>
           <h2 id="seo-title">Холодос — сервис холодильников в Минске и Минской области</h2>
@@ -321,41 +328,41 @@ export default function Home() {
             любой сложности на дому. Мы устраняем как мелкие неисправности, так и серьезные поломки, влияющие на работу охлаждающей системы.
           </p>
           <p>Среди наиболее востребованных услуг &mdash; <span> <Link href={'/services/zamena-termostata'} title={'замена термостата холодильника'}>
-              замена термостата холодильника
-            </Link></span>, которая необходима при нестабильной температуре или отсутствии охлаждения. При выходе из строя системы охлаждения может потребоваться <span> <Link href={'/services/zamena-isparitelya'} title={'замена испарителя'}>
-              замена испарителя
-            </Link></span> в холодильнике или <span> <Link href={'/services/zamena-kompressora'} title={'замена компрессора'}>
-              замена компрессора
-            </Link></span> холодильника, что позволяет полностью восстановить эффективность работы техники.
+            замена термостата холодильника
+          </Link></span>, которая необходима при нестабильной температуре или отсутствии охлаждения. При выходе из строя системы охлаждения может потребоваться <span> <Link href={'/services/zamena-isparitelya'} title={'замена испарителя'}>
+            замена испарителя
+          </Link></span> в холодильнике или <span> <Link href={'/services/zamena-kompressora'} title={'замена компрессора'}>
+            замена компрессора
+          </Link></span> холодильника, что позволяет полностью восстановить эффективность работы техники.
           </p>
           <p> Для моделей с технологией <span> <Link href={'/services/zamena-kompressora'} title={'замена компрессора'}>
-              замена компрессора
-            </Link></span> No Frost выполняется <span> <Link href={'/services/remont-no-frost'} title={'No Frost'}>
-              диагностика и ремонт системы автоматического размораживания
-            </Link></span> , датчиков и вентиляторов. Также наши мастера проводят <span> <Link href={'/services/remont-rele'} title={'ремонт реле холодильника'}>
-               ремонт реле холодильника
-            </Link></span>, устраняют сбои электроники и выполняют <span> <Link href={'/services/remont-modulya'} title={'ремонт модуля управления'}>
-               ремонт модуля управления
-            </Link></span>  при ошибках в работе панели и программного обеспечения.
+            замена компрессора
+          </Link></span> No Frost выполняется <span> <Link href={'/services/remont-no-frost'} title={'No Frost'}>
+            диагностика и ремонт системы автоматического размораживания
+          </Link></span> , датчиков и вентиляторов. Также наши мастера проводят <span> <Link href={'/services/remont-rele'} title={'ремонт реле холодильника'}>
+            ремонт реле холодильника
+          </Link></span>, устраняют сбои электроники и выполняют <span> <Link href={'/services/remont-modulya'} title={'ремонт модуля управления'}>
+            ремонт модуля управления
+          </Link></span>  при ошибках в работе панели и программного обеспечения.
           </p>
           <p>
             Если морозильное отделение перестало поддерживать необходимую температуру, потребуется <span> <Link href={'/services/remont-kameri'} title={'ремонт морозильной камеры'}>
-               ремонт морозильной камеры
+              ремонт морозильной камеры
             </Link></span>  с выявлением и устранением причины неисправности. При утечке хладагента выполняется <span> <Link href={'/services/zaprevka-freona'} title={'заправка фреоном'}>
-               заправка фреоном
+              заправка фреоном
             </Link></span> после обязательной проверки герметичности контура.
           </p>
           <p>
             Кроме ремонта основных узлов, мы предлагаем сервисные услуги: <span> <Link href={'/services/zamena-uplotnitelya'} title={'замена уплотнителя'}>
-               замена уплотнителя
+              замена уплотнителя
             </Link></span> для восстановления герметичности дверцы, <span> <Link href={'/services/perenaveska-dveri'} title={'перенавеска двери'}>
-               перенавеска двери
+              перенавеска двери
             </Link></span>  для удобства эксплуатации техники, а также регулировка двери, позволяющая устранить перекосы и неплотное прилегание.
 
           </p>
           <p>
             В случае внезапной поломки доступен <span> <Link href={'/services/srochniy-remont'} title={'срочный ремонт холодильников'}>
-               срочный ремонт холодильников
+              срочный ремонт холодильников
             </Link></span> Ariston с оперативным выездом мастера. Использование качественных комплектующих и профессионального оборудования позволяет быстро вернуть технику в рабочее состояние и продлить срок ее службы.
 
           </p>
@@ -388,8 +395,6 @@ export default function Home() {
             </ul>
           </nav>
         </section>
-
-
         <section className="section-shell price-section" aria-labelledby="price-title">
           <div className="section-heading">
             <p className="eyebrow">Цены на ремонт холодильников</p>
@@ -426,18 +431,7 @@ export default function Home() {
             </table>
           </div>
         </section>
-
         <SiteSearch items={siteSearchItems} />
-
-        <section className="trust-strip" aria-label="Ключевые гарантии">
-          {benefits.map((benefit) => (
-            <div className="trust-strip__item" key={benefit}>
-              <span>✓</span>
-              {benefit}
-            </div>
-          ))}
-        </section>
-
         <section
           className="section-shell process"
           id="process"
@@ -456,7 +450,6 @@ export default function Home() {
             ))}
           </ol>
         </section>
-
         <section className="section-shell cta" aria-labelledby="cta-title">
           <div>
             <p className="eyebrow">Нужна помощь сейчас?</p>
