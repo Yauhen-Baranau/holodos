@@ -1,78 +1,27 @@
-import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
-import { ServiceNavigation } from "../service-navigation";
-import { notFound } from "next/navigation";
-import { SiteSearch } from "../search";
+import { ServiceNavigation } from "./service-navigation";
+import { SiteSearch } from "./search";
 import {
   address,
   email,
   getServiceClusterForPage,
   getServiceHref,
-  getServicePage,
   phoneDisplay,
   phoneHref,
   popularServices,
-  servicePages,
   siteName,
   siteSearchItems,
   siteUrl,
-} from "../site-data";
+} from "./site-data";
+import type { ServicePage } from "./_data/site";
 
-type Props = {
-  params: Promise<{
-    slug: string;
-  }>;
+type ServiceDetailPageProps = {
+  page: ServicePage;
+  extraSections?: ReactNode;
 };
 
-export function generateStaticParams() {
-  return servicePages.map((page) => ({ slug: page.slug }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const page = getServicePage(slug);
-
-  if (!page) {
-    return {};
-  }
-
-  return {
-    title: page.title,
-    description: page.description,
-    alternates: {
-      canonical: getServiceHref(page),
-    },
-    openGraph: {
-      title: `${page.title} — ${siteName}`,
-      description: page.description,
-      url: getServiceHref(page),
-      type: "website",
-      images: [
-        {
-          url: "/opengraph-image.svg",
-          width: 1200,
-          height: 630,
-          alt: `${page.title} — ${siteName}`,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${page.title} — ${siteName}`,
-      description: page.description,
-      images: ["/opengraph-image.svg"],
-    },
-  };
-}
-
-export default async function ServiceRoute({ params }: Props) {
-  const { slug } = await params;
-  const page = getServicePage(slug);
-
-  if (!page) {
-    return notFound();
-  }
-
+export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProps) {
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = {
@@ -85,10 +34,16 @@ export default async function ServiceRoute({ params }: Props) {
       name: siteName,
       telephone: phoneDisplay,
       email,
-      address,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: address,
+        addressLocality: "Минск",
+        addressCountry: "BY",
+      },
       url: siteUrl,
     },
-    areaServed: "Минск",
+    serviceType: page.menuTitle,
+    areaServed: ["Минск", "Минская область"],
     offers: {
       "@type": "Offer",
       priceCurrency: "BYN",
@@ -111,23 +66,35 @@ export default async function ServiceRoute({ params }: Props) {
     })),
   };
 
+  const breadcrumbItems = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Главная",
+      item: `${siteUrl}/`,
+    },
+    ...(cluster
+      ? [
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: cluster.menuTitle,
+            item: `${siteUrl}/${cluster.slug}/`,
+          },
+        ]
+      : []),
+    {
+      "@type": "ListItem",
+      position: cluster ? 3 : 2,
+      name: page.title,
+      item: canonicalUrl,
+    },
+  ];
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Главная",
-        item: `${siteUrl}/`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: page.title,
-        item: canonicalUrl,
-      },
-    ],
+    itemListElement: breadcrumbItems,
   };
 
   return (
@@ -148,7 +115,10 @@ export default async function ServiceRoute({ params }: Props) {
       <header className="site-header">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
-          <span>{siteName}</span>
+          <span className="logo__text">
+            <span className="logo__name">{siteName}</span>
+            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+          </span>
         </Link>
         <ServiceNavigation />
         <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>
@@ -256,6 +226,8 @@ export default async function ServiceRoute({ params }: Props) {
           </div>
         </section>
 
+        {extraSections}
+
         <section
           className="section-shell process"
           aria-labelledby="process-title"
@@ -292,22 +264,25 @@ export default async function ServiceRoute({ params }: Props) {
             <p className="eyebrow">Другие услуги</p>
             <h2 id="related-title">Популярные направления ремонта</h2>
           </div>
-          <div className="related-grid">
-            {popularServices
-              .filter((service) => service.slug !== page.slug)
-              .slice(0, 6)
-              .map((service) => (
-                <Link
-                  title={service.menuTitle}
-                  className="related-card"
-                  href={getServiceHref(service)}
-                  key={service.slug}
-                >
-                  <span>{service.menuTitle}</span>
-                  <strong>{service.price}</strong>
-                </Link>
-              ))}
-          </div>
+          <nav aria-label="Популярные направления ремонта">
+            <ul className="related-grid">
+              {popularServices
+                .filter((service) => service.slug !== page.slug)
+                .slice(0, 6)
+                .map((service) => (
+                  <li key={service.slug}>
+                    <Link
+                      title={service.menuTitle}
+                      className="related-card"
+                      href={getServiceHref(service)}
+                    >
+                      <span>{service.menuTitle}</span>
+                      <strong>{service.price}</strong>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </nav>
         </section>
 
         <section

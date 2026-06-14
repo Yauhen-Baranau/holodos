@@ -3,9 +3,12 @@ import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import {
+  address,
+  email,
   phoneDisplay,
   phoneHref,
   serviceClusters,
+  siteName,
   siteSearchItems,
   siteUrl,
 } from "./site-data";
@@ -130,17 +133,25 @@ const faq = [
   },
 ];
 
-const jsonLd = {
+const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "Холодос",
+  "@id": `${siteUrl}/#localbusiness`,
+  name: siteName,
   image: `${siteUrl}/opengraph-image.svg`,
-  url: `${siteUrl}`,
+  url: siteUrl,
   telephone: phoneDisplay,
+  email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: address,
+    addressLocality: "Минск",
+    addressCountry: "BY",
+  },
   priceRange: "BYN",
   description:
     "Ремонт холодильников на дому: срочный выезд мастера, диагностика, замена деталей и гарантия.",
-  areaServed: "Минск",
+  areaServed: ["Минск", "Минская область"],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -169,6 +180,30 @@ const jsonLd = {
   })),
 };
 
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  name: siteName,
+  url: siteUrl,
+  publisher: {
+    "@id": `${siteUrl}/#localbusiness`,
+  },
+};
+
+const homeBreadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Главная",
+      item: `${siteUrl}/`,
+    },
+  ],
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -187,7 +222,15 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
       />
       <script
         type="application/ld+json"
@@ -196,7 +239,10 @@ export default function Home() {
       <header className="site-header">
         <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
           <span className="logo__icon">❄</span>
-          <span>Холодос</span>
+          <span className="logo__text">
+            <span className="logo__name">Холодос</span>
+            <span className="logo__tagline">Мастерская по ремонту холодильников</span>
+          </span>
         </Link>
         <ServiceNavigation />
         <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
@@ -221,7 +267,7 @@ export default function Home() {
               <a className="button button--secondary" title="Смотреть услуги" href="/services/">
                 Смотреть услуги
               </a>
-              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/minskaya-oblast">
+              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/regions/">
                 Ремонт холодильников в Минской области
               </a>
             </div>
