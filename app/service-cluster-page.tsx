@@ -98,15 +98,15 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
           </div>
           <div className="hero-card" aria-label={`Иллюстрация раздела ${cluster.menuTitle}`}>
             <HeroFridgeIllustration />
-            <h2>{cluster.menuTitle}</h2>
-            <ul className="hero-stats">
+            {/* <h2>{cluster.menuTitle}</h2> */}
+            {/* <ul className="hero-stats">
               {cluster.highlights.map((highlight) => (
                 <li key={highlight}>
                   <strong>✓</strong>
                   <span>{highlight}</span>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </section>
         <section className="trust-strip" aria-label="Преимущества раздела">
@@ -117,7 +117,6 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
             </div>
           ))}
         </section>
-        <SiteSearch items={siteSearchItems} />
         <section className="section-shell related-services" aria-labelledby="cluster-services-title">
           <div className="section-heading">
             <p className="eyebrow">Раздел</p>
@@ -145,6 +144,8 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
             ))}
           </ul>
         </section>
+                <SiteSearch items={siteSearchItems} />
+
       </main>
       <footer className="site-footer"><strong>{siteName}</strong><a title="Написать на email" href={`mailto:${email}`}>{email}</a></footer>
     </>
