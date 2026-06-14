@@ -115,7 +115,7 @@ export function ServiceDetailPage({ page, extraSections,isRegion }: ServiceDetai
 
       <header className="site-header">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
-          <span className="logo__icon">❄</span>
+          <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">
             <span className="logo__name">{siteName}</span>
             <span className="logo__tagline">Мастерская по ремонту холодильников</span>
