@@ -19,9 +19,10 @@ import type { ServicePage } from "./_data/site";
 type ServiceDetailPageProps = {
   page: ServicePage;
   extraSections?: ReactNode;
+  isRegion?: boolean
 };
 
-export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProps) {
+export function ServiceDetailPage({ page, extraSections,isRegion }: ServiceDetailPageProps) {
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = {
@@ -75,13 +76,13 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
     },
     ...(cluster
       ? [
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: cluster.menuTitle,
-            item: `${siteUrl}/${cluster.slug}/`,
-          },
-        ]
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: cluster.menuTitle,
+          item: `${siteUrl}/${cluster.slug}/`,
+        },
+      ]
       : []),
     {
       "@type": "ListItem",
@@ -159,7 +160,7 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
           </div>
 
           <aside className="service-summary" aria-label="Кратко об услуге">
-            <span className="service-summary__badge">{page.badge}</span>
+            <span className="service-summary__badge">{ isRegion? "Минская область" : page.badge}</span>
             <dl>
               <div>
                 <dt>Цена</dt>
@@ -170,8 +171,8 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
                 <dd>{page.duration}</dd>
               </div>
               <div>
-                <dt>Город</dt>
-                <dd>Минск</dd>
+                <dt>{isRegion ? "Населенный пункт" : "Город"}</dt>
+                <dd>{isRegion ? page.badge : "Минск"}</dd>
               </div>
             </dl>
             <a title="Позвонить мастеру" className="service-summary__phone" href={phoneHref}>
@@ -179,27 +180,7 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
             </a>
           </aside>
         </section>
-
-        <SiteSearch items={siteSearchItems} />
-
-        <section
-          className="section-shell symptoms"
-          aria-labelledby="symptoms-title"
-        >
-          <div className="section-heading">
-            <p className="eyebrow">Когда обращаться</p>
-            <h2 id="symptoms-title">Основные симптомы</h2>
-          </div>
-          <div className="symptoms__grid">
-            {page.symptoms.map((symptom) => (
-              <div className="symptom-card" key={symptom}>
-                <span>✓</span>
-                {symptom}
-              </div>
-            ))}
-          </div>
-        </section>
-
+        {extraSections}
         <section
           className="section-shell service-details"
           id="details"
@@ -225,9 +206,23 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
             ))}
           </div>
         </section>
-
-        {extraSections}
-
+        <section
+          className="section-shell symptoms"
+          aria-labelledby="symptoms-title"
+        >
+          <div className="section-heading">
+            <p className="eyebrow">Когда обращаться</p>
+            <h2 id="symptoms-title">Основные симптомы</h2>
+          </div>
+          <div className="symptoms__grid">
+            {page.symptoms.map((symptom) => (
+              <div className="symptom-card" key={symptom}>
+                <span>✓</span>
+                {symptom}
+              </div>
+            ))}
+          </div>
+        </section>
         <section
           className="section-shell process"
           aria-labelledby="process-title"
@@ -284,6 +279,7 @@ export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProp
             </ul>
           </nav>
         </section>
+        <SiteSearch items={siteSearchItems} />
 
         <section
           className="section-shell faq"

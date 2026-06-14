@@ -60,5 +60,5 @@ export default async function Page({ params }: Props) {
     return notFound();
   }
 
-  return <ServiceDetailPage page={page} />;
+  return <ServiceDetailPage page={page}/>;
 }
