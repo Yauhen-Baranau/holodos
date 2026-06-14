@@ -84,6 +84,16 @@ export function ServiceClusterPage({ cluster }: { cluster: Cluster }) {
             {cluster.pages.map((service) => (
               <li key={service.slug}>
                 <Link className="related-card" href={getServiceHref(service)} title={service.menuTitle}>
+                  {cluster.slug === "brands" ? (
+                    <span className="brand-photo" aria-label={`Место для фото бренда ${service.menuTitle}`}>
+                      {service.brandImage ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={service.brandImage} alt={service.menuTitle} />
+                      ) : (
+                        <span>Фото бренда</span>
+                      )}
+                    </span>
+                  ) : null}
                   <span>{service.menuTitle}</span>
                   <strong>{service.price}</strong>
                 </Link>

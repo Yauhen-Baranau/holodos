@@ -15,6 +15,7 @@ export type ServicePage = {
   price: string;
   duration: string;
   badge: string;
+  brandImage?: string;
   symptoms: string[];
   sections: Array<{
     title: string;

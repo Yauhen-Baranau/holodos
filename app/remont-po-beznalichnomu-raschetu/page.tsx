@@ -4,6 +4,7 @@ import { ServiceDetailPage } from "../service-detail-page";
 import { getServiceHref, getServicePage, siteName } from "../site-data";
 
 const page = getServicePage("remont-po-beznalichnomu-raschetu");
+const documentHref = "/documents/remont-po-beznalichnomu-raschetu.pdf";
 
 export function generateMetadata(): Metadata {
   if (!page) {
@@ -30,10 +31,28 @@ export function generateMetadata(): Metadata {
   };
 }
 
+function DocumentDownloadSection() {
+  return (
+    <section className="section-shell document-download" aria-labelledby="document-download-title">
+      <div>
+        <p className="eyebrow">Документы</p>
+        <h2 id="document-download-title">Скачать документ для безналичного расчета</h2>
+        <p>
+          Подготовили отдельное место для файла: загрузите документ в public/documents
+          и при необходимости замените ссылку в коде страницы.
+        </p>
+      </div>
+      <a className="button button--primary" href={documentHref} download>
+        Скачать документ
+      </a>
+    </section>
+  );
+}
+
 export default function Page() {
   if (!page) {
     return notFound();
   }
 
-  return <ServiceDetailPage page={page} />;
+  return <ServiceDetailPage page={page} extraSections={<DocumentDownloadSection />} />;
 }

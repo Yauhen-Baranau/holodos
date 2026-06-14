@@ -4,6 +4,7 @@ type BrandServicePageInput = {
   slug: string;
   brand: string;
   badge?: string;
+  brandImage?: string;
   note?: string;
 };
 
@@ -11,6 +12,7 @@ function createBrandServicePage({
   slug,
   brand,
   badge = brand,
+  brandImage,
   note = "Работаем с бытовыми моделями разных годов выпуска, включая холодильники с электронным управлением и системой No Frost.",
 }: BrandServicePageInput): ServicePage {
   return {
@@ -23,6 +25,7 @@ function createBrandServicePage({
     price: "от 60 руб.",
     duration: "от 60 минут",
     badge,
+    brandImage,
     symptoms: [
       "холодильник не морозит или слабо охлаждает",
       "появилась наледь, вода или посторонний шум",
@@ -61,26 +64,26 @@ function createBrandServicePage({
 }
 
 const brands: BrandServicePageInput[] = [
-  { slug: "remont-atlant", brand: "Atlant", badge: "Atlant / Атлант" },
-  { slug: "remont-samsung", brand: "Samsung" },
-  { slug: "remont-lg", brand: "LG" },
-  { slug: "remont-indesit", brand: "Indesit" },
-  { slug: "remont-bosch", brand: "Bosch" },
-  { slug: "remont-liebherr", brand: "Liebherr" },
-  { slug: "remont-beko", brand: "Beko" },
-  { slug: "remont-haier", brand: "Haier" },
-  { slug: "remont-stinol", brand: "Stinol" },
-  { slug: "remont-gorenje", brand: "Gorenje" },
-  { slug: "remont-electrolux", brand: "Electrolux" },
-  { slug: "remont-whirlpool", brand: "Whirlpool" },
-  { slug: "remont-zanussi", brand: "Zanussi" },
-  { slug: "remont-candy", brand: "Candy" },
-  { slug: "remont-vestfrost", brand: "Vestfrost" },
-  { slug: "remont-shivaki", brand: "Shivaki" },
-  { slug: "remont-nord", brand: "Nord" },
-  { slug: "remont-snaige", brand: "Snaige" },
-  { slug: "remont-daewoo", brand: "Daewoo" },
-  { slug: "remont-midea", brand: "Midea" },
+  { slug: "remont-atlant", brand: "Atlant", badge: "Atlant / Атлант", brandImage: "" },
+  { slug: "remont-samsung", brand: "Samsung", brandImage: "" },
+  { slug: "remont-lg", brand: "LG", brandImage: "" },
+  { slug: "remont-indesit", brand: "Indesit", brandImage: "" },
+  { slug: "remont-bosch", brand: "Bosch", brandImage: "" },
+  { slug: "remont-liebherr", brand: "Liebherr", brandImage: "" },
+  { slug: "remont-beko", brand: "Beko", brandImage: "" },
+  { slug: "remont-haier", brand: "Haier", brandImage: "" },
+  { slug: "remont-stinol", brand: "Stinol", brandImage: "" },
+  { slug: "remont-gorenje", brand: "Gorenje", brandImage: "" },
+  { slug: "remont-electrolux", brand: "Electrolux", brandImage: "" },
+  { slug: "remont-whirlpool", brand: "Whirlpool", brandImage: "" },
+  { slug: "remont-zanussi", brand: "Zanussi", brandImage: "" },
+  { slug: "remont-candy", brand: "Candy", brandImage: "" },
+  { slug: "remont-vestfrost", brand: "Vestfrost", brandImage: "" },
+  { slug: "remont-shivaki", brand: "Shivaki", brandImage: "" },
+  { slug: "remont-nord", brand: "Nord", brandImage: "" },
+  { slug: "remont-snaige", brand: "Snaige", brandImage: "" },
+  { slug: "remont-daewoo", brand: "Daewoo", brandImage: "" },
+  { slug: "remont-midea", brand: "Midea", brandImage: "" },
 ];
 
 export const brandServicePages: ServicePage[] = brands.map(createBrandServicePage);

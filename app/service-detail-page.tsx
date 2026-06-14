@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
@@ -15,7 +16,12 @@ import {
 } from "./site-data";
 import type { ServicePage } from "./_data/site";
 
-export function ServiceDetailPage({ page }: { page: ServicePage }) {
+type ServiceDetailPageProps = {
+  page: ServicePage;
+  extraSections?: ReactNode;
+};
+
+export function ServiceDetailPage({ page, extraSections }: ServiceDetailPageProps) {
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = {
@@ -201,6 +207,8 @@ export function ServiceDetailPage({ page }: { page: ServicePage }) {
             ))}
           </div>
         </section>
+
+        {extraSections}
 
         <section
           className="section-shell process"
