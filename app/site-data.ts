@@ -8,7 +8,7 @@ import { targetedServicePages } from "./_data/targeted-service-pages";
 import type { SearchItem } from "./search";
 
 const businessPageSlugs = ["remont-po-beznalichnomu-raschetu"];
-const standalonePageSlugs = ["O-nas", "masterskaya"];
+const standalonePageSlugs = ["about", "masterskaya"];
 
 export const baseRepairServicePages = baseServicePages;
 export const brandRepairServicePages = brandServicePages;
