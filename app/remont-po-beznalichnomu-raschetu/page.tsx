@@ -38,7 +38,7 @@ function DocumentDownloadSection() {
         <p className="eyebrow">Документы</p>
         <h2 id="document-download-title">Скачать договор для безналичного расчета</h2>
       </div>
-      <a className="button button--primary" href={documentHref} download>
+      <a title="Скачать документ" className="button button--primary" href={documentHref} download>
         Скачать документ
       </a>
     </section>

@@ -441,8 +441,8 @@ export default function Home() {
             </table>
           </div>
         </section>
-        <Clients />
         <SiteSearch items={siteSearchItems} />
+        <Clients />
         <section
           className="section-shell process"
           id="process"
@@ -493,7 +493,7 @@ export default function Home() {
         </section>
       </main>
 
-     <Footer />
+      <Footer />
     </>
   );
 }

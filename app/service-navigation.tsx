@@ -17,6 +17,8 @@ const navigationItems = [
 export function ServiceNavigation() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleOpen = () => () => setIsOpen(false)
+
   return (
     <>
       <button
@@ -39,7 +41,7 @@ export function ServiceNavigation() {
             title={item.title}
             href={item.href}
             key={item.href}
-            onClick={() => setIsOpen(false)}
+            onClick={handleOpen}
           >
             {item.title}
           </Link>
