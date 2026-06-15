@@ -4,7 +4,7 @@ import { ServiceDetailPage } from "../service-detail-page";
 import { getServiceHref, getServicePage, siteName } from "../site-data";
 
 const page = getServicePage("remont-po-beznalichnomu-raschetu");
-const documentHref = "/documents/remont-po-beznalichnomu-raschetu.pdf";
+const documentHref = "/documents/dogovor.doc";
 
 export function generateMetadata(): Metadata {
   if (!page) {
