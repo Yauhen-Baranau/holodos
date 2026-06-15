@@ -15,6 +15,7 @@ import {
   siteUrl,
 } from "./site-data";
 import type { ServicePage } from "./_data/site";
+import { Footer } from "./footer";
 
 type ServiceDetailPageProps = {
   page: ServicePage;
@@ -22,7 +23,7 @@ type ServiceDetailPageProps = {
   isRegion?: boolean
 };
 
-export function ServiceDetailPage({ page, extraSections,isRegion }: ServiceDetailPageProps) {
+export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDetailPageProps) {
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = {
@@ -160,7 +161,7 @@ export function ServiceDetailPage({ page, extraSections,isRegion }: ServiceDetai
           </div>
 
           <aside className="service-summary" aria-label="Кратко об услуге">
-            <span className="service-summary__badge">{ isRegion? "Минская область" : page.badge}</span>
+            <span className="service-summary__badge">{isRegion ? "Минская область" : page.badge}</span>
             <dl>
               <div>
                 <dt>Цена</dt>
@@ -313,16 +314,7 @@ export function ServiceDetailPage({ page, extraSections,isRegion }: ServiceDetai
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div>
-          <strong>{siteName}</strong>
-          <p>
-            {address}. Работаем ежедневно, ремонтируем холодильники и
-            морозильные камеры на дому.
-          </p>
-        </div>
-        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
-      </footer>
+      <Footer />
     </>
   );
 }

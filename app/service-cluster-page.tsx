@@ -13,6 +13,7 @@ import {
   siteUrl,
 } from "./site-data";
 import type { ServicePage } from "./_data/site";
+import { Footer } from "./footer";
 
 type Cluster = {
   slug: string;
@@ -24,7 +25,7 @@ type Cluster = {
   intro: string;
   highlights: readonly string[];
   pages: readonly ServicePage[];
-  
+
 };
 
 export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, isProblems?: boolean }) {
@@ -178,16 +179,7 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
         <SiteSearch items={siteSearchItems} />
 
       </main>
-            <footer className="site-footer">
-              <div>
-                <strong>{siteName}</strong>
-                <p>
-                  {address}. Работаем ежедневно, ремонтируем холодильники и
-                  морозильные камеры на дому.
-                </p>
-              </div>
-              <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
-            </footer>
+      <Footer />
     </>
   );
 }

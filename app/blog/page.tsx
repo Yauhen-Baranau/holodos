@@ -3,6 +3,7 @@ import Link from "next/link";
 import { blogArticles, getBlogHref } from "../_data/blog";
 import { ServiceNavigation } from "../service-navigation";
 import { address, email, phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
+import { Footer } from "../footer";
 
 export const metadata: Metadata = {
   title: "Блог о ремонте и уходе за холодильниками — Холодос",
@@ -87,15 +88,7 @@ export default function BlogPage() {
           </ul>
         </section>
       </main>
-      <footer className="site-footer">
-        <div>
-          <strong>{siteName}</strong>
-          <p>
-            {address}. Работаем ежедневно, ремонтируем холодильники и
-            морозильные камеры на дому.
-          </p>
-        </div>
-        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
-      </footer>    </>
+      <Footer />    
+      </>
   );
 }

@@ -14,6 +14,8 @@ import {
   siteSearchItems,
   siteUrl,
 } from "./site-data";
+import { Clients } from "./clients";
+import { Footer } from "./footer";
 
 
 const categoryTiles = [
@@ -49,14 +51,14 @@ const categoryTiles = [
       "Выезжаем по Минску и Минской области: согласуем время, приезжаем с инструментом и ремонтируем холодильник на месте.",
     icon: "⌖",
   },
-  {
-    href: "/blog/",
-    title: "Блог",
-    eyebrow: "Статьи",
-    description:
-      "Публикуем советы мастеров по выбору, разморозке, уходу, фреону и профилактике поломок холодильников.",
-    icon: "✎",
-  },
+  // {
+  //   href: "/blog/",
+  //   title: "Блог",
+  //   eyebrow: "Статьи",
+  //   description:
+  //     "Публикуем советы мастеров по выбору, разморозке, уходу, фреону и профилактике поломок холодильников.",
+  //   icon: "✎",
+  // },
 ];
 
 const priceListServices = baseRepairServicePages.filter(
@@ -439,6 +441,7 @@ export default function Home() {
             </table>
           </div>
         </section>
+        <Clients />
         <SiteSearch items={siteSearchItems} />
         <section
           className="section-shell process"
@@ -490,15 +493,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div>
-          <strong>Холодос</strong>
-          <p>
-            Ремонт холодильников на дому. Работаем ежедневно с 08:00 до 22:00.
-          </p>
-        </div>
-        <a title="телефон мастерской" href={phoneHref}>{phoneDisplay}</a>
-      </footer>
+     <Footer />
     </>
   );
 }

@@ -702,7 +702,7 @@ details p {
   }
 
   h1 {
-    font-size: clamp(34px, 12vw, 46px);
+    font-size: clamp(34px, 12vw, 32px);
   }
 
   .hero__facts,
@@ -1468,6 +1468,10 @@ details p {
   box-shadow: 0 18px 56px rgba(16, 32, 39, 0.07);
   transition: transform 160ms ease, border-color 160ms ease;
 }
+
+.footerScope > p {
+   margin-bottom: unset;
+} 
 
 .blog-card:hover,
 .blog-card:focus-visible {

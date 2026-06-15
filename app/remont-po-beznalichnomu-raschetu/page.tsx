@@ -36,11 +36,7 @@ function DocumentDownloadSection() {
     <section className="section-shell document-download" aria-labelledby="document-download-title">
       <div>
         <p className="eyebrow">Документы</p>
-        <h2 id="document-download-title">Скачать документ для безналичного расчета</h2>
-        <p>
-          Подготовили отдельное место для файла: загрузите документ в public/documents
-          и при необходимости замените ссылку в коде страницы.
-        </p>
+        <h2 id="document-download-title">Скачать договор для безналичного расчета</h2>
       </div>
       <a className="button button--primary" href={documentHref} download>
         Скачать документ

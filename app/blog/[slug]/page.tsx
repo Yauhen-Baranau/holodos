@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { blogArticles, getBlogArticle, getBlogHref } from "../../_data/blog";
 import { ServiceNavigation } from "../../service-navigation";
 import { address, email, phoneDisplay, phoneHref, siteName, siteUrl } from "../../site-data";
+import { Footer } from "../../footer";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -143,15 +144,7 @@ export default async function BlogArticlePage({ params }: Props) {
           </ul>
         </section>
       </main>
-      <footer className="site-footer">
-        <div>
-          <strong>{siteName}</strong>
-          <p>
-            {address}. Работаем ежедневно, ремонтируем холодильники и
-            морозильные камеры на дому.
-          </p>
-        </div>
-        <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
-      </footer>    </>
+      <Footer />   
+       </>
   );
 }
