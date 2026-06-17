@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { phoneDisplay } from "./site-data";
-import { JsonLd, createFooterJsonLd, createHeaderJsonLd } from "./json-ld";
+import { email, phoneDisplay } from "./site-data";
 
 const siteUrl = "https://holodos.by";
 const siteName = "Холодос";
@@ -85,16 +84,41 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const headerJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WPHeader",
+  "@id": `${siteUrl}/#site-header`,
+  name: `${siteName} — шапка сайта`,
+  url: `${siteUrl}/`,
+  headline: "Ремонт холодильников в Минске",
+};
+
+const footerJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WPFooter",
+  "@id": `${siteUrl}/#site-footer`,
+  name: `${siteName} — подвал сайта`,
+  url: `${siteUrl}/`,
+  copyrightHolder: {
+    "@type": "LocalBusiness",
+    name: siteName,
+    telephone: phoneDisplay,
+    email,
+  },
+};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const headerJsonLd = createHeaderJsonLd();
-  const footerJsonLd = createFooterJsonLd();
-
   return (
     <html lang="ru">
       <body>
-        <JsonLd data={headerJsonLd} />
-        <JsonLd data={footerJsonLd} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(headerJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(footerJsonLd) }}
+        />
         {children}
       </body>
     </html>

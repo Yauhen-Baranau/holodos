@@ -2,13 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { blogArticles, getBlogHref } from "../_data/blog";
 import { ServiceNavigation } from "../service-navigation";
-import { phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
+import { address, email, phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
 import { Footer } from "../footer";
-import {
-  JsonLd,
-  createBreadcrumbJsonLd,
-  createWebSiteJsonLd,
-} from "../json-ld";
 
 export const metadata: Metadata = {
   title: "Блог о ремонте и уходе за холодильниками — Холодос",
@@ -23,7 +18,6 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const webSiteJsonLd = createWebSiteJsonLd();
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -40,16 +34,9 @@ export default function BlogPage() {
     })),
   };
 
-  const breadcrumbJsonLd = createBreadcrumbJsonLd([
-    { name: "Главная", item: `${siteUrl}/` },
-    { name: "Блог", item: `${siteUrl}/blog/` },
-  ]);
-
   return (
     <>
-      <JsonLd data={webSiteJsonLd} />
-      <JsonLd data={collectionJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
       <header id="site-header" className="site-header" itemScope itemType="https://schema.org/WPHeader">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
           <span className="logo__icon" aria-hidden="true" />
