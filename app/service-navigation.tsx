@@ -17,7 +17,7 @@ const navigationItems = [
 export function ServiceNavigation() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpen = () => setIsOpen(false);
+  const handleOpen = () => () => setIsOpen(false)
 
   return (
     <>
@@ -35,8 +35,6 @@ export function ServiceNavigation() {
         className={isOpen ? "site-nav site-nav--open" : "site-nav"}
         id="site-navigation"
         aria-label="Основная навигация"
-        itemScope
-        itemType="https://schema.org/SiteNavigationElement"
       >
         {navigationItems.map((item) => (
           <Link
@@ -44,9 +42,8 @@ export function ServiceNavigation() {
             href={item.href}
             key={item.href}
             onClick={handleOpen}
-            itemProp="url"
           >
-            <span itemProp="name">{item.title}</span>
+            {item.title}
           </Link>
         ))}
       </nav>

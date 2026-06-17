@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Header } from "./header";
+import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import {
-  phoneDisplay,
-  phoneHref,
   getServiceClusterForPage,
   getServiceHref,
+  phoneDisplay,
+  phoneHref,
   popularServices,
+  siteName,
   siteSearchItems,
   siteUrl,
 } from "./site-data";
@@ -15,10 +16,10 @@ import type { ServicePage } from "./_data/site";
 import { Footer } from "./footer";
 import {
   JsonLd,
-  createJsonLdGraph,
   createBreadcrumbJsonLd,
   createFaqJsonLd,
   createServiceJsonLd,
+  createWebSiteJsonLd,
 } from "./json-ld";
 
 type ServiceDetailPageProps = {
@@ -31,6 +32,7 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = createServiceJsonLd(page, canonicalUrl);
+  const webSiteJsonLd = createWebSiteJsonLd();
   const faqJsonLd = createFaqJsonLd(page.faq);
 
   const breadcrumbItems = [
@@ -53,13 +55,27 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   ];
 
   const breadcrumbJsonLd = createBreadcrumbJsonLd(breadcrumbItems);
-  const serviceJsonLdGraph = createJsonLdGraph([serviceJsonLd, faqJsonLd, breadcrumbJsonLd]);
 
   return (
     <>
-      <JsonLd data={serviceJsonLdGraph} />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={serviceJsonLd} />
+      <JsonLd data={faqJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
 
-      <Header />
+      <header className="site-header">
+        <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
+          <span className="logo__icon" aria-hidden="true" />
+          <span className="logo__text">
+            <span className="logo__name">{siteName}</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
+          </span>
+        </Link>
+        <ServiceNavigation />
+        <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>
+          {phoneDisplay}
+        </a>
+      </header>
 
       <main>
         <section

@@ -5,9 +5,7 @@ export const businessId = `${siteUrl}/#localbusiness`;
 export const webSiteId = `${siteUrl}/#website`;
 export const defaultImage = `${siteUrl}/opengraph-image.svg`;
 
-type JsonLdData = Record<string, unknown>;
-
-export function JsonLd({ data }: { data: JsonLdData }) {
+export function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
       type="application/ld+json"
@@ -16,37 +14,9 @@ export function JsonLd({ data }: { data: JsonLdData }) {
   );
 }
 
-function withoutContext(data: JsonLdData) {
-  const { ["@context"]: _context, ...rest } = data;
-
-  return rest;
-}
-
-function getJsonLdIdentity(item: JsonLdData) {
-  return [item["@id"], item["@type"], item.url, item.name].filter(Boolean).join("|");
-}
-
-export function createJsonLdGraph(items: JsonLdData[]) {
-  const seen = new Set<string>();
-  const graph = items.map(withoutContext).filter((item) => {
-    const identity = getJsonLdIdentity(item) || JSON.stringify(item);
-
-    if (seen.has(identity)) {
-      return false;
-    }
-
-    seen.add(identity);
-    return true;
-  });
-
-  return {
-    "@context": "https://schema.org",
-    "@graph": graph,
-  };
-}
-
 export function createWebSiteJsonLd() {
   return {
+    "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": webSiteId,
     name: siteName,
@@ -64,6 +34,7 @@ export function createWebSiteJsonLd() {
 
 export function createLocalBusinessJsonLd() {
   return {
+    "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": businessId,
     name: siteName,
@@ -109,38 +80,59 @@ export function createServiceJsonLd(page: ServicePage, canonicalUrl: string) {
   const image = page.brandImage ? new URL(page.brandImage, siteUrl).toString() : defaultImage;
 
   return {
-    "@type": "Service",
-    "@id": `${canonicalUrl}#service`,
-    name: page.menuTitle,
-    alternateName: page.title,
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "@id": `${canonicalUrl}#service-business`,
+    name: page.title,
+    alternateName: page.menuTitle,
     description: page.description,
-    serviceType: page.menuTitle,
     url: canonicalUrl,
     image,
-    provider: {
-      "@id": businessId,
-      "@type": "LocalBusiness",
-      name: siteName,
-      telephone: "+375336443401",
-      email,
+    telephone: "+375336443401",
+    email,
+    priceRange: "BYN",
+    serviceType: page.menuTitle,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "ул. Домбровская, 9",
+      addressLocality: "Минск",
+      addressRegion: "Минская область",
+      postalCode: "220036",
+      addressCountry: "BY",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 53.9113,
+      longitude: 27.4543,
     },
     areaServed: [
       { "@type": "City", name: "Минск" },
       { "@type": "AdministrativeArea", name: "Минская область" },
     ],
-    offers: {
+    sameAs: [
+      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
+      "https://yandex.by/maps/-/CPxdnI3F",
+    ],
+    makesOffer: {
       "@type": "Offer",
       url: canonicalUrl,
       name: page.menuTitle,
       description: page.price,
       priceCurrency: "BYN",
       availability: "https://schema.org/InStock",
+      itemOffered: {
+        "@type": "Service",
+        name: page.menuTitle,
+        description: page.description,
+        serviceType: page.menuTitle,
+      },
     },
   };
 }
 
 export function createBreadcrumbJsonLd(items: Array<{ name: string; item: string }>) {
   return {
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
@@ -153,6 +145,7 @@ export function createBreadcrumbJsonLd(items: Array<{ name: string; item: string
 
 export function createFaqJsonLd(faq: ServicePage["faq"]) {
   return {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faq.map((item) => ({
       "@type": "Question",

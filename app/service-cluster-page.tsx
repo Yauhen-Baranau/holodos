@@ -1,9 +1,12 @@
 import Link from "next/link";
-import { Header } from "./header";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
+import { ServiceNavigation } from "./service-navigation";
 import {
   getServiceHref,
+  phoneDisplay,
+  phoneHref,
+  siteName,
   siteSearchItems,
   siteUrl,
 } from "./site-data";
@@ -11,8 +14,8 @@ import type { ServicePage } from "./_data/site";
 import { Footer } from "./footer";
 import {
   JsonLd,
-  createJsonLdGraph,
   createBreadcrumbJsonLd,
+  createWebSiteJsonLd,
 } from "./json-ld";
 
 type Cluster = {
@@ -31,10 +34,20 @@ type Cluster = {
 export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, isProblems?: boolean }) {
   const canonicalUrl = `${siteUrl}/${cluster.slug}/`;
   const collectionJsonLd = {
+    "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: cluster.title,
     description: cluster.description,
     url: canonicalUrl,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 53.9113,
+      longitude: 27.4543,
+    },
+    sameAs: [
+      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
+      "https://yandex.by/maps/-/CPxdnI3F",
+    ],
     mainEntity: {
       "@type": "ItemList",
       itemListElement: cluster.pages.map((service, index) => ({
@@ -45,16 +58,28 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
       })),
     },
   };
+  const webSiteJsonLd = createWebSiteJsonLd();
   const breadcrumbJsonLd = createBreadcrumbJsonLd([
     { name: "Главная", item: `${siteUrl}/` },
     { name: cluster.menuTitle, item: canonicalUrl },
   ]);
-  const clusterJsonLdGraph = createJsonLdGraph([collectionJsonLd, breadcrumbJsonLd]);
 
   return (
     <>
-      <JsonLd data={clusterJsonLdGraph} />
-      <Header />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={collectionJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
+      <header className="site-header">
+        <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
+          <span className="logo__icon" aria-hidden="true" />
+          <span className="logo__text">
+            <span className="logo__name">{siteName}</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
+          </span>
+        </Link>
+        <ServiceNavigation />
+        <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>{phoneDisplay}</a>
+      </header>
       <main>
         <section className="inner-hero section-shell" aria-labelledby="cluster-title">
           <div className="inner-hero__content">

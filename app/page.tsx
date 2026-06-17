@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Header } from "./header";
+import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import {
@@ -7,6 +7,7 @@ import {
   phoneHref,
   getServiceHref,
   serviceClusters,
+  siteName,
   baseRepairServicePages,
   siteSearchItems,
   siteUrl,
@@ -15,7 +16,6 @@ import { Clients } from "./clients";
 import { Footer } from "./footer";
 import {
   JsonLd,
-  createJsonLdGraph,
   createBreadcrumbJsonLd,
   createFaqJsonLd,
   createLocalBusinessJsonLd,
@@ -171,18 +171,27 @@ const localBusinessJsonLd = {
 const webSiteJsonLd = createWebSiteJsonLd();
 const homeBreadcrumbJsonLd = createBreadcrumbJsonLd([{ name: "Главная", item: `${siteUrl}/` }]);
 const faqJsonLd = createFaqJsonLd(faq);
-const homeJsonLdGraph = createJsonLdGraph([
-  localBusinessJsonLd,
-  webSiteJsonLd,
-  homeBreadcrumbJsonLd,
-  faqJsonLd,
-]);
 
 export default function Home() {
   return (
     <>
-      <JsonLd data={homeJsonLdGraph} />
-      <Header />
+      <JsonLd data={localBusinessJsonLd} />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={homeBreadcrumbJsonLd} />
+      <JsonLd data={faqJsonLd} />
+      <header className="site-header">
+        <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
+          <span className="logo__icon" aria-hidden="true" />
+          <span className="logo__text">
+            <span className="logo__name">Холодос</span>
+            <span className="logo__tagline">Ремонт холодильников</span>
+          </span>
+        </Link>
+        <ServiceNavigation />
+        <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
+          {phoneDisplay}
+        </a>
+      </header>
 
       <main id="top">
         <section className="hero section-shell" aria-labelledby="hero-title">
