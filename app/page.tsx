@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ServiceNavigation } from "./service-navigation";
+import { Header } from "./header";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import {
@@ -7,7 +7,6 @@ import {
   phoneHref,
   getServiceHref,
   serviceClusters,
-  siteName,
   baseRepairServicePages,
   siteSearchItems,
   siteUrl,
@@ -179,19 +178,7 @@ export default function Home() {
       <JsonLd data={webSiteJsonLd} />
       <JsonLd data={homeBreadcrumbJsonLd} />
       <JsonLd data={faqJsonLd} />
-      <header className="site-header">
-        <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
-          <span className="logo__icon" aria-hidden="true" />
-          <span className="logo__text">
-            <span className="logo__name">Холодос</span>
-            <span className="logo__tagline">Ремонт холодильников</span>
-          </span>
-        </Link>
-        <ServiceNavigation />
-        <a className="header-phone" title="Позвонить мастеру" href={phoneHref}>
-          {phoneDisplay}
-        </a>
-      </header>
+      <Header />
 
       <main id="top">
         <section className="hero section-shell" aria-labelledby="hero-title">
