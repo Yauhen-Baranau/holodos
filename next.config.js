@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig = {
   reactStrictMode: true,
@@ -9,11 +8,7 @@ const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   compiler: {
-    removeConsole: isProduction
-      ? {
-          exclude: ["error", "warn"],
-        }
-      : false,
+    removeConsole: true
   },
   modularizeImports: {
     "react-icons/?(((\\w*)?/?)*)": {
