@@ -1,5 +1,6 @@
 # 1. Ignore specific files (e.g., API keys, system files)
 .env
+.idea
 .DS_Store
 Thumbs.db
 
