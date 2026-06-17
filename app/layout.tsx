@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { phoneDisplay } from "./site-data";
+import { email, phoneDisplay } from "./site-data";
 
 const siteUrl = "https://holodos.by";
 const siteName = "Холодос";
@@ -8,6 +8,10 @@ const description =
   `Ремонт холодильников в Минске на дому. ⭐Atlant, ⭐Samsung, ⭐LG, ⭐Gorenje и любые другие бренды с выездом мастера на дом в Минске и области. Либо с вывозом в сервисный центр ☎️ ${phoneDisplay}`;
 
 export const metadata: Metadata = {
+  verification: {
+    google: "11122",
+    yandex: "222",
+  },
   metadataBase: new URL(siteUrl),
   applicationName: siteName,
   title: {
@@ -80,10 +84,11 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
-      <body>
+    <body>
         {children}
       </body>
     </html>

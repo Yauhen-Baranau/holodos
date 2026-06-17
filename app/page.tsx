@@ -156,18 +156,35 @@ const localBusinessJsonLd = {
   name: siteName,
   image: `${siteUrl}/opengraph-image.svg`,
   url: siteUrl,
-  telephone: phoneDisplay,
+  telephone: "+375336443401",
   email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: address,
+    streetAddress: "ул. Домбровская, 9",
     addressLocality: "Минск",
+    addressRegion: "Минская область",
+    postalCode: "220036",
     addressCountry: "BY",
   },
+      areaServed: [
+      {
+        "@type": "City",
+        name: "Минск",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Минская область",
+      },
+    ],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 53.9113,
+      longitude: 27.4543,
+    },
   priceRange: "BYN",
   description:
     "Ремонт холодильников на дому: срочный выезд мастера, диагностика, замена деталей и гарантия.",
-  areaServed: ["Минск", "Минская область"],
+ 
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -201,6 +218,7 @@ const webSiteJsonLd = {
   "@type": "WebSite",
   "@id": `${siteUrl}/#website`,
   name: siteName,
+   image: `${siteUrl}/opengraph-image.svg`,
   url: siteUrl,
   publisher: {
     "@id": `${siteUrl}/#localbusiness`,

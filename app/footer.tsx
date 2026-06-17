@@ -1,4 +1,4 @@
-import { address, email, siteName } from "./site-data"
+import { address, email, phoneDisplay, siteName } from "./site-data"
 
 export const Footer = () => {
     return (
@@ -8,6 +8,7 @@ export const Footer = () => {
                 <div className="footerScope">
                     <p>ИП Павловец С.П</p>
                     <p>УНП 693197337</p>
+                    <p>Телефон: {phoneDisplay}</p>
                     <p>{address}.</p>
                     <p>Работаем ежедневно, ремонтируем холодильники и морозильные камеры на дому.</p>
                 </div>

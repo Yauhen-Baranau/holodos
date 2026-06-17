@@ -89,5 +89,7 @@ export default function Page() {
     return notFound();
   }
 
-  return <ServiceDetailPage page={page} extraSections={<MastersSection />} />;
+  return <ServiceDetailPage page={page}
+  //  extraSections={<MastersSection />} 
+   />;
 }

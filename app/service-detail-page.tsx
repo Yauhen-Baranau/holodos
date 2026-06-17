@@ -28,36 +28,52 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Service",
+    "@type": "HomeAndConstructionBusiness",
     name: page.title,
     description: page.description,
+    telephone: "+375336443401",
+    priceRange: "BYN",
+    image: `${siteUrl}/opengraph-image.svg`,
     provider: {
       "@type": "LocalBusiness",
       name: siteName,
       telephone: phoneDisplay,
       email,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: address,
-        addressLocality: "Минск",
-        addressCountry: "BY",
-      },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "ул. Домбровская, 9",
+      addressLocality: "Минск",
+      addressRegion: "Минская область",
+      postalCode: "220036",
+      addressCountry: "BY",
+    },
       url: siteUrl,
     },
     serviceType: page.menuTitle,
     areaServed: ["Минск", "Минская область"],
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "BYN",
-      description: page.price,
-      availability: "https://schema.org/InStock",
-      url: canonicalUrl,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "ул. Домбровская, 9",
+      addressLocality: "Минск",
+      addressRegion: "Минская область",
+      postalCode: "220036",
+      addressCountry: "BY",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 53.9113,
+      longitude: 27.4543,
+    },
+    sameAs: [
+      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
+      "https://yandex.by/maps/-/CPxdnI3F",
+    ],
   };
 
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+   
     mainEntity: page.faq.map((item) => ({
       "@type": "Question",
       name: item.question,

@@ -36,6 +36,15 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
     name: cluster.title,
     description: cluster.description,
     url: canonicalUrl,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 53.9113,
+      longitude: 27.4543,
+    },
+    sameAs: [
+      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
+      "https://yandex.by/maps/-/CPxdnI3F",
+    ],
     mainEntity: {
       "@type": "ItemList",
       itemListElement: cluster.pages.map((service, index) => ({
