@@ -3,8 +3,6 @@ import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import { ServiceNavigation } from "./service-navigation";
 import {
-  address,
-  email,
   getServiceHref,
   phoneDisplay,
   phoneHref,
@@ -14,6 +12,11 @@ import {
 } from "./site-data";
 import type { ServicePage } from "./_data/site";
 import { Footer } from "./footer";
+import {
+  JsonLd,
+  createBreadcrumbJsonLd,
+  createWebSiteJsonLd,
+} from "./json-ld";
 
 type Cluster = {
   slug: string;
@@ -55,35 +58,17 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
       })),
     },
   };
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Главная",
-        item: `${siteUrl}/`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: cluster.menuTitle,
-        item: canonicalUrl,
-      },
-    ],
-  };
+  const webSiteJsonLd = createWebSiteJsonLd();
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Главная", item: `${siteUrl}/` },
+    { name: cluster.menuTitle, item: canonicalUrl },
+  ]);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={collectionJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <header className="site-header">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
           <span className="logo__icon" aria-hidden="true" />

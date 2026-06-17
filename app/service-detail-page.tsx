@@ -3,8 +3,6 @@ import Link from "next/link";
 import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import {
-  address,
-  email,
   getServiceClusterForPage,
   getServiceHref,
   phoneDisplay,
@@ -16,6 +14,13 @@ import {
 } from "./site-data";
 import type { ServicePage } from "./_data/site";
 import { Footer } from "./footer";
+import {
+  JsonLd,
+  createBreadcrumbJsonLd,
+  createFaqJsonLd,
+  createServiceJsonLd,
+  createWebSiteJsonLd,
+} from "./json-ld";
 
 type ServiceDetailPageProps = {
   page: ServicePage;
@@ -26,109 +31,37 @@ type ServiceDetailPageProps = {
 export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDetailPageProps) {
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
-  const serviceJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    name: page.title,
-    description: page.description,
-    telephone: "+375336443401",
-    priceRange: "BYN",
-    image: `${siteUrl}/opengraph-image.svg`,
-    provider: {
-      "@type": "LocalBusiness",
-      name: siteName,
-      telephone: phoneDisplay,
-      email,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "ул. Домбровская, 9",
-      addressLocality: "Минск",
-      addressRegion: "Минская область",
-      postalCode: "220036",
-      addressCountry: "BY",
-    },
-      url: siteUrl,
-    },
-    serviceType: page.menuTitle,
-    areaServed: ["Минск", "Минская область"],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "ул. Домбровская, 9",
-      addressLocality: "Минск",
-      addressRegion: "Минская область",
-      postalCode: "220036",
-      addressCountry: "BY",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 53.9113,
-      longitude: 27.4543,
-    },
-    sameAs: [
-      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
-      "https://yandex.by/maps/-/CPxdnI3F",
-    ],
-  };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-   
-    mainEntity: page.faq.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
+  const serviceJsonLd = createServiceJsonLd(page, canonicalUrl);
+  const webSiteJsonLd = createWebSiteJsonLd();
+  const faqJsonLd = createFaqJsonLd(page.faq);
 
   const breadcrumbItems = [
     {
-      "@type": "ListItem",
-      position: 1,
       name: "Главная",
       item: `${siteUrl}/`,
     },
     ...(cluster
       ? [
         {
-          "@type": "ListItem",
-          position: 2,
           name: cluster.menuTitle,
           item: `${siteUrl}/${cluster.slug}/`,
         },
       ]
       : []),
     {
-      "@type": "ListItem",
-      position: cluster ? 3 : 2,
       name: page.title,
       item: canonicalUrl,
     },
   ];
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbItems,
-  };
+  const breadcrumbJsonLd = createBreadcrumbJsonLd(breadcrumbItems);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={serviceJsonLd} />
+      <JsonLd data={faqJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
 
       <header className="site-header">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
