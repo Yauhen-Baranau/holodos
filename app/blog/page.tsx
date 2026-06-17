@@ -2,8 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { blogArticles, getBlogHref } from "../_data/blog";
 import { ServiceNavigation } from "../service-navigation";
-import { address, email, phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
+import { phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
 import { Footer } from "../footer";
+import {
+  JsonLd,
+  createBreadcrumbJsonLd,
+  createLocalBusinessJsonLd,
+  createWebSiteJsonLd,
+} from "../json-ld";
 
 export const metadata: Metadata = {
   title: "Блог о ремонте и уходе за холодильниками — Холодос",
@@ -18,6 +24,8 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
+  const localBusinessJsonLd = createLocalBusinessJsonLd();
+  const webSiteJsonLd = createWebSiteJsonLd();
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -34,9 +42,17 @@ export default function BlogPage() {
     })),
   };
 
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Главная", item: `${siteUrl}/` },
+    { name: "Блог", item: `${siteUrl}/blog/` },
+  ]);
+
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
+      <JsonLd data={localBusinessJsonLd} />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={collectionJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <header className="site-header">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
           <span className="logo__icon" aria-hidden="true" />
