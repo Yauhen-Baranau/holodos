@@ -3,8 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogArticles, getBlogArticle, getBlogHref } from "../../_data/blog";
 import { ServiceNavigation } from "../../service-navigation";
-import { address, email, phoneDisplay, phoneHref, siteName, siteUrl } from "../../site-data";
+import { phoneDisplay, phoneHref, siteName, siteUrl } from "../../site-data";
 import { Footer } from "../../footer";
+import {
+  JsonLd,
+  createBreadcrumbJsonLd,
+  createWebSiteJsonLd,
+} from "../../json-ld";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -49,9 +54,10 @@ export default async function BlogArticlePage({ params }: Props) {
   const article = getBlogArticle(slug);
 
   if (!article) {
-    notFound();
+    return notFound();
   }
 
+  const webSiteJsonLd = createWebSiteJsonLd();
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -64,22 +70,19 @@ export default async function BlogArticlePage({ params }: Props) {
     mainEntityOfPage: `${siteUrl}${getBlogHref(article)}`,
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: `${siteUrl}/` },
-      { "@type": "ListItem", position: 2, name: "Блог", item: `${siteUrl}/blog/` },
-      { "@type": "ListItem", position: 3, name: article.menuTitle, item: `${siteUrl}${getBlogHref(article)}` },
-    ],
-  };
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Главная", item: `${siteUrl}/` },
+    { name: "Блог", item: `${siteUrl}/blog/` },
+    { name: article.menuTitle, item: `${siteUrl}${getBlogHref(article)}` },
+  ]);
 
   const relatedArticles = blogArticles.filter((item) => item.slug !== article.slug).slice(0, 3);
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <header id="site-header" className="site-header" itemScope itemType="https://schema.org/WPHeader">
         <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
           <span className="logo__icon" aria-hidden="true" />

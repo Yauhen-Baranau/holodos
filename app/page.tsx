@@ -3,8 +3,6 @@ import { ServiceNavigation } from "./service-navigation";
 import { SiteSearch } from "./search";
 import { HeroFridgeIllustration } from "./vector-art";
 import {
-  address,
-  email,
   phoneDisplay,
   phoneHref,
   getServiceHref,
@@ -16,6 +14,13 @@ import {
 } from "./site-data";
 import { Clients } from "./clients";
 import { Footer } from "./footer";
+import {
+  JsonLd,
+  createBreadcrumbJsonLd,
+  createFaqJsonLd,
+  createLocalBusinessJsonLd,
+  createWebSiteJsonLd,
+} from "./json-ld";
 
 
 const categoryTiles = [
@@ -150,57 +155,7 @@ const faq = [
 ];
 
 const localBusinessJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": `${siteUrl}/#localbusiness`,
-  name: siteName,
-  image: `${siteUrl}/opengraph-image.svg`,
-  url: siteUrl,
-  telephone: "+375336443401",
-  email,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "ул. Домбровская, 9",
-    addressLocality: "Минск",
-    addressRegion: "Минская область",
-    postalCode: "220036",
-    addressCountry: "BY",
-  },
-      areaServed: [
-      {
-        "@type": "City",
-        name: "Минск",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "Минская область",
-      },
-    ],
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 53.9113,
-      longitude: 27.4543,
-    },
-  priceRange: "BYN",
-  description:
-    "Ремонт холодильников на дому: срочный выезд мастера, диагностика, замена деталей и гарантия.",
- 
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
-      opens: "08:00",
-      closes: "22:00",
-    },
-  ],
+  ...createLocalBusinessJsonLd(),
   makesOffer: services.map((service) => ({
     "@type": "Offer",
     name: service.title,
@@ -213,63 +168,17 @@ const localBusinessJsonLd = {
   })),
 };
 
-const webSiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${siteUrl}/#website`,
-  name: siteName,
-   image: `${siteUrl}/opengraph-image.svg`,
-  url: siteUrl,
-  publisher: {
-    "@id": `${siteUrl}/#localbusiness`,
-  },
-};
-
-const homeBreadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Главная",
-      item: `${siteUrl}/`,
-    },
-  ],
-};
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-};
+const webSiteJsonLd = createWebSiteJsonLd();
+const homeBreadcrumbJsonLd = createBreadcrumbJsonLd([{ name: "Главная", item: `${siteUrl}/` }]);
+const faqJsonLd = createFaqJsonLd(faq);
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd data={localBusinessJsonLd} />
+      <JsonLd data={webSiteJsonLd} />
+      <JsonLd data={homeBreadcrumbJsonLd} />
+      <JsonLd data={faqJsonLd} />
       <header id="site-header" className="site-header" itemScope itemType="https://schema.org/WPHeader">
         <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
           <span className="logo__icon" aria-hidden="true" />
