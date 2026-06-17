@@ -1,0 +1,107 @@
+RewriteEngine On
+Options -Indexes
+
+# 1. Схлопывание двойных слэшей
+RewriteCond %{THE_REQUEST} \s/+(.+?)//+([^\s?]*) [NC]
+RewriteRule ^ /%1/%2 [R=301,L]
+
+# 2. 301 редиректы старых URL
+RewriteRule ^remont-ariston/?$ /services/remont-ariston/ [R=301,L]
+RewriteRule ^zamena-isparitelya/?$ /services/zamena-isparitelya/ [R=301,L]
+RewriteRule ^zamena-termostata/?$ /services/zamena-termostata/ [R=301,L]
+RewriteRule ^O-nas/?$ /about/ [R=301,L,NC]
+RewriteRule ^masterskaya/?$ /services/masterskaya/ [R=301,L]
+RewriteRule ^zamena-kompressora/?$ /services/zamena-kompressora/ [R=301,L]
+RewriteRule ^perenaveska-dveri/?$ /services/perenaveska-dveri/ [R=301,L]
+RewriteRule ^vizov-mastera/?$ /services/vizov-mastera/ [R=301,L]
+RewriteRule ^remont-rele/?$ /services/remont-rele/ [R=301,L]
+RewriteRule ^remont-no-frost/?$ /services/remont-no-frost/ [R=301,L]
+RewriteRule ^srochniy-remont/?$ /services/srochniy-remont/ [R=301,L]
+RewriteRule ^remont-modulya/?$ /services/remont-modulya/ [R=301,L]
+RewriteRule ^remont-kameri/?$ /services/remont-kameri/ [R=301,L]
+RewriteRule ^zaprevka-freona/?$ /services/zaprevka-freona/ [R=301,L]
+RewriteRule ^zamena-uplotnitelya/?$ /services/zamena-uplotnitelya/ [R=301,L]
+
+# 3. реальные файлы
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# 4. next export HTML fallback
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# 5. 404
+ErrorDocument 404 /404.html
+———
+
+RewriteEngine On
+Options -Indexes
+
+############################################
+# 1. CANONICAL: схлопывание множественных слэшей
+############################################
+RewriteCond %{THE_REQUEST} \s/+(.+?)//+([^\s?]*) [NC]
+RewriteRule ^ /%1/%2 [R=301,L,NE]
+
+RewriteCond %{REQUEST_URI} ^(.*)//+(.*)$
+RewriteRule ^ %1/%2 [R=301,L,NE]
+
+
+############################################
+# 2. CANONICAL: lowercase (опционально, если нужно SEO-единое)
+############################################
+# RewriteCond %{REQUEST_URI} [A-Z]
+# RewriteRule ^(.*)$ ${tolower:$1} [R=301,L]
+
+
+############################################
+# 3. REDIRECTS (старые URL → новые)
+############################################
+RewriteRule ^remont-ariston/?$ /services/remont-ariston/ [R=301,L]
+RewriteRule ^zamena-isparitelya/?$ /services/zamena-isparitelya/ [R=301,L]
+RewriteRule ^zamena-termostata/?$ /services/zamena-termostata/ [R=301,L]
+RewriteRule ^O-nas/?$ /about/ [R=301,L,NC]
+RewriteRule ^masterskaya/?$ /services/masterskaya/ [R=301,L]
+RewriteRule ^zamena-kompressora/?$ /services/zamena-kompressora/ [R=301,L]
+RewriteRule ^perenaveska-dveri/?$ /services/perenaveska-dveri/ [R=301,L]
+RewriteRule ^vizov-mastera/?$ /services/vizov-mastera/ [R=301,L]
+RewriteRule ^remont-rele/?$ /services/remont-rele/ [R=301,L]
+RewriteRule ^remont-no-frost/?$ /services/remont-no-frost/ [R=301,L]
+RewriteRule ^srochniy-remont/?$ /services/srochniy-remont/ [R=301,L]
+RewriteRule ^remont-modulya/?$ /services/remont-modulya/ [R=301,L]
+RewriteRule ^remont-kameri/?$ /services/remont-kameri/ [R=301,L]
+RewriteRule ^zaprevka-freona/?$ /services/zaprevka-freona/ [R=301,L]
+RewriteRule ^zamena-uplotnitelya/?$ /services/zamena-uplotnitelya/ [R=301,L]
+
+
+############################################
+# 4. FORCE trailing slash (ключевой момент)
+############################################
+# не трогаем файлы (css, js, images, pdf)
+RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{2,6}$
+
+# не корень
+RewriteCond %{REQUEST_URI} !^/$
+
+# если нет слэша в конце → добавляем
+RewriteRule ^(.+[^/])$ /$1/ [R=301,L]
+
+
+############################################
+# 5. REAL FILES (Next export assets priority)
+############################################
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+
+############################################
+# 6. NEXT.JS EXPORT fallback (.html)
+############################################
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+
+############################################
+# 7. 404
+############################################
+ErrorDocument 404 /404.html
