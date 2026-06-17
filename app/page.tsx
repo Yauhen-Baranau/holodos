@@ -179,7 +179,7 @@ export default function Home() {
       <JsonLd data={webSiteJsonLd} />
       <JsonLd data={homeBreadcrumbJsonLd} />
       <JsonLd data={faqJsonLd} />
-      <header className="site-header">
+      <header id="site-header" className="site-header" itemScope itemType="https://schema.org/WPHeader">
         <Link className="logo" title="На главную" href="/" aria-label="Холодос — на главную">
           <span className="logo__icon" aria-hidden="true" />
           <span className="logo__text">

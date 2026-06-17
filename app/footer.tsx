@@ -2,9 +2,9 @@ import { address, email, phoneDisplay, siteName } from "./site-data"
 
 export const Footer = () => {
     return (
-        <footer className="site-footer">
+        <footer id="site-footer" className="site-footer" itemScope itemType="https://schema.org/WPFooter">
             <div>
-                <strong>{siteName}</strong>
+                <strong itemProp="name">{siteName}</strong>
                 <div className="footerScope">
                     <p>ИП Павловец С.П</p>
                     <p>УНП 693197337</p>
@@ -13,7 +13,7 @@ export const Footer = () => {
                     <p>Работаем ежедневно, ремонтируем холодильники и морозильные камеры на дому.</p>
                 </div>
             </div>
-            <a title="Написать на email" href={`mailto:${email}`}>{email}</a>
+            <a itemProp="email" title="Написать на email" href={`mailto:${email}`}>{email}</a>
         </footer>
     )
 }
