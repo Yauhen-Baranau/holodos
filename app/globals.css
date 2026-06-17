@@ -981,11 +981,45 @@ details p {
     }
 }
 
+@media (max-width: 768px) {
+    body::before {
+        width: 320px;
+        height: 320px;
+        top: -120px;
+        left: -120px;
+
+        background: rgba(59, 130, 246, 0.22);
+        filter: blur(90px);
+    }
+
+    body::after {
+        width: 280px;
+        height: 280px;
+        bottom: -120px;
+        right: -120px;
+
+        background: rgba(34, 197, 94, 0.18);
+        filter: blur(100px);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        background: #f8fafc;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        background: #f8fafc;
+    }
+}
+
 .titleProblem {
     font-size: 18px;
 }
 
-.problrms_list {
+.problms_list {
     font-size: 13px;
 }
 
