@@ -84,41 +84,11 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const headerJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WPHeader",
-  "@id": `${siteUrl}/#site-header`,
-  name: `${siteName} — шапка сайта`,
-  url: `${siteUrl}/`,
-  headline: "Ремонт холодильников в Минске",
-};
-
-const footerJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WPFooter",
-  "@id": `${siteUrl}/#site-footer`,
-  name: `${siteName} — подвал сайта`,
-  url: `${siteUrl}/`,
-  copyrightHolder: {
-    "@type": "LocalBusiness",
-    name: siteName,
-    telephone: phoneDisplay,
-    email,
-  },
-};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
-      <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(headerJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(footerJsonLd) }}
-        />
+    <body>
         {children}
       </body>
     </html>
