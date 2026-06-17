@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { email, phoneDisplay } from "./site-data";
+import { phoneDisplay } from "./site-data";
+import { JsonLd, createFooterJsonLd, createHeaderJsonLd } from "./json-ld";
 
 const siteUrl = "https://holodos.by";
 const siteName = "Холодос";
@@ -86,9 +87,14 @@ export const viewport: Viewport = {
 
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const headerJsonLd = createHeaderJsonLd();
+  const footerJsonLd = createFooterJsonLd();
+
   return (
     <html lang="ru">
-    <body>
+      <body>
+        <JsonLd data={headerJsonLd} />
+        <JsonLd data={footerJsonLd} />
         {children}
       </body>
     </html>
