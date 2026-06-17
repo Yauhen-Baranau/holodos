@@ -1571,3 +1571,15 @@ details p {
     padding-inline: 22px;
   }
 }
+
+@supports (content-visibility: auto) {
+  main > section:not(.hero):not(.inner-hero) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
+
+  .site-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 260px;
+  }
+}
