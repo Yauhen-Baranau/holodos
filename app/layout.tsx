@@ -1,6 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { email, phoneDisplay } from "./site-data";
+import {phoneDisplay } from "./site-data";
+import { Nunito_Sans } from 'next/font/google'
+
+const inter = Nunito_Sans({
+    subsets: ['latin', 'cyrillic'],
+    weight: ['400', '500', '600', '700'],
+    display: 'swap',
+})
 
 const siteUrl = "https://holodos.by";
 const siteName = "Холодос";
@@ -87,7 +94,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={inter.className}>
     <body>
         {children}
       </body>
