@@ -15,10 +15,10 @@ import type { ServicePage } from "./_data/site";
 import { Footer } from "./footer";
 import {
   JsonLd,
+  createJsonLdGraph,
   createBreadcrumbJsonLd,
   createFaqJsonLd,
   createServiceJsonLd,
-  createWebSiteJsonLd,
 } from "./json-ld";
 
 type ServiceDetailPageProps = {
@@ -31,7 +31,6 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = createServiceJsonLd(page, canonicalUrl);
-  const webSiteJsonLd = createWebSiteJsonLd();
   const faqJsonLd = createFaqJsonLd(page.faq);
 
   const breadcrumbItems = [
@@ -54,13 +53,11 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   ];
 
   const breadcrumbJsonLd = createBreadcrumbJsonLd(breadcrumbItems);
+  const serviceJsonLdGraph = createJsonLdGraph([serviceJsonLd, faqJsonLd, breadcrumbJsonLd]);
 
   return (
     <>
-      <JsonLd data={webSiteJsonLd} />
-      <JsonLd data={serviceJsonLd} />
-      <JsonLd data={faqJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={serviceJsonLdGraph} />
 
       <Header />
 

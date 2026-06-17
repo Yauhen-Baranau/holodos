@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Header } from "../header";
 import { blogArticles, getBlogHref } from "../_data/blog";
-import { ServiceNavigation } from "../service-navigation";
-import { phoneDisplay, phoneHref, siteName, siteUrl } from "../site-data";
+import { siteUrl } from "../site-data";
 import { Footer } from "../footer";
 import {
   JsonLd,
+  createJsonLdGraph,
   createBreadcrumbJsonLd,
-  createWebSiteJsonLd,
 } from "../json-ld";
 
 export const metadata: Metadata = {
@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const webSiteJsonLd = createWebSiteJsonLd();
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -44,23 +43,12 @@ export default function BlogPage() {
     { name: "Главная", item: `${siteUrl}/` },
     { name: "Блог", item: `${siteUrl}/blog/` },
   ]);
+  const blogJsonLdGraph = createJsonLdGraph([collectionJsonLd, breadcrumbJsonLd]);
 
   return (
     <>
-      <JsonLd data={webSiteJsonLd} />
-      <JsonLd data={collectionJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
-      <header className="site-header">
-        <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
-          <span className="logo__icon" aria-hidden="true" />
-          <span className="logo__text">
-            <span className="logo__name">{siteName}</span>
-            <span className="logo__tagline">Ремонт холодильников</span>
-          </span>
-        </Link>
-        <ServiceNavigation />
-        <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>{phoneDisplay}</a>
-      </header>
+      <JsonLd data={blogJsonLdGraph} />
+      <Header />
       <main>
         <section className="inner-hero section-shell" aria-labelledby="blog-title">
           <div className="inner-hero__content">

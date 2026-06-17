@@ -15,6 +15,7 @@ import { Clients } from "./clients";
 import { Footer } from "./footer";
 import {
   JsonLd,
+  createJsonLdGraph,
   createBreadcrumbJsonLd,
   createFaqJsonLd,
   createLocalBusinessJsonLd,
@@ -170,14 +171,17 @@ const localBusinessJsonLd = {
 const webSiteJsonLd = createWebSiteJsonLd();
 const homeBreadcrumbJsonLd = createBreadcrumbJsonLd([{ name: "Главная", item: `${siteUrl}/` }]);
 const faqJsonLd = createFaqJsonLd(faq);
+const homeJsonLdGraph = createJsonLdGraph([
+  localBusinessJsonLd,
+  webSiteJsonLd,
+  homeBreadcrumbJsonLd,
+  faqJsonLd,
+]);
 
 export default function Home() {
   return (
     <>
-      <JsonLd data={localBusinessJsonLd} />
-      <JsonLd data={webSiteJsonLd} />
-      <JsonLd data={homeBreadcrumbJsonLd} />
-      <JsonLd data={faqJsonLd} />
+      <JsonLd data={homeJsonLdGraph} />
       <Header />
 
       <main id="top">

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Header } from "../../header";
 import { notFound } from "next/navigation";
 import { blogArticles, getBlogArticle, getBlogHref } from "../../_data/blog";
-import { ServiceNavigation } from "../../service-navigation";
 import { phoneDisplay, phoneHref, siteName, siteUrl } from "../../site-data";
 import { Footer } from "../../footer";
 import {
   JsonLd,
+  createJsonLdGraph,
   createBreadcrumbJsonLd,
-  createWebSiteJsonLd,
 } from "../../json-ld";
 
 type Props = {
@@ -57,7 +57,6 @@ export default async function BlogArticlePage({ params }: Props) {
     return notFound();
   }
 
-  const webSiteJsonLd = createWebSiteJsonLd();
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -76,24 +75,14 @@ export default async function BlogArticlePage({ params }: Props) {
     { name: article.menuTitle, item: `${siteUrl}${getBlogHref(article)}` },
   ]);
 
+  const articleJsonLdGraph = createJsonLdGraph([articleJsonLd, breadcrumbJsonLd]);
+
   const relatedArticles = blogArticles.filter((item) => item.slug !== article.slug).slice(0, 3);
 
   return (
     <>
-      <JsonLd data={webSiteJsonLd} />
-      <JsonLd data={articleJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
-      <header className="site-header">
-        <Link className="logo" href="/" title="на главную" aria-label="Холодос — на главную">
-          <span className="logo__icon" aria-hidden="true" />
-          <span className="logo__text">
-            <span className="logo__name">{siteName}</span>
-            <span className="logo__tagline">Ремонт холодильников</span>
-          </span>
-        </Link>
-        <ServiceNavigation />
-        <a title="Позвонить мастеру" className="header-phone" href={phoneHref}>{phoneDisplay}</a>
-      </header>
+      <JsonLd data={articleJsonLdGraph} />
+      <Header />
       <main>
         <article className="section-shell blog-article">
           <nav className="breadcrumbs" aria-label="Хлебные крошки">

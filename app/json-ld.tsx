@@ -5,13 +5,28 @@ export const businessId = `${siteUrl}/#localbusiness`;
 export const webSiteId = `${siteUrl}/#website`;
 export const defaultImage = `${siteUrl}/opengraph-image.svg`;
 
-export function JsonLd({ data }: { data: Record<string, unknown> }) {
+type JsonLdData = Record<string, unknown>;
+
+export function JsonLd({ data }: { data: JsonLdData }) {
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   );
+}
+
+function withoutContext(data: JsonLdData) {
+  const { ["@context"]: _context, ...rest } = data;
+
+  return rest;
+}
+
+export function createJsonLdGraph(items: JsonLdData[]) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": items.map(withoutContext),
+  };
 }
 
 export function createWebSiteJsonLd() {
@@ -81,51 +96,32 @@ export function createServiceJsonLd(page: ServicePage, canonicalUrl: string) {
 
   return {
     "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    "@id": `${canonicalUrl}#service-business`,
-    name: page.title,
-    alternateName: page.menuTitle,
+    "@type": "Service",
+    "@id": `${canonicalUrl}#service`,
+    name: page.menuTitle,
+    alternateName: page.title,
     description: page.description,
+    serviceType: page.menuTitle,
     url: canonicalUrl,
     image,
-    telephone: "+375336443401",
-    email,
-    priceRange: "BYN",
-    serviceType: page.menuTitle,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "ул. Домбровская, 9",
-      addressLocality: "Минск",
-      addressRegion: "Минская область",
-      postalCode: "220036",
-      addressCountry: "BY",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 53.9113,
-      longitude: 27.4543,
+    provider: {
+      "@id": businessId,
+      "@type": "LocalBusiness",
+      name: siteName,
+      telephone: "+375336443401",
+      email,
     },
     areaServed: [
       { "@type": "City", name: "Минск" },
       { "@type": "AdministrativeArea", name: "Минская область" },
     ],
-    sameAs: [
-      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
-      "https://yandex.by/maps/-/CPxdnI3F",
-    ],
-    makesOffer: {
+    offers: {
       "@type": "Offer",
       url: canonicalUrl,
       name: page.menuTitle,
       description: page.price,
       priceCurrency: "BYN",
       availability: "https://schema.org/InStock",
-      itemOffered: {
-        "@type": "Service",
-        name: page.menuTitle,
-        description: page.description,
-        serviceType: page.menuTitle,
-      },
     },
   };
 }

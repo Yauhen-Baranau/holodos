@@ -11,8 +11,8 @@ import type { ServicePage } from "./_data/site";
 import { Footer } from "./footer";
 import {
   JsonLd,
+  createJsonLdGraph,
   createBreadcrumbJsonLd,
-  createWebSiteJsonLd,
 } from "./json-ld";
 
 type Cluster = {
@@ -36,15 +36,6 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
     name: cluster.title,
     description: cluster.description,
     url: canonicalUrl,
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 53.9113,
-      longitude: 27.4543,
-    },
-    sameAs: [
-      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
-      "https://yandex.by/maps/-/CPxdnI3F",
-    ],
     mainEntity: {
       "@type": "ItemList",
       itemListElement: cluster.pages.map((service, index) => ({
@@ -55,17 +46,15 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
       })),
     },
   };
-  const webSiteJsonLd = createWebSiteJsonLd();
   const breadcrumbJsonLd = createBreadcrumbJsonLd([
     { name: "Главная", item: `${siteUrl}/` },
     { name: cluster.menuTitle, item: canonicalUrl },
   ]);
+  const clusterJsonLdGraph = createJsonLdGraph([collectionJsonLd, breadcrumbJsonLd]);
 
   return (
     <>
-      <JsonLd data={webSiteJsonLd} />
-      <JsonLd data={collectionJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={clusterJsonLdGraph} />
       <Header />
       <main>
         <section className="inner-hero section-shell" aria-labelledby="cluster-title">
