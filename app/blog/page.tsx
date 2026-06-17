@@ -24,7 +24,6 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const collectionJsonLd = {
-    "@context": "https://schema.org",
     "@type": "Blog",
     name: "Блог Холодос",
     description: metadata.description,

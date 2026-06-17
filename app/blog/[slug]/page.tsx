@@ -58,7 +58,6 @@ export default async function BlogArticlePage({ params }: Props) {
   }
 
   const articleJsonLd = {
-    "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: article.title,
     description: article.description,

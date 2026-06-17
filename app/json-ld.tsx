@@ -22,16 +22,31 @@ function withoutContext(data: JsonLdData) {
   return rest;
 }
 
+function getJsonLdIdentity(item: JsonLdData) {
+  return [item["@id"], item["@type"], item.url, item.name].filter(Boolean).join("|");
+}
+
 export function createJsonLdGraph(items: JsonLdData[]) {
+  const seen = new Set<string>();
+  const graph = items.map(withoutContext).filter((item) => {
+    const identity = getJsonLdIdentity(item) || JSON.stringify(item);
+
+    if (seen.has(identity)) {
+      return false;
+    }
+
+    seen.add(identity);
+    return true;
+  });
+
   return {
     "@context": "https://schema.org",
-    "@graph": items.map(withoutContext),
+    "@graph": graph,
   };
 }
 
 export function createWebSiteJsonLd() {
   return {
-    "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": webSiteId,
     name: siteName,
@@ -49,7 +64,6 @@ export function createWebSiteJsonLd() {
 
 export function createLocalBusinessJsonLd() {
   return {
-    "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": businessId,
     name: siteName,
@@ -95,7 +109,6 @@ export function createServiceJsonLd(page: ServicePage, canonicalUrl: string) {
   const image = page.brandImage ? new URL(page.brandImage, siteUrl).toString() : defaultImage;
 
   return {
-    "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${canonicalUrl}#service`,
     name: page.menuTitle,
@@ -128,7 +141,6 @@ export function createServiceJsonLd(page: ServicePage, canonicalUrl: string) {
 
 export function createBreadcrumbJsonLd(items: Array<{ name: string; item: string }>) {
   return {
-    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
@@ -141,7 +153,6 @@ export function createBreadcrumbJsonLd(items: Array<{ name: string; item: string
 
 export function createFaqJsonLd(faq: ServicePage["faq"]) {
   return {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faq.map((item) => ({
       "@type": "Question",

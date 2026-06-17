@@ -31,7 +31,6 @@ type Cluster = {
 export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, isProblems?: boolean }) {
   const canonicalUrl = `${siteUrl}/${cluster.slug}/`;
   const collectionJsonLd = {
-    "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: cluster.title,
     description: cluster.description,
