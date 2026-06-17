@@ -7,7 +7,6 @@ import { Footer } from "../footer";
 import {
   JsonLd,
   createBreadcrumbJsonLd,
-  createLocalBusinessJsonLd,
   createWebSiteJsonLd,
 } from "../json-ld";
 
@@ -24,7 +23,6 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const localBusinessJsonLd = createLocalBusinessJsonLd();
   const webSiteJsonLd = createWebSiteJsonLd();
   const collectionJsonLd = {
     "@context": "https://schema.org",
@@ -49,7 +47,6 @@ export default function BlogPage() {
 
   return (
     <>
-      <JsonLd data={localBusinessJsonLd} />
       <JsonLd data={webSiteJsonLd} />
       <JsonLd data={collectionJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />

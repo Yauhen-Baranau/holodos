@@ -24,12 +24,10 @@ export function createWebSiteJsonLd() {
     image: defaultImage,
     inLanguage: "ru-RU",
     publisher: {
-      "@id": businessId,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
+      "@type": "Organization",
+      name: siteName,
+      url: `${siteUrl}/`,
+      image: defaultImage,
     },
   };
 }
@@ -79,31 +77,55 @@ export function createLocalBusinessJsonLd() {
 }
 
 export function createServiceJsonLd(page: ServicePage, canonicalUrl: string) {
+  const image = page.brandImage ? new URL(page.brandImage, siteUrl).toString() : defaultImage;
+
   return {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${canonicalUrl}#service`,
+    "@type": "HomeAndConstructionBusiness",
+    "@id": `${canonicalUrl}#service-business`,
     name: page.title,
     alternateName: page.menuTitle,
     description: page.description,
-    serviceType: page.menuTitle,
     url: canonicalUrl,
-    image: page.brandImage ? `${siteUrl}${page.brandImage}` : defaultImage,
-    provider: { "@id": businessId },
+    image,
+    telephone: "+375336443401",
+    email,
+    priceRange: "BYN",
+    serviceType: page.menuTitle,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "ул. Домбровская, 9",
+      addressLocality: "Минск",
+      addressRegion: "Минская область",
+      postalCode: "220036",
+      addressCountry: "BY",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 53.9113,
+      longitude: 27.4543,
+    },
     areaServed: [
       { "@type": "City", name: "Минск" },
       { "@type": "AdministrativeArea", name: "Минская область" },
     ],
-    offers: {
+    sameAs: [
+      "https://maps.app.goo.gl/u8A1kU34rUbR9ayv6",
+      "https://yandex.by/maps/-/CPxdnI3F",
+    ],
+    makesOffer: {
       "@type": "Offer",
       url: canonicalUrl,
+      name: page.menuTitle,
+      description: page.price,
       priceCurrency: "BYN",
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        priceCurrency: "BYN",
-        description: page.price,
-      },
       availability: "https://schema.org/InStock",
+      itemOffered: {
+        "@type": "Service",
+        name: page.menuTitle,
+        description: page.description,
+        serviceType: page.menuTitle,
+      },
     },
   };
 }

@@ -18,7 +18,6 @@ import {
   JsonLd,
   createBreadcrumbJsonLd,
   createFaqJsonLd,
-  createLocalBusinessJsonLd,
   createServiceJsonLd,
   createWebSiteJsonLd,
 } from "./json-ld";
@@ -33,7 +32,6 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   const cluster = getServiceClusterForPage(page);
   const canonicalUrl = `${siteUrl}${getServiceHref(page)}`;
   const serviceJsonLd = createServiceJsonLd(page, canonicalUrl);
-  const localBusinessJsonLd = createLocalBusinessJsonLd();
   const webSiteJsonLd = createWebSiteJsonLd();
   const faqJsonLd = createFaqJsonLd(page.faq);
 
@@ -60,7 +58,6 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
 
   return (
     <>
-      <JsonLd data={localBusinessJsonLd} />
       <JsonLd data={webSiteJsonLd} />
       <JsonLd data={serviceJsonLd} />
       <JsonLd data={faqJsonLd} />

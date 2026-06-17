@@ -8,7 +8,6 @@ import { Footer } from "../../footer";
 import {
   JsonLd,
   createBreadcrumbJsonLd,
-  createLocalBusinessJsonLd,
   createWebSiteJsonLd,
 } from "../../json-ld";
 
@@ -58,7 +57,6 @@ export default async function BlogArticlePage({ params }: Props) {
     return notFound();
   }
 
-  const localBusinessJsonLd = createLocalBusinessJsonLd();
   const webSiteJsonLd = createWebSiteJsonLd();
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -82,7 +80,6 @@ export default async function BlogArticlePage({ params }: Props) {
 
   return (
     <>
-      <JsonLd data={localBusinessJsonLd} />
       <JsonLd data={webSiteJsonLd} />
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />

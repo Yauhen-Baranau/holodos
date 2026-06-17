@@ -15,7 +15,6 @@ import { Footer } from "./footer";
 import {
   JsonLd,
   createBreadcrumbJsonLd,
-  createLocalBusinessJsonLd,
   createWebSiteJsonLd,
 } from "./json-ld";
 
@@ -59,7 +58,6 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
       })),
     },
   };
-  const localBusinessJsonLd = createLocalBusinessJsonLd();
   const webSiteJsonLd = createWebSiteJsonLd();
   const breadcrumbJsonLd = createBreadcrumbJsonLd([
     { name: "Главная", item: `${siteUrl}/` },
@@ -68,7 +66,6 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
 
   return (
     <>
-      <JsonLd data={localBusinessJsonLd} />
       <JsonLd data={webSiteJsonLd} />
       <JsonLd data={collectionJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
