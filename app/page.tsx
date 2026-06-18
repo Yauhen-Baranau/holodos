@@ -7,7 +7,6 @@ import {
   phoneHref,
   getServiceHref,
   serviceClusters,
-  siteName,
   baseRepairServicePages,
   siteSearchItems,
   siteUrl,
@@ -208,12 +207,12 @@ export default function Home() {
               <a className="button button--primary" title="Позвонить мастеру" href={phoneHref}>
                 Позвонить мастеру
               </a>
-              <a className="button button--secondary" title="Смотреть услуги" href="/services/">
+              <Link className="button button--secondary" title="Смотреть услуги" href="/services/">
                 Смотреть услуги
-              </a>
-              <a className="button button--secondary" title="Ремонт холодильников в Минской области" href="/remont-po-beznalichnomu-raschetu/">
+              </Link>
+              <Link className="button button--secondary" title="Ремонт холодильников в Минской области" href="/remont-po-beznalichnomu-raschetu/">
                 Ремонт по безналичному расчету
-              </a>
+              </Link>
             </div>
             <ul className="hero__facts" aria-label="Преимущества сервиса">
               <li>
