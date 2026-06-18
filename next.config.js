@@ -6,7 +6,11 @@ const nextConfig = {
   trailingSlash: true,
   compress: true,
   poweredByHeader: false,
+  generateEtags: false,
   productionBrowserSourceMaps: false,
+  experimental: {
+    optimizeCss: true,
+  },
   compiler: {
     removeConsole: true
   },

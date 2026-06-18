@@ -254,7 +254,7 @@ export default function Home() {
         </section>
         <section className="section-shell seo-text" aria-labelledby="seo-title">
           <p className="eyebrow">Ремонт холодильников с выездом</p>
-          <h2 id="seo-title">Холодос — сервис холодильников в Минске и Минской области</h2>
+          <h2 id="seo-title">Холодос — сервис холодильников в Минске с выездом на дом</h2>
 
           <p> Если вашему холодильнику требуется диагностика или восстановление работоспособности, специалисты выполнят
             <span> <Link href={'/services/remont-ariston'} title={'ремонт холодильников Ariston'}>
@@ -335,7 +335,7 @@ export default function Home() {
         <section className="section-shell price-section" aria-labelledby="price-title">
           <div className="section-heading">
             <p className="eyebrow">Цены на ремонт холодильников</p>
-            <h2 id="price-title">Прайс-лист на услуги мастерской</h2>
+            <h2 id="price-title">Прайс-лист на услуги</h2>
             <p>
               Ниже указаны ориентировочные цены на популярные работы. Итоговая
               стоимость зависит от модели холодильника, сложности доступа к узлу

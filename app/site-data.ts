@@ -12,18 +12,10 @@ const businessPageSlugs = ["remont-po-beznalichnomu-raschetu"];
 const standalonePageSlugs = ["about", "masterskaya"];
 
 export const baseRepairServicePages = baseServicePages;
-export const brandRepairServicePages = brandServicePages;
-export const repairServicePages = [
-  ...baseServicePages,
-  ...brandServicePages,
-];
-export const businessServicePages = targetedServicePages.filter((page) =>
-  businessPageSlugs.includes(page.slug),
-);
+
 export const problemPages = targetedServicePages.filter(
   (page) => !businessPageSlugs.includes(page.slug),
 );
-export const regionalServicePages = minskRegionServicePages;
 
 export const serviceClusters = {
   services: {
@@ -75,8 +67,6 @@ export const serviceClusters = {
     pages: problemPages,
   },
 } as const;
-
-export type ServiceClusterSlug = keyof typeof serviceClusters;
 
 const serviceClusterEntries = Object.values(serviceClusters);
 
@@ -159,14 +149,6 @@ export const siteSearchItems: SearchItem[] = [
     ].join(" ").toLowerCase(),
     titleSearchText: `${article.title} ${article.menuTitle}`.toLowerCase(),
   })),
-];
-
-export const allRoutes = [
-  "/",
-  ...serviceClusterEntries.map((cluster) => `/${cluster.slug}/`),
-  ...servicePages.map((page) => getServiceHref(page)),
-  "/blog/",
-  ...blogArticles.map((article) => getBlogHref(article)),
 ];
 
 export const popularServices = servicePages.filter((page) =>

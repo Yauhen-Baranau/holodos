@@ -103,9 +103,6 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
               <a title="Вызвать мастера" className="button button--primary" href={phoneHref}>
                 Вызвать мастера
               </a>
-              <a title="Подробнее" className="button button--secondary" href="#details">
-                Подробнее об услуге
-              </a>
             </div>
           </div>
 
