@@ -70,7 +70,7 @@ export default function BlogPage() {
               <span aria-current="page">Блог</span>
             </nav>
             <p className="eyebrow">Полезные статьи</p>
-            <h1 id="blog-title">Блог о холодильниках</h1>
+            <h1 id="blog-title">Все о холодильниках</h1>
             <p className="hero__lead">Собрали практичные материалы по выбору, уходу, разморозке и типовым проблемам холодильников. Пишем простым языком и добавляем подсказки от мастеров.</p>
           </div>
           <aside className="service-summary" aria-label="О блоге">

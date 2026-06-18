@@ -28,7 +28,7 @@ type Cluster = {
   intro: string;
   highlights: readonly string[];
   pages: readonly ServicePage[];
-
+  h1Title: string;
 };
 
 export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, isProblems?: boolean }) {
@@ -89,7 +89,7 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
               <span aria-current="page">{cluster.menuTitle}</span>
             </nav>
             <p className="eyebrow">{cluster.eyebrow}</p>
-            <h1 id="cluster-title">{cluster.title}</h1>
+            <h1 id="cluster-title">{cluster.h1Title}</h1>
             <p className="hero__lead">{cluster.lead}</p>
             <p>{cluster.intro}</p>
           </div>
