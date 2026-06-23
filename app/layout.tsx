@@ -16,8 +16,8 @@ const description =
 
 export const metadata: Metadata = {
   verification: {
-    google: "11122",
-    yandex: "222",
+    google: "OR9FOnngTLdzJqchjpuQrdmqYV1DK_o_VBBiqONxl3w",
+    yandex: "bafc5e9a7fdc267e",
   },
   metadataBase: new URL(siteUrl),
   applicationName: siteName,
@@ -78,8 +78,14 @@ export const metadata: Metadata = {
   },
   category: "home services",
   icons: {
-    icon: "/favicon.svg",
-    apple: "/apple-touch-icon.svg",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" }
+    ],
+    apple: [
+      { url: "/favicon-180x180.png", sizes: "180x180" }
+    ]
   },
   manifest: "/site.webmanifest",
 };
