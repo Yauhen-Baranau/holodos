@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: siteName,
   title: {
-    default: "Ремонт холодильников в Минске с выездом на дом, цены — Холодос",
+    default: "Ремонт холодильников в Минске на дому — цены, выезд мастера, гарантия",
     template: "%s",
   },
   description,
@@ -48,20 +48,20 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: "/",
     siteName,
-    title: "Ремонт холодильников в Минске с выездом на дом, цены — Холодос",
+    title: "Ремонт холодильников в Минске на дому — цены, выезд мастера, гарантия",
     description,
     images: [
       {
         url: "/opengraph-image.svg",
         width: 1200,
         height: 630,
-        alt: "Холодос — Ремонт холодильников в Минске с выездом на дом, цены",
+        alt: "Ремонт холодильников в Минске на дому — цены, выезд мастера, гарантия",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ремонт холодильников в Минске с выездом на дом, цены — Холодос",
+    title: "Ремонт холодильников в Минске на дому — цены, выезд мастера, гарантия",
     description,
     images: ["/opengraph-image.svg"],
   },
