@@ -16,6 +16,8 @@ export type ServicePage = {
   duration: string;
   badge: string;
   brandImage?: string;
+  mapQuery?: string;
+  areaText?: string;
   symptoms: string[];
   sections: Array<{
     title: string;
