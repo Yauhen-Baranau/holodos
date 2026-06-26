@@ -31,6 +31,40 @@ type Cluster = {
   h1Title: string;
 };
 
+function RegionCards({
+  title,
+  description,
+  pages,
+}: {
+  title: string;
+  description: string;
+  pages: readonly ServicePage[];
+}) {
+  if (pages.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="section-shell related-services" aria-labelledby={`${title}-title`}>
+      <div className="section-heading">
+        <p className="eyebrow">География выезда</p>
+        <h2 id={`${title}-title`}>{title}</h2>
+        <p>{description}</p>
+      </div>
+      <ul className="related-grid related-grid--wide">
+        {pages.map((service) => (
+          <li key={service.slug}>
+            <Link className="related-card" href={getServiceHref(service)} title={service.menuTitle}>
+              <span>{service.menuTitle}</span>
+              <strong>{service.price}</strong>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, isProblems?: boolean }) {
   const canonicalUrl = `${siteUrl}/${cluster.slug}/`;
   const collectionJsonLd = {
@@ -143,33 +177,48 @@ export function ServiceClusterPage({ cluster, isProblems }: { cluster: Cluster, 
         </section>)}
 
 
-        <section className="section-shell related-services" aria-labelledby="cluster-services-title">
-          <div className="section-heading">
-            <p className="eyebrow">Раздел</p>
-            <h2 id="cluster-services-title">{cluster.menuTitle}</h2>
-            <p>{cluster.description}</p>
-          </div>
-          <ul className="related-grid related-grid--wide">
-            {cluster.pages.map((service) => (
-              <li key={service.slug}>
-                <Link className="related-card" href={getServiceHref(service)} title={service.menuTitle}>
-                  {cluster.slug === "brands" ? (
-                    <span className="brand-photo" aria-label={`Место для фото бренда ${service.menuTitle}`}>
-                      {service.brandImage ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={service.brandImage} alt={service.menuTitle} title={service.menuTitle} />
-                      ) : (
-                        <span>Фото бренда</span>
-                      )}
-                    </span>
-                  ) : null}
-                  <span>{service.menuTitle}</span>
-                  <strong>{service.price}</strong>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {cluster.slug === "regions" ? (
+          <>
+            <RegionCards
+              title="Районы Минска"
+              description="Отдельные страницы по районам и микрорайонам Минска: Уручье, Малиновка, Сухарево, Серебрянка, Лошица, Каменная Горка, Чижовка, Зелёный Луг, Восток и административные районы."
+              pages={cluster.pages.filter((service) => service.eyebrow === "Районы Минска")}
+            />
+            <RegionCards
+              title="Минский район"
+              description="Выезд мастера в населенные пункты рядом с Минском: диагностика холодильника на дому, согласование стоимости и ремонт без вывоза техники."
+              pages={cluster.pages.filter((service) => service.eyebrow !== "Районы Минска")}
+            />
+          </>
+        ) : (
+          <section className="section-shell related-services" aria-labelledby="cluster-services-title">
+            <div className="section-heading">
+              <p className="eyebrow">Раздел</p>
+              <h2 id="cluster-services-title">{cluster.menuTitle}</h2>
+              <p>{cluster.description}</p>
+            </div>
+            <ul className="related-grid related-grid--wide">
+              {cluster.pages.map((service) => (
+                <li key={service.slug}>
+                  <Link className="related-card" href={getServiceHref(service)} title={service.menuTitle}>
+                    {cluster.slug === "brands" ? (
+                      <span className="brand-photo" aria-label={`Место для фото бренда ${service.menuTitle}`}>
+                        {service.brandImage ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={service.brandImage} alt={service.menuTitle} title={service.menuTitle} />
+                        ) : (
+                          <span>Фото бренда</span>
+                        )}
+                      </span>
+                    ) : null}
+                    <span>{service.menuTitle}</span>
+                    <strong>{service.price}</strong>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <SiteSearch items={siteSearchItems} />
 
       </main>
