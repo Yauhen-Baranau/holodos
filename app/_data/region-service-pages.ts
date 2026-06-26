@@ -41,7 +41,7 @@ function createRegionServicePage({
 }: RegionServicePageInput): ServicePage {
   return {
     slug,
-    title: `Ремонт холодильников ${prepositionalLocation} — вызов мастера на дом | Holodos.by`,
+    title: `Ремонт холодильников ${prepositionalLocation} — вызов мастера`,
     menuTitle: `Ремонт холодильников ${prepositionalLocation}`,
     description: `Ремонт холодильников ${prepositionalLocation} ${nearbyText}: диагностика на дому, срочный выезд мастера, замена деталей, заправка фреоном и гарантия ☎️ ${phoneDisplay}`,
     eyebrow,

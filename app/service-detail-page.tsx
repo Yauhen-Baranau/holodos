@@ -36,8 +36,8 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   const faqJsonLd = createFaqJsonLd(page.faq);
   const isMinskDistrict = isRegion && page.eyebrow === "Районы Минска";
   const summaryBadge = isMinskDistrict ? "Минск" : isRegion ? "Минская область" : page.badge;
-  const summaryLocationLabel = isMinskDistrict || !isRegion ? "Город" : "Населенный пункт";
-  const summaryLocation = isMinskDistrict || !isRegion ? "Минск" : page.badge;
+  const summaryLocationLabel = isMinskDistrict || !isRegion ? (isMinskDistrict ? "Район" : "Город") : "Населенный пункт";
+  const summaryLocation = isMinskDistrict || !isRegion ? (isMinskDistrict ? page.badge : "Минск") : page.badge;
 
   const breadcrumbItems = [
     {
