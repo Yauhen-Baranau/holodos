@@ -63,7 +63,6 @@ function RegionExtraSections({ page }: { page: NonNullable<ReturnType<typeof get
           />
         ) : (
           <div className="region-map__fallback">
-            <p>Для показа карты через Google Maps Embed API добавьте ключ в переменную NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY.</p>
             <Link href={googleMapsSearchHref} target="_blank" rel="noopener noreferrer">
               Открыть район на Google Картах
             </Link>
