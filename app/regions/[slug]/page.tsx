@@ -30,7 +30,12 @@ const problemLinks = problemPages.slice(0, 8).map((problem) => ({
 }));
 
 function RegionExtraSections({ page }: { page: NonNullable<ReturnType<typeof getClusterServicePage>> }) {
-  const mapQuery = encodeURIComponent(page.mapQuery ?? `${page.badge}, Минск`);
+  const mapQuery = page.mapQuery ?? `${page.badge}, Минск`;
+  const googleMapsEmbedApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY;
+  const googleMapsEmbedSrc = googleMapsEmbedApiKey
+    ? `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(googleMapsEmbedApiKey)}&q=${encodeURIComponent(mapQuery)}`
+    : null;
+  const googleMapsSearchHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
 
   return (
     <>
@@ -48,12 +53,21 @@ function RegionExtraSections({ page }: { page: NonNullable<ReturnType<typeof get
           <h2 id="region-map-title">Ориентир выезда мастера</h2>
           <p>Карта помогает уточнить зону выезда и ближайший маршрут мастера к вашему адресу.</p>
         </div>
-        <iframe
-          title={`Карта: ${page.badge}`}
-          src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        {googleMapsEmbedSrc ? (
+          <iframe
+            title={`Карта: ${page.badge}`}
+            src={googleMapsEmbedSrc}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        ) : (
+          <div className="region-map__fallback">
+            <Link href={googleMapsSearchHref} target="_blank" rel="noopener noreferrer">
+              Открыть район на Google Картах
+            </Link>
+          </div>
+        )}
       </section>
 
       <section className="section-shell price-section" aria-labelledby="region-price-title">
