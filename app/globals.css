@@ -1667,3 +1667,29 @@ details p {
     50% { transform: translate(-70px, -50px) scale(1.2); }
     100% { transform: translate(0px, 0px) scale(1); }
 }
+
+.region-intro {
+    padding-top: 40px;
+    padding-bottom: 24px;
+}
+
+.region-map {
+    padding-block: 40px 56px;
+}
+
+.region-map iframe {
+    display: block;
+    width: 100%;
+    min-height: 420px;
+    border: 0;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 18px 56px rgba(16, 32, 39, 0.10);
+}
+
+.problems-table {
+    min-width: 920px;
+}
+
+.problems-table td:last-child {
+    max-width: 520px;
+}
