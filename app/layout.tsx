@@ -12,7 +12,7 @@ const inter = Nunito_Sans({
 const siteUrl = "https://holodos.by";
 const siteName = "Холодос";
 const description =
-  `Ремонт холодильников в Минске на дому. ⭐Atlant, ⭐Samsung, ⭐LG, ⭐Gorenje и любые другие бренды с выездом мастера на дом в Минске и области. Либо с вывозом в сервисный центр ☎️ ${phoneDisplay}`;
+  `Ремонтируем холодильники всех марок в Минске и пригороде. ⭐ Выезд мастера на дом, диагностика, ⭐ замена компрессора, ⭐ заправка фреоном. ⭐ Гарантия на выполненные работы. ☎️ ${phoneDisplay}`;
 
 export const metadata: Metadata = {
   verification: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: siteName,
   title: {
-    default: "Ремонт холодильников в Минске на дому — цены, выезд мастера, гарантия",
+    default: "Ремонт холодильников в Минске на дому — цены, выезд мастера",
     template: "%s",
   },
   description,
