@@ -34,6 +34,10 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
   const serviceJsonLd = createServiceJsonLd(page, canonicalUrl);
   const webSiteJsonLd = createWebSiteJsonLd();
   const faqJsonLd = createFaqJsonLd(page.faq);
+  const isMinskDistrict = isRegion && page.eyebrow === "Районы Минска";
+  const summaryBadge = isMinskDistrict ? "Минск" : isRegion ? "Минская область" : page.badge;
+  const summaryLocationLabel = isMinskDistrict || !isRegion ? (isMinskDistrict ? "Район" : "Город") : "Населенный пункт";
+  const summaryLocation = isMinskDistrict || !isRegion ? (isMinskDistrict ? page.badge : "Минск") : page.badge;
 
   const breadcrumbItems = [
     {
@@ -107,7 +111,7 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
           </div>
 
           <aside className="service-summary" aria-label="Кратко об услуге">
-            <span className="service-summary__badge">{isRegion ? "Минская область" : page.badge}</span>
+            <span className="service-summary__badge">{summaryBadge}</span>
             <dl>
               <div>
                 <dt>Цена</dt>
@@ -118,8 +122,8 @@ export function ServiceDetailPage({ page, extraSections, isRegion }: ServiceDeta
                 <dd>{page.duration}</dd>
               </div>
               <div>
-                <dt>{isRegion ? "Населенный пункт" : "Город"}</dt>
-                <dd>{isRegion ? page.badge : "Минск"}</dd>
+                <dt>{summaryLocationLabel}</dt>
+                <dd>{summaryLocation}</dd>
               </div>
             </dl>
             <a title="Позвонить мастеру" className="service-summary__phone" href={phoneHref}>
